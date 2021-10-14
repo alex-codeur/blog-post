@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>L’importance des tests automatisés dans le développement</h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>Les tests automatisés vs les tests manuels
+            </li>
+            <li>L'importance d'écrire des tests automatisés</li>
+            <li>Les différents types de tests automatisés
+            </li>
+            <li>Comprendre le rôle de chaque test</li>
+            <li>Le code coverage et la quête des 100%</li>
+            <li>Quel est le bon taux de couverture de code par les tests automatisés?
+            </li>
+            <li>Priorité aux tests fonctionnels</li>
+            <li>Pourquoi ajouter des tests unitaires ?</li>
+            <li>Pour conclure</li>
+        </ul>
+
+        <p>Depuis deux ans maintenant, je suis amené à coder des tests automatisés pour chaque code métier que je
+            produis. Cette pratique m’est indispensable et je ne peux plus m’imaginer contribuer à un code source qui ne
+            serait pas couvert par des tests.</p>
+
+        <p>Les tests automatisés créent un sentiment de confort pour un développeur qui doit toucher à du code qui n’est
+            pas le sien. Ce filet de sécurité permet d’éviter que le code ajouté crée des régressions sur du code
+            préexistant.</p>
+
+        <h3>Les tests automatisés vs les tests manuels</h3>
+
+        <p>Nous faisons tous des tests. Un chef cuisinier va régulièrement goûter son plat en préparation pour vérifier
+            son assaisonnement, un pilote va vérifier que l’altimètre de son avion après avoir tiré sur le manche et un
+            développeur va tester sa fonctionnalité après l’avoir développé.</p>
+
+        <p>Le fait de tester, quelle que soit la façon, fourni un premier feedback au développeur. Le but est de
+            vérifier que son travail fonctionne comme il l’avait espéré.</p>
+
+        <p>Les développeurs ou les projets qui fonctionnent sans tests automatisés font des tests à la main, après avoir
+            développé leur fonctionnalité. Ces tests manuels ont de la valeur, et dans un cycle de production, il s’agit
+            souvent de ce qu’on appelle la Quality Analysis (ou QA).</p>
+
+        <p>Parce que ce sont des tests qui sont faits à la main, le testeur (que ce soit le développeur ou une personne
+            tierce de l’équipe) va pouvoir vérifier des cas les plus à la marge.</p>
+
+        <p>Cependant, les tests manuels sont extrêmement lents, ils ne sont pas répétables et sont propices aux erreurs
+            de manipulation de la part du testeur. Si leur code actuel vient causer une régression, c’est-à-dire qu’il
+            casse une autre fonctionnalité de l’application, ils ne s’en rendront pas compte immédiatement si leurs
+            tests manuels ne repassent pas par toutes les fonctionnalités de l’application.</p>
+
+        <p>Coder des tests permet d’automatiser une partie non négligeable de ces tests manuels. Les développeurs vont
+            pouvoir exécuter leur code contre ces tests et avoir un feedback sur le bon fonctionnement de la feature
+            beaucoup plus rapidement que s’ils devaient repasser manuellement sur toutes les fonctionnalités de
+            l’application.</p>
+
+        <h3>L'importance d'écrire des tests automatisés</h3>
+
+        <p>Dans le développement logiciel, la valeur ajoutée est produite par incréments. On ne crée jamais un bon
+            logiciel d’un coup. On itère sur le code pour enrichir et solidifier le logiciel à chaque incrément.</p>
+
+        <p>Les entreprises qui réussissent dans le software sont celles qui itèrent le plus rapidement et le plus
+            efficacement. Elles essayent de nouvelles fonctionnalités, implémentent de nouvelles briques techniques,
+            résolvent des bugs ou dysfonctionnement plus rapidement que leurs concurrents. C’est ce qui leur permet
+            d’être compétitifs.</p>
+
+        <p>Parce que la vélocité (et non pas la vitesse) est un facteur déterminant dans la réussite d’une entreprise
+            tech, la pratique des tests automatisés s’est généralisée. Ces derniers permettent à une équipe de continuer
+            à apporter de la valeur à une codebase tout en se prémunissant d’éventuelles régressions, qui causeraient
+            une perte de confiance de la part des utilisateurs.</p>
+
+        <h3>Les différents types de tests automatisés
+        </h3>
+
+        <p>Les tests automatisés ne sont pas tous égaux. Il en existe différent types qui servent différents buts dans
+            la solidification d’une codebase. Martin Fowler a défini le terme Pyramide des tests, expliquant que plus on
+            monte dans la pyramide, plus on couvre d’éléments fonctionnels, mais plus ils sont lents et coûteux à
+            exécuter.</p>
+
+        <h3>Comprendre le rôle de chaque test</h3>
+
+        <p>Les tests statiques sont les plus simples et ceux qui fournissent un feedback immédiat au développeur. Il
+            s’agit ici des alertes et des contrôles instantanés que peuvent faire ESLint ou TypeScript. Ils ne
+            fournissent aucune vérification du bon fonctionnement de votre fonctionnalité mais ils vous préviennent
+            immédiatement de certaines erreurs au lieu d’attendre de les observer après avoir codé un test unitaire, un
+            test fonctionnel ou en testant à la main.</p>
+
+        <p>Les tests unitaires sont à la base de la pyramide des tests. Ils sont les plus nombreux et couvrent chaque
+            module de manière indépendante. Attention, le but des tests unitaires n’est pas de tester chaque fonction de
+            la codebase. Ils doivent tester un comportement mais tout en restant isolés des autres modules qui
+            pourraient être concernés par cette fonctionnalité. Les tests unitaires permettent également de tester
+            plusieurs scénarios de fonctionnement d’une fonctionnalité suivant les paramètres qu’elle prend en entrée.
+            Leur but est de détecter quels modules dysfonctionnent plutôt que d’identifier un dysfonctionnement.</p>
+
+        <p>Les tests fonctionnels, appelés aussi tests d’intégration, viennent tester une fonctionnalité dans son
+            ensemble. Le test vient reproduire un comportement et appelle tous les modules nécessaires à son bon
+            fonctionnement. Le but est de vérifier que le comportement est bien celui attendu lorsqu’un client utilisera
+            votre application. Toutefois, les tests fonctionnels peuvent abstraire les briques extérieures à votre
+            application. Si vous faites appel à une API extérieure dans votre code, votre test fonctionnel ne fera pas
+            véritablement cet appel. Vous pourrez simuler l’appel et son résultat car le bon fonctionnement de cette API
+            n’est pas de votre ressort. Le rôle des tests fonctionnels est d’assurer qu’une fonctionnalité est toujours
+            en état de marche, sans forcément couvrir tous les scénarios de la fonctionnalité.</p>
+
+        <p>Les tests End-to-End, sont le plus souvent retrouvés dans les projets frontend. Il s’agit là de reproduire un
+            comportement utilisateur en manipulant un navigateur Headless et en vérifiant que les actions menées
+            fonctionnent correctement. Dans le cas du développement d’une API Rest, les tests End-to-End peuvent être
+            mis en place grâce à Newman et intégrés dans votre pipeline d’intégration continue.
+        </p>
+
+        <h3>Le code coverage et la quête des 100%</h3>
+
+        <p>Vous l’avez compris, coder des tests automatisés n’est pas une option dans la plupart des cas.</p>
+
+        <p>L’étape suivante dans l’implémentation de tests automatisés dans une codebase est de vérifier le taux de
+            couverture. C’est-à-dire, de savoir que lest le pourcentage de votre code qui est couvert part des tests
+            automatisés.
+        </p>
+
+        <p>Cette couverture de code est mesurée par des librairies telles qu’Istanbul et qui vérifie vos tests
+            automatisés et le code fonctionnel qu’ils traversent. Si vous ne testez qu’un cas sur deux, vos suites de
+            tests seront valides mais votre code coverage dévoilera qu’il y a un trou dans la raquette.</p>
+
+        <p>Or, si les tests sont si importants, pourquoi ne pas couvrir chaque fonction d’un test unitaire, chaque
+            Endpoint d’une API par un test fonctionnel et tout le site de tests End-to-end ? On sera blindé comme ça …
+        </p>
+
+        <p>Oui, on pourrait… mais tout est une question de retour sur temps investi.</p>
+
+        <p>L’intérêt initial d’avoir des tests automatisés est de pouvoir compter sur un système automatisé pour
+            développer sereinement et de se prémunir de régressions. Le temps passé à écrire ces tests est investi dans
+            le but de ne pas avoir à passer encore plus de temps à débugger une partie du code qui est affecté par une
+            régression.</p>
+
+        <p>Les tests fonctionnels sont ceux plus en amont qui couvrent une fonctionnalité dans ses grandes lignes et
+            reproduisent les comportements utilisateurs. Les tests unitaires vont se trouver à une granularité plus fine
+            et permettre de couvrir plus de cas en finesse, améliorant ainsi la solidité du code au niveau d’un module
+            précis sans avoir l’impact des modules voisins. Ils viennent donc enrichir la couverture fournie par les
+            tests fonctionnels.</p>
+
+        <p>Pour assurer une couverture de code à 100%, il est parfois nécessaire de passer par plusieurs branches
+            conditionnelles.</p>
+
+        <div class="jumbotron">
+            const idToDefinition = id => {
+            switch (id) {
+            case 1:
+            return 'Education'
+            case 2:
+            return 'Santé'
+            case 3:
+            return 'Justice'
+            case 4:
+            return 'Affaires Etrangères'
+            case 5:
+            return 'Interieur'
+            case 6:
+            return 'Economie'
+            case 7:
+            return 'Armées'
+            case 8:
+            return 'Budget'
+            case 9:
+            return 'Travail'
+            default:
+            return undefined
+            }
+            }
+        </div>
+
+        <p>Dans le cas d’un code qui sert à traduire une donnée en une autre, avoir un code coverage à 100% implique de
+            faire un test unitaire pour chaque cas.</p>
+
+        <p>Dans les briques critiques d’une application, il est nécessaire d’avoir les tests unitaires couvrant chaque
+            cas de figures, même si ça revient à dupliquer le test plusieurs fois. En revanche, s’il s’agit d’une partie
+            moins essentielle de l’application, ce n’est pas essentiel de couvrir toutes les branches du code, et donc
+            accepter un coverage inférieur à 100% peut être compréhensible.</p>
+
+        <h4>Quel est le bon taux de couverture de code par les tests automatisés?</h4>
+
+        <p>Suivant la nature de votre projet, le bon taux de couverture de code va varier. Dans le cas de librairies
+            open source, atteindre les 100% de code coverage est une bonne pratique. La librairie va être utilisée dans
+            de nombreux projets et elle est probablement suffisamment limitée en termes de fonctionnalités pour qu’un
+            code coverage à 100% soit faisable sans coûter trop cher en temps de développement.</p>
+
+        <p>En revanche, dans le cadre d’une application complète, exiger le taux de couverture à 100% sur l’intégralité
+            du code source est probablement une contrainte chronophage qui n’apportera pas plus de valeur ajoutée par
+            rapport au temps investi.</p>
+
+        <p>Certaines fonctionnalités sont critiques dans votre application, ceux-ci ont besoin d’une attention toute
+            particulière et peuvent exiger une couverture de tests à 100%. En revanche, d’autres pans de votre
+            application sont plus accessoires et ne nécessitent pas que les développeurs y consacrent autant d’énergie
+            que les modules critiques. Ces derniers peuvent être couverts de tests sans qu’ils atteignent forcément les
+            100% de taux de couverture.
+        </p>
+
+        <h3>Priorité aux tests fonctionnels</h3>
+
+        <p>Guillermo Rauch, CEO chez Vercel, l’entreprise à derrière le framework NextJS, a publié ce tweet qui a
+            provoqué de nombreuses réactions. Dans son article, Guillermo revient sur cette notion de retour sur
+            investissement par rapport aux tests automatisés, d’où son tweet nous invitant à ne pas écrire trop de
+            tests.</p>
+
+        <p>Il cite également le livre sur le Site Reliability Engineering de Google qui stipule:</p>
+
+        <p>“You might expect Google to try to build 100% reliable services—ones that never fail. It turns out that past
+            a certain point, however, increasing reliability is worse for a service (and its users) rather than better!
+            Extreme reliability comes at a cost: maximizing stability limits how fast new features can be developed and
+            how quickly products can be delivered to users, and dramatically increases their cost, which in turn reduces
+            the numbers of features a team can afford to offer”</p>
+
+        <p>Selon Google, l’excès de tests dans le but d’apporter une surcouche de fiabilité pénalise la vélocité des
+            développeurs, ce qui pénalise le produit.</p>
+
+        <p>Dans son article, Guillermo priorise les tests End-to-End,</p>
+
+        <p>De plus, les tests End-to-End offrent une vue trop macro. Le résultat est qu’un test fonctionne ou ne
+            fonctionne pas, mais il n’informe pas assez précisément le développeur de l’endroit défaillant dans la
+            codebase. Ils ont tendance à impliquer beaucoup de modules et de briques fonctionnelles, rendant nécessaire
+            d’autres tests plus fins pour identifier la cause du problème.</p>
+
+        <p>J’ai tendance à préférer les tests fonctionnels,surtout dans le cas du développement d’une API. Ceux-ci sont
+            moins coûteux et plus rapides à exécuter tout en apportant une couverture globale aussi intéressante que des
+            tests end-to-end. Les tests fonctionnels sont également plus restreints dans leurs scopes et permettent
+            d’identifier le dysfonctionnement plus rapidement. Enfin, le fait que les tests fonctionnels soient capables
+            de fonctionner sur leur propre infrastructure isolée des aléas d’internet les rend plus fiables et plus
+            rapides.</p>
+
+        <h3>Pourquoi ajouter des tests unitaires ?</h3>
+
+        <p>Les tests fonctionnels sont ceux qui apportent le plus rapidement un retour sur le temps investi pour les
+            coder. Alors pourquoi devrions-nous les renforcer de tests unitaires ?</p>
+
+        <p>Les tests unitaires ont pour but d’être un cran plus fin que les tests fonctionnels pour pouvoir identifier
+            plus précisément dans quel cas de figure une fonctionnalité cause un bug.</p>
+
+        <p>Ils servent à renforcer la confiance qu’on a en notre fonctionnalité en couvrant des cas de figure possibles
+            (attention, on ne teste pas des choses aberrantes comme la réaction de votre fonction si vous lui passez un
+            tableau alors qu’elle ne peut recevoir qu’une String, cette mission est censée être couverte par vos outils
+            de tests statiques).</p>
+
+        <h3>Pour conclure</h3>
+
+        <ul>
+            <li>Si vous n’avez pas encore de tests, ou pas le temps de coder une suite de tests complète, démarrez par
+                des tests fonctionnels.</li>
+            <li>Sur les parties critiques de votre application, renforcez vos tests fonctionnels avec des tests
+                unitaires</li>
+            <li>Ne faites surtout pas de tests unitaires pour toutes vos fonctions, lors d’un test unitaire vous testez
+                toujours une fonctionnalité, mais sans qu’elle ne soit impactée par les autres modules en amont ou en
+                aval.</li>
+            <li>Ne cherchez pas à atteindre les 100% de code coverage sur l’intégralité de votre codebase.</li>
+        </ul>
+    </div>
+</body>
+
+</html>

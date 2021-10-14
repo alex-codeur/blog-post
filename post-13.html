@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Node JS API: Construire une API REST avec Node JS et Express</h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>Pourquoi utiliser Node JS pour construire une API REST ?
+            </li>
+            <li>Construire l'API Node Express</li>
+            <li>Créer un serveur Express</li>
+            <li>Définir une ressource et ses routes</li>
+            <li>A votre tour de jouer !</li>
+            <li>Accéder au code source de cet anti-tuto</li>
+            <li>Passer à l'étape suivante</li>
+            <li>Aller plus loin</li>
+        </ul>
+
+        <p>Depuis plusieurs années, NodeJS, souvent accompagné de son framework Express, s'est fait une place dans le
+            monde du développement web. Dans le même temps, le standard d'API REST s'est imposé comme référence pour les
+            échanges de données entre serveurs et clients. La stack Node JS API REST est devenue un choix pertinent dans
+            la conception de web services.</p>
+
+        <p>Ceci n'est pas un tutoriel mais un guide pour vous aider à comprendre comment construire une API REST.
+            Retrouvez l'ensemble de nos guides Node JS.</p>
+
+        <h3>Pourquoi utiliser Node JS pour construire une API REST ?</h3>
+
+        <p>Pour la construction d'une API Node JS est un choix qui est souvent pertinent pour les raisons suivantes:</p>
+
+        <ol>
+            <li>
+                <h5>Son traitement non bloquant des requêtes.</h5>
+                NodeJS ne dispose que d'un seul thread. C’est-à-dire qu'il n'y a qu'un seul "moteur" disponible pour
+                traiter les requêtes entrantes au serveur. Toutefois Node JS a la capacité de sous-traiter les fonctions
+                "bloquantes" à la callback queue, permettant de revenir traiter les autres requêtes entrantes très
+                rapidement.
+            </li>
+            <li>
+                <h5>Sa performance et sa scalabilité</h5>
+                Node JS étant capable de traiter plusieurs requêtes de manière non bloquantes, couplé à sa modularité,
+                sa performance dans le cadre d'une API est remarquable. La conception d'une Node JS API permet de
+                multiplier les instances des modules qui sont sous pression des appels entrants.
+            </li>
+            <li>
+                <h5>L'écosystème JavaScript et les packages open source disponibles</h5>
+                NPM est la registry (qu'on pourrait traduire comme bibliothèque) qui héberge l'ensemble des librairies.
+                Quel que soit votre besoin, il y a surement une librairie pour vous aider à coder votre fonctionnalité.
+                Cette richesse de l'écosystème rend le développement d'une API Node JS plus rapide.
+            </li>
+        </ol>
+
+        <h3>Construire l'API Node Express</h3>
+
+        <p>Dans ce guide, nous allons créer ensemble une API REST très simple pour que vous puissiez comprendre chaque
+            élément qui la constitue. Nous n'allons pas faire de tests et sauter quelques bonnes pratiques qui ne sont
+            pas dans le scope de ce guide.</p>
+
+        <h4>Créer un serveur Express</h4>
+
+        <p>Votre Node JS API est avant tout un serveur web à l'écoute des requêtes HTTP entrantes. Pour démarrer ce
+            serveur web, nous allons utiliser le framework Express.</p>
+
+        <h5>Démarrage du projet Node JS API</h5>
+
+        <ol>
+            <li>Créez votre répertoire de votre future API et naviguez à l'intérieur</li>
+            <li>Saisissez la commande npm init et répondez aux questions</li>
+            <li>Créer un fichier index.js</li>
+        </ol>
+
+        <p>Vous aurez maintenant dans votre répertoire un fichier package.json, qui va reprendre différentes
+            informations du projet et qui contiendra les dépendances qu'on va y installer.</p>
+
+        <h4>Ajout d'Express à notre Node JS API</h4>
+
+        <p>Retournez maintenant à votre terminal et tapez la commande suivante:</p>
+
+        <div class="jumbotron">
+            npm install express
+        </div>
+
+        <p>Cette commande a pour but de télécharger depuis la registry NPM puis d'installer la librairie express ainsi
+            que l'ensemble des librairies dont express a besoin pour fonctionner dans votre répertoire de travail, dans
+            le répertoire node_modules. NPM va également l'ajouter dans votre package.json dans l'objet dependencies.
+        </p>
+
+        <div class="jumbotron">
+            ℹ️ Dans certains tutos en ligne, vous pourrez trouver l'option --save ou -s après la commande npm install.
+            Sachez qu'avant la version 5.0 de NPM, il fallait passer cette option pour retrouver la dépendance ajoutée
+            dans le package.json. Depuis la version 5.0, dès que vous passez la commande npm install, la librairie est
+            par défaut ajoutée au package.json. Il n'est plus nécéssaire de passer l'option-s ou --save
+        </div>
+
+        <div class="jumbotron">
+            ❓ <h5>Pourquoi est-ce qu'on a besoin d'ajouter la dépendance dans package.json ?</h5>
+            ℹ️ Pour qu'un projet d'API Node JS ou tout autre projet Node puisse être repris par un autre développeur ou
+            être déployé sur un serveur à distance, le package.jsonDOIT référencer toutes les librairies dont
+            l'application a besoin pour bien fonctionner. Vous n'uploaderez pas toutes votre application avec le
+            répertoire node_modules mais simplement votre code et le package.json. Le serveur sera en charge de faire un
+            npm install pour récupérer toutes les dépendances.
+        </div>
+
+        <h4>Création du serveur Express dans notre fichier index.js</h4>
+
+        <p>Maintenant qu'Express est disponible dans notre projet, nous pouvons créer le serveur. Commençons par
+            intégrer la librairie express dans notre fichier index.js:</p>
+
+        <div class="jumbotron">
+            <p>const express = require('express')</p>
+            <p>const app = express()</p>
+        </div>
+
+        <p>Le require('express') est une façon d'importer la librairie express et ses fonctions dans notre code. La
+            constante app est l'instanciation d'un objet Express, qui va contenir notre serveur ainsi que les méthodes
+            dont nous aurons besoin pour le faire fonctionner.</p>
+
+        <div class="jumbotron">
+            <h5>❓ Vous avez peut-être vu la syntaxe import express from 'express' ? </h5>Cette syntaxe d'import basée
+            sur ES6. Cette syntaxe est très utilisée dans le développement frontend car elle permet de n'importer que
+            les méthodes qui sont utilisées et de réduire la taille du fichier JavaScript à charger par le navigateur.
+            Dans le cas d'une Node JS API, le code est exécuté sur un serveur. Le gain n'est pas aussi important qu'en
+            frontend et passer sur une syntaxe d'import va demander plus de travail de configuration qu'une syntaxe
+            utilisant require
+        </div>
+
+        <p>Pour le moment, votre serveur est préparé mais pas encore lancé. Si vous vous rendez sur localhost:8080
+            depuis votre navigateur, vous devriez avoir une erreur.</p>
+
+        <p>Pour que notre serveur puisse être à l'écoute il faut maintenant utiliser la méthode listen fournie dans app
+            et lui spécifier un port. Le plus souvent en développement nous utilisons 8080, 3000 ou 8000. Ça n'a pas
+            d'importance tant que vous n'avez pas d'autres applications qui tournent localement sur ce même port.</p>
+
+        <div class="jumbotron">
+            <p>app.listen(8080, () => {</p>
+            <p>console.log('Serveur à l'écoute')</p>
+            <p>})</p>
+        </div>
+
+        <p>En lançant la commande node index.js dans votre terminal, vous verrez qu'il affichera que votre serveur est à
+            l'écoute. Cela veut dire que tout fonctionne bien. S'il y a une erreur, vous aurez droit à un message
+            d'erreur sur votre terminal.</p>
+
+        <p>Si vous vous rendez sur votre navigateur à l'adresse localhost:8080 (ou l'autre port que vous aurez choisi),
+            votre serveur répond à votre navigateur. N'ayant pour l'instant aucune route de configurée, il vous retourne
+            cette erreur Cannot GET / mais il est bel et bien fonctionnel.</p>
+
+        <h4>Définir une ressource et ses routes</h4>
+
+        <p>Maintenant que votre serveur est fonctionnel, il est temps de définir le coeur de votre API: ses ressources.
+        </p>
+
+        <h5>Définition des ressources de notre Node JS API</h5>
+
+        <p>Pour notre exemple, nous prendrons le cas d'une société exploitant des parkings de longue durée et qui prend
+            des réservations de la part de ses clients. Nous aurons besoin des fonctionnalités suivantes:</p>
+
+        <ul>
+            <li>Créer un parking</li>
+            <li>Lister l'ensemble des parkings</li>
+            <li>Récupérer les détails d'un parking en particulier</li>
+            <li>Supprimer un parking</li>
+            <li>Prendre une réservation d'une place dans un parking</li>
+            <li>Lister l'ensemble des réservations</li>
+            <li>Afficher les détails d'une réservation en particulier</li>
+            <li>Supprimer une réservation</li>
+        </ul>
+
+        <p>Ces opérations sont plus communément appelées CRUD, pour CREATE, READ, UPDATE, DESTROY. Dans notre exemple,
+            notre Node JS API dispose de deux ressources: le Parking et la Réservation.</p>
+
+        <h5>Création des routes</h5>
+
+        <p>Le standard d'API REST impose que nos routes soient centrées autour de nos ressources et que la méthode HTTP
+            utilisée reflète l'intention de l'action. Dans notre cas nous aurons besoin des routes suivantes:</p>
+
+        <ul>
+            <li>GET /parkings</li>
+            <li>GET /parkings/:id</li>
+            <li>POST /parkings</li>
+            <li>PUT /parkings/:id</li>
+            <li>DELETE /parkings/:id</li>
+        </ul>
+
+        <p>Les réservations étant une sous-ressource de la ressource parking, nous aurons à créer les routes suivantes:
+        </p>
+
+        <ul>
+            <li>GET /parkings/:id/reservations</li>
+            <li>GET /parking/:id/reservations/:idReservation</li>
+            <li>POST /parkings/:id/reservations</li>
+            <li>PUT /parking/:id/reservations/:idReservation</li>
+            <li>DELETE /parking/:id/reservations/:idReservation</li>
+        </ul>
+
+        <p>Pour que notre Node JS API fonctionne, nous avons besoin de données échantillon.</p>
+
+        <p>Le but de ce guide est de vous aider à comprendre le bon fonctionnement d'une API. Nous n'allons pas
+            connecter de vraie base de données dans ce guide. Nous allons à la place utiliser un fichier JSON contenant
+            un échantillon de données pour manipuler notre API.
+            Pour télécharger ce fichier, cliquez ici puis placez-le à la racine de votre répertoire de travail.</p>
+
+        <p>Commençons par définir la route GET /parkings.</p>
+
+        <p>Cette route a pour but de récupérer l'ensemble des parkings dans nos données. Allons modifier notre fichier
+            index.js:</p>
+
+        <div class="jumbotron">
+            <p>const express = require('express')</p>
+            <p>const app = express()</p>
+            <p>app.get('/parkings', (req,res) => {</p>
+            <p>res.send("Liste des parkings")</p>
+            <p>})</p>
+            <p>app.get('/parkings', (req,res) => {</p>
+            <p> res.send("Liste des parkings")</p>
+            <p>})</p>
+            <p>app.listen(8080, () => {</p>
+            <p>console.log("Serveur à l'écoute")</p>
+            <p>})</p>
+        </div>
+
+        <p>la méthode .get d'express permet de définir une route GET. Elle prend en premier paramètre une String qui
+            défini la route à écouter et une callback, qui est la fonction à exécuter si cette route est appelée. Cette
+            callback prend en paramètre l'objet req, qui reprend toutes les données fournies par la requête, et l'objet
+            res, fourni par express, qui contient les méthodes pour répondre à la requête qui vient d'arriver.</p>
+
+        <p>Dans ce code, à l'arrivée d'une requête GET sur l'URL localhost:8080/parkings, le serveur a pour instruction
+            d'envoyer la String "Liste des parkings".</p>
+
+        <p>Coupez votre serveur node s'il tourne encore (avec la commande ctrl+c dans le terminal) et relancez la
+            commande node index.js pour prendre en compte les modifications.</p>
+
+        <div class="jumbotron">
+            ℹ️ Pour chaque changement dans le code de votre Node JS API, il faudra relancer le serveur afin qu'ils
+            soient pris en compte. Il existe la librairie Nodemon qui permet de relancer automatiquement votre serveur
+            node à chaque fois que vous sauvegardez votre fichier. Pour l'installer, saisissez la commande npm install
+            nodemon -g puis lorsque vous lancerez pour la première fois votre serveur, utilisez la commande nodemon au
+            lieu de node index.js
+        </div>
+
+        <p>Maintenant que notre route fonctionne et est capable de recevoir la requête entrante, nous allons pouvoir
+            renvoyer la donnée des parkings au lieu d'avoir simplement une chaîne de caractères:</p>
+
+        <div class="jumbotron">
+            <p>const express = require('express')</p>
+            <p>const app = express()</p>
+            <p>const parkings = require('./parkings.json')</p>
+            <p>app.get('/parkings', (req,res) => {</p>
+            <p>res.status(200).json(parkings)</p>
+            <p>})</p>
+            <p>app.listen(8080, () => {</p>
+            <p>console.log("Serveur à l'écoute")</p>
+            <p>})</p>
+        </div>
+
+        <p>Nous avons remplacé la méthode send par la méthode json. En effet notre API REST va retourner un fichier JSON
+            au client et non pas du texte ou un fichier html. Nous avons également ajouté le statut 200, qui correspond
+            au code réponse http indiquant au client que sa requête s'est terminée avec succès.</p>
+    </div>
+
+    <p>Notre route GET /Parkings est maintenant terminée. Il faut maintenant mettre en place les routes suivantes en
+        utilisant les méthodes JavaScript pour répondre à nos besoins.</p>
+
+    <p>La route GET /parkings/:id est la suivante. Nous avons besoin de récupérer l'id de la route depuis l'URL pour
+        n'afficher que le JSON de ce parking dans la réponse. Cet id se trouve dans les params, dans l'objet req, envoyé
+        par le navigateur.</p>
+
+    <p>Reprenons notre fichier index.js:</p>
+
+    <div class="jumbotron">
+        <p>const express = require('express')</p>
+        <p>const app = express()</p>
+        <p>const parkings = require('./parkings.json')</p>
+        <p>app.get('/parkings', (req,res) => {</p>
+        <p>res.status(200).json(parkings)</p>
+        <p>})</p>
+        <p>app.get('/parkings/:id', (req,res) => {</p>
+        <p>const id = parseInt(req.params.id)</p>
+        <p>const parking = parkings.find(parking => parking.id === id)</p>
+        <p>res.status(200).json(parking)</p>
+        <p>})</p>
+        <p>app.listen(8080, () => {</p>
+        <p>console.log("Serveur à l'écoute")</p>
+        <p>})</p>
+    </div>
+
+    <p>Nous récupérons l'id demandé par le client dans les params de la requête. Comme ma route a défini '/:id', la
+        valeur passée dans le param sera sous forme d'objet contenant la clé "id". La valeur de req.params.id contient
+        ce qui est envoyé dans l'URL, sous forme de String. Comme l'id de chaque parking est sous forme de Number, il
+        faut d'abord transformer le params de String en Number. Ensuite, il faut rechercher dans les parkings pour
+        trouver celui qui a l'id correspondant à celui passé dans l'URL.</p>
+
+    <p>Passons à la route POST /parkings pour pouvoir créer un nouveau parking.</p>
+
+    <p>Pour créer un nouveau parking via votre Node JS API, il va falloir envoyer au serveur les données relatives à ce
+        nouvel élément, telles que son nom, son type etc. Dès qu'il s'agit d'envoyer de la donnée, il faut utiliser une
+        requête POST.</p>
+
+    <div class="jumbotron">
+        <p>ℹ️ Les requêtes HTTP contiennent toutes un header. Il s'agit de l'en-tête de la requête fournissant un
+            ensemble d'éléments, notamment ce qui est passé dans l'URL comme les params dans l'url, comme l'id ou les
+            query params qui sont passé en fin d'URL après un "?".</p>
+        <p>Certaines requêtes HTTP peuvent contenir un body, le corps de la requête. Il est utilisé pour envoyer de la
+            donnée au serveur. On retrouve le body dans les requêtes POST, PUT et PATCH</p>
+
+        <p>Pour récupérer les données passées dans la requête POST, nous devons ajouter un middleware à notre Node JS
+            API afin qu'elle soit capable d'interpréter le body de la requête. Ce middleware va se placer à entre
+            l'arrivée de la requête et nos routes et exécuter son code, rendant possible l'accès au body.</p>
+
+        <p>Voici notre fichier index.js:</p>
+
+        <div class="jumbotron">
+            <p>const express = require('express')</p>
+            <p>const app = express()</p>
+            <p>const parkings = require('./parkings.json')</p>
+            <p>// Middleware</p>
+            <p>app.use(express.json())</p>
+            <p>app.get('/parkings', (req,res) => {</p>
+            <p>res.status(200).json(parkings)</p>
+            <p>})</p>
+            <p>app.get('/parkings/:id', (req,res) => {</p>
+            <p>const id = parseInt(req.params.id)</p>
+            <p>const parking = parkings.find(parking => parking.id === id)</p>
+            <p>res.status(200).json(parking)</p>
+            <p>})</p>
+            <p>app.listen(8080, () => {</p>
+            <p>console.log("Serveur à l'écoute")</p>
+            <p>})</p>
+        </div>
+
+        <div class="jumbotron">
+            <p>ℹ️ Il se peut que vous soyez tombés sur plusieurs tutos qui utilisent le middleware body-parser. Il faut
+                savoir qu'entre la version 4.0 et 4.16, les développeurs d'express avaient retiré le body parser
+                d'express car toutes les applications n'en ont pas forcément besoin. Pendant tout ce temps il était
+                nécéssaire d'ajouter la librairie body-parser.</p>
+
+            <p>💡 Depuis la version 4.16, express a intégré nativement body parser, lui-même bâti sur la même librairie.
+                Vous pouvez donc utiliser express.json() et vous affranchir d'importer une nouvelle librairie déjà
+                présente dans Express.</p>
+        </div>
+
+        <p>Il n'y a plus qu'à ajouter la route POST et à tester notre nouvelle route:</p>
+
+        <div class="jumbotron">
+            <p>const express = require('express')</p>
+            <p>const app = express()</p>
+            <p>const parkings = require('./parkings.json')</p>
+            <p>// Middleware</p>
+            <p>app.use(express.json())</p>
+            <p>app.get('/parkings', (req,res) => {</p>
+            <p>res.status(200).json(parkings)</p>
+            <p>})</p>
+            <p>app.get('/parkings/:id', (req,res) => {</p>
+            <p>const id = parseInt(req.params.id)</p>
+            <p>const parking = parkings.find(parking => parking.id === id)</p>
+            <p>res.status(200).json(parking)</p>
+            <p>})</p>
+            <p>app.post('/parkings', (req,res) => {</p>
+            <p>parkings.push(req.body)</p>
+            <p>app.listen(8080, () => {</p>
+            <p> res.status(200).json(parkings)</p>
+            <p>})</p>
+            <p>console.log("Serveur à l'écoute")</p>
+            <p>})</p>
+        </div>
+
+        <p>Pour tester notre route POST, nous allons utiliser l'outil Postman qui nous permet de manipuler facilement
+            des API.</p>
+
+        <p>Notre requête POST sur l'URL localhost:8080/parkings contient dans son body un objet JSON contenant l'id, le
+            nom, le type et la ville de notre nouveau parking.</p>
+
+        <p>Dans un cas réel de Node JS API, votre base de données aurait généré l'id. Dans notre cas nous allons le
+            passer à la main pour simplifier.</p>
+
+        <p>Passons à la route PUT /parkings/:id pour pouvoir modifier un parking.</p>
+
+        <div class="jumbotron">
+            <p>app.put('/parkings/:id', (req,res) => {</p>
+            <p>const id = parseInt(req.params.id)</p>
+            <p>let parking = parkings.find(parking => parking.id === id)</p>
+            <p>parking.name =req.body.name,</p>
+            <p>parking.city =req.body.city,</p>
+            <p>parking.type =req.body.type,</p>
+            <p>res.status(200).json(parking)</p>
+            <p>})</p>
+        </div>
+
+        <p>Voici le code correspondant à la route PUT. Je vous laisse deviner où le placer dans le fichier index.js</p>
+
+        <div class="jumbotron">
+            ℹ️ Pour modifier un document dans une Node JS API, les méthodes PUT ou PATCH sont à privilégier. Une requête
+            PUT va modifier l'intégralité du document par les valeurs du nouvel arrivant. Une requête PATCH va
+            uniquement mettre à jour certains champs du document.
+        </div>
+
+        <p>Il reste maintenant à terminer cette ressource avec la route DELETE /parkings</p>
+
+        <div class="jumbotron">
+            <p>app.delete('/parkings/:id', (req,res) => {</p>
+            <p>const id = parseInt(req.params.id)</p>
+            <p>let parking = parkings.find(parking => parking.id === id)</p>
+            <p>parkings.splice(parkings.indexOf(parking),1)</p>
+            <p>res.status(200).json(parkings)</p>
+            <p>})</p>
+        </div>
+
+        <p>Votre Node JS API est maintenant capable de gérer la ressource Parking. Pour mettre en place la
+            sous-ressource Réservation, il faut répliquer la logique.</p>
+
+        <h4>A votre tour de jouer !
+        </h4>
+
+        <p>Pour préparer les données de votre Node JS API, voici le fichier reservations.json à placer à la racine de
+            votre projet.</p>
+
+        <p>Pour la suite de la réalisation de votre Node JS API, c'est à votre tour de jouer. Cette fois, les ressources
+            Réservation dépendent de la ressource Parking. Par exemple, la route GET /parkings/1/reservations va
+            récupérer l'ensemble des réservations du parking 1.</p>
+
+        <div class="jumbotron">
+            ❗ Dans la conception de cette Node JS API, nous avons fait le choix de faire de la ressource Reservation une
+            sous ressource de Parking. Il n'y a pas la possibilité de récupérer l'ensemble des réservations pour tous
+            les parkings. C'est un choix de conception qui peut être revu ultérieurement en créant une route
+            /reservations
+        </div>
+    </div>
+</body>
+
+</html>

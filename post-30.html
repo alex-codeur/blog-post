@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Nodejs et MongoDB : comment utiliser MongoDB sur une application Node ?
+        </h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>Node.js-MongoDB: connecter votre app à la base Mongo</li>
+            <li>Nodejs MongoDB: Connecter votre app avec MongoClient
+            </li>
+            <li>Connecter votre app avec</li>
+            <li>Créer la connexion Nodejs MongoDB avec Mongoose</li>
+            <li>Node MongoDB: quel client utiliser ?</li>
+            <li>Aller plus loin:</li>
+        </ul>
+
+        <p>MongoDB est l'éditeur dominant dans le segment des bases de données orientées documents, voir dans tout le
+            segment des bases NoSQL. Sa simplicité d'utilisation, sa flexibilité et sa large adoption en ont fait la
+            technologie base de données la plus adoptée pour les nouveaux projets qui n'ont pas une raison évidente pour
+            partir sur une base de données SQL. Pour les applications nodejs mongodb est l'outil parfait pour du
+            prototypage.</p>
+
+        <div class="jumbotron">
+            {
+            "_id":"5beca8f00000000000000000",
+            "name": "Rayed",
+            "contacts": {
+            "tel":"+123456789",
+            "email":"rayed@email.com"
+            },
+            "status":"en poste"
+            }
+        </div>
+
+        <p>Dans une base mongoDB, vos données sont stockées sous forme d'objets JSON. Dans la majorité des cas,
+            l'ensemble des données liées à cet objet se trouvent dans un seul document, contrairement aux bases SQL où
+            il faut faire des jointures sur différentes tables afin d'assembler un document.
+
+            🧑‍🎓 Vous souhaitez apprendr</p>
+
+        <h3>Node.js-MongoDB: connecter votre app à la base Mongo</h3>
+
+        <p>Pour utiliser MongoDB, vous pouvez l'installer sur votre machine ou utiliser une image docker pour une
+            utilisation en local. Vous pouvez également utiliser une solution cloud de Database as a Service, telle que
+            MongoDB Atlas.</p>
+
+        <h4>Nodejs MongoDB: Connecter votre app avec MongoClient</h4>
+
+        <h5>Connecter votre app Express à MongoDB avec mongodb</h5>
+
+        <p>Commencez par ajouter le mongodb à votre projet en saisissant la commande npm install mongodb dans votre
+            terminal à la racine de votre projet.</p>
+
+        <p>Dans votre fichier index.js (ou le fichier où vous démarrez votre serveur express), ajoutez le code suivant
+            avant le lancement de votre serveur:</p>
+
+        <div class="jumbotron">
+            const MongoClient = require('mongodb').MongoClient;
+
+            const url = 'mongodb://localhost:27017'
+            const dbName = 'monProjetMongo';
+
+            MongoClient.connect(url, function(err, client) {
+            console.log("Connecté à MongoDB");
+            const db = client.db(dbName);
+            client.close();
+            });
+        </div>
+
+        <p>En relançant votre application Nodejs, vous devriez voir dans votre terminal "Connecté à MongoDB" si votre
+            connection est bien établie.</p>
+
+        <h4>Exécuter des requêtes Mongo via votre application Node.js</h4>
+
+        <p>Votre base de données maintenant connectée, vous pouvez créer les opérations mongoDB pour créer, lire,
+            modifier ou effacer un document. Avec le client mongo, vous opérerez directement avec les commandes définies
+            par MongoDB.</p>
+
+        <p>Voici un exemple de la création d'un document:</p>
+
+        <div class="jumbotron">
+            const createStudent = async object => {
+            const collection = db.collection('students');
+            const student = await collection.insertOne(object);
+            return student
+            }
+
+            const newStudent = {
+            name:"rayed",
+            status:"étudiant"
+            }
+
+            const insertStudent = await createStudent(newStudent)
+            console.log(newStudent)
+        </div>
+
+        <p>Dans cet exemple, la fonction createStudent va se charger d'insérer dans la collection Student l'objet que
+            vous passerez en paramètre. Après avoir défini cette fonction et le nouvel étudiant que je voulais insérer,
+            j'appelle la fonction createStudent en lui passant cet étudiant en paramètre.</p>
+
+        <h4>Connecter votre app avec Mongoose</h4>
+
+        <p>Contrairement à MongoClient, mongoose est une fine surcouche à MongoDB qui simplifie certaines opérations et
+            qui impose la structure des objets via des schemas. En effet, lorsque vous manipulez MongoDB directement,
+            vous êtes libres d'insérer n'importe quel document dans une collection. Avec Mongoose, vous définissez des
+            Schemas qui imposent les champs que doivent contenir les objets issus de ce schema.</p>
+
+        <div class="jumbotron">
+            const studentSchema = new Schema({
+            email:{
+            type: String,
+            required: true,
+            unique: true
+            },
+            github: {
+            type:String,
+            lowercase:true
+            },
+            first_name:String
+            })
+        </div>
+
+        <p>Dans l'exemple, nous avons un schema où un objet Student pourra contenir les champs email, github et
+            first_name. Il ne pourra pas contenir de champs absents du schema. En revanche il pourrait avoir uniquement
+            le champs email, car lui seul est obligatoire</p>
+
+        <h4>Créer la connexion Nodejs MongoDB avec Mongoose</h4>
+
+        <p>Comme pour MongoClient, installez mongoose sur votre projet via la commande npm install mongoose</p>
+
+        <p>Avant le lancement de votre serveur, ajoutez le code suivant:</p>
+
+        <div class="jumbotron">
+            const mongoose = require('mongoose');
+
+            mongoose.connect('mongodb://localhost:27017/test', {useNewUrlParser: true, useUnifiedTopology: true});
+
+            db = mongoose.connection;
+            db.on('error', console.error.bind(console, 'connection error:'));
+            db.once('open', function() {
+            console.log("connecté à Mongoose")
+            });
+        </div>
+
+        <p>En relançant votre serveur Nodejs, vous devriez voir dans votre terminal "connecté à Mongoose" si votre
+            connexion est bien établie. Dans le cas contraire, un message contenant l'erreur si la connexion n'a pas pu
+            se faire.</p>
+
+        <h5>Exécuter des requêtes avec mongoose</h5>
+
+        <p>Contrairement à MongoClient, Mongoose vous oblige à définir vos schemas avant de manipuler vos objets.
+            Commençons par créer un premier schema dans un fichier student.js.</p>
+
+        <div class="jumbotron">
+            const mongoose = require('mongoose');
+            const Schema = mongoose.Schema;
+
+            const studentSchema = new Schema({
+            firstName: String,
+            lastName: String,
+            cursus: String,
+            classes: [{ body: String, date: Date }],
+            enrolled: { type: Date, default: Date.now }
+            });
+
+            const Student = mongoose.model('Student', studentSchema)
+
+            module.exports = Student
+        </div>
+
+        <p>Ce fichier va contenir le module Student, qui est un schema mongoose. Nous avons les propriétés qu'un student
+            peut contenir.</p>
+
+        <p>Une fois ce schema défini, vous pouvez maintenant utiliser les méthodes des schemas mongoose pour réaliser
+            nos opérations de création, modification ou suppression.</p>
+
+        <div class="jumbotron">
+            const Student = require('./student.js')
+
+            // Créer un étudiant
+            const createStudent = async studentData => {
+            const student = await Student.create(studentData)
+            return student
+            }
+
+            // Récupérer un étudiant
+            const findStudent = async firstName => {
+            const student = await Student.findOne({firstName})
+            return student
+            }
+
+            // Récupérer tous les étudiants
+            const findStudents = async firstName => {
+            const student = await Student.find({})
+            return student
+            }
+        </div>
+
+        <p>Vous trouverez ici la liste des queries possibles pour manipuler vos objets via mongoose.</p>
+
+        <h5>Node MongoDB: quel client utiliser ?</h5>
+
+        <p>Dans la plupart des cas, je vous conseille d'utiliser Mongoose pour vos projets d'application nodejs MongoDB.
+            Cette librairie va vous permettre d'imposer une structure à vos données tout en simplifiant les requêtes.
+        </p>
+
+        <p>En revanche, si vous cherchez à prototyper quelque chose ou que vous souhaitez pratiquer vos compétences
+            MongoDB alors mongoClient vous permet d'être au plus prêt de la base de données et de manipuler les requêtes
+            natives de mongo.</p>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Update node : quel intérêt à mettre à jour sa version node ?
+        </h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>Pourquoi mettre à jour sa version node ?
+            </li>
+            <li>Les différentes update node possibles</li>
+            <li>Current ou L.T.S</li>
+            <li>Comment alterner entre plusieurs versions ?</li>
+            <li>Update node avec nvm</li>
+            <li>Update node avec n</li>
+        </ul>
+
+        <p>À en croire la liste des releases, chaque mois sort entre deux et trois update node. Et pourtant, peu de
+            développeurs prennent le temps aussi régulièrement de mettre aussi régulièrement à jour node, que ce soit
+            sur machine ou serveurs. Deux questions se posent alors : En quoi les mises à jour de node sont-elles utiles
+            ? Et surtout, comment faire ces mises à jour ?</p>
+
+        <h3>Pourquoi mettre à jour sa version node ?</h3>
+
+        <p>Bien qu'elles ne soient pas toutes indispensables au bon fonctionnement d'une application, les versions node
+            apportent chacune leur lot de changements. Pour la plupart, les changements sont mineurs. La core team
+            supervisant les développements de node doit s'assurer de ne pas causer de changements trop brutaux pouvant
+            casser la rétro-compatibilité.</p>
+
+        <p>En revanche, l'équipe core Node.js fait évoluer son langage aussi régulièrement pour trois raisons:</p>
+
+        <ul>
+            <li>Améliorer les performances</li>
+            <li>Assurer la sécurité des apps qui l'utilisent</li>
+            <li>Améliorer l'expérience développeur</li>
+        </ul>
+
+        <p>C'est pour ces mêmes raisons que vous, développeurs, avez besoin de mettre votre version de node à jour sur
+            vos serveurs.
+        </p>
+
+        <p>L'équipe node assure un cycle de vie de chaque version, allant de "unstable", à "maintenance" avant de
+            complètement enlever la fonctionnalité.Les fonctionnalités dépréciées sont listées par la core team node.js
+            sur leur site, comme le montre l’image ci-dessous.</p>
+
+        <h3>Les différentes update node possibles</h3>
+
+        <h4>Current ou L.T.S quelle est la dernière version de node ?</h4>
+
+        <p>Comme vous l'avez vu lorsque vous installez node.js, le choix entre deux versions vous est proposé.</p>
+
+        <p>La version LTS - Long Term Support - est celle qui, d'après node, est recommandée pour la plupart des
+            utilisateurs. En vérité cette version est à privilégier si vous devez l'installer sur un serveur.</p>
+
+        <p>La version Current quant à elle va porter l'ensemble des nouvelles fonctionnalités. C'est cette version que
+            vous utiliserez sur votre poste de développeur.</p>
+
+        <h3>Comment alterner entre plusieurs versions ?</h3>
+
+        <p>En tant que développeur vous pourriez être amené à travailler sur un projet "legacy" - un projet ayant été
+            développé il y a plusieurs années sur une techno vieillissante - fonctionnant sur une version de node en
+            maintenance et sur un projet plus moderne fonctionnant avec la version L.T.S.</p>
+
+        <p>Dans votre développement, vous risqueriez d'être tenté d'utiliser des fonctions, présentes dans le projet
+            plus moderne, dans le projet legacy. Bien que celles-ci fonctionnent parfaitement dans ce projet, vous vous
+            retrouverez avec un bug si dans la version du projet legacy ces fonctions sont dépréciées.</p>
+
+        <p>C'est pourquoi vous pourriez avoir besoin de changer de version sur votre environnement de développement en
+            fonction du projet que vous êtes en train de développer. Ainsi, votre environnement de dev suivra le même
+            comportement que la production.</p>
+
+        <h4>Update node avec nvm</h4>
+
+        <p>Comme son acronyme le laisse supposer, node version manager vous permet d'alterner entre les différentes
+            versions de node.js en une simple commande.</p>
+
+        <p>En utilisant la commande nvm install 10.10.0 vous pourrez installer la version spécifique. Vous pouvez
+            également update node en utilisant la commande nvm install stable pour installer la dernière version stable
+            ou nvm install node pour la dernière version current.</p>
+
+        <p>Pour passer d'une version à l'autre, il vous suffira d'utiliser la commande nvm use 10.10.0 par exemple.</p>
+
+        <h4>Update node avec n</h4>
+
+        <p>La librairie n a pour même vocation de vous permettre de télécharger et utiliser la version de node que vous
+            souhaitez.</p>
+
+        <p>Son installation est extrêmement simple via la commande npm install -g n. Le téléchargement et l'activation
+            d'une version de node se fait en saisissant n <version>.</p>
+
+        <p>Vous avez également possibilité d'utiliser la commande n lts pour installer la version du même nom ou n
+            current pour avoir la dernière version.</p>
+    </div>
+</body>
+
+</html>

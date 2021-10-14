@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>ESLint: comment coder proprement en JavaScript</h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>Pourquoi utiliser ESLint?
+            </li>
+            <li>Identifier les bugs à l'écriture plutôt qu'au runtime</li>
+            <li>Uniformiser le style à travers la codebase</li>
+            <li>Comment installer ESLint</li>
+            <li>Configuration</li>
+            <li>env: L'Environnement</li>
+            <li>Les plugins</li>
+            <li>Les règles</li>
+            <li>Linter son code</li>
+            <li>Aller plus loin en combinant ESLint avec Prettier</li>
+        </ul>
+
+        <p>Un code de qualité ne se fait pas du premier coup. C'est le cumul d'itérations et de feedback sur le code qui
+            vont permettre d'améliorer sa fiabilité, sa stabilité, sa performance et sa lisibilité. ESLint permet
+            d'avoir une boucle de feedback instantanée sur la qualité du code que vous venez d'écrire, vous permettant
+            de le corriger immédiatement et vous concentrer sur de vrais problèmes.
+        </p>
+
+        <h3>Pourquoi utiliser ESLint?</h3>
+
+        <p>L'intérêt d'ESLint va bien au-delà d'une simple correction syntaxique pour rendre votre code plus uniforme.
+            C'est une véritable béquille intellectuelle pour développeurs de façon à passer plus de temps à livrer un
+            programme fonctionnel plutôt que faire de la chasse au bug.</p>
+
+        <h4>Identifier les bugs à l'écriture plutôt qu'au runtime</h4>
+
+        <p>Aucun développeur n'est à l'abri d'ajouter un bug dans son code. L'effort intellectuel pour développer une
+            application est conséquent. Il demande d'avoir à l'esprit un cheminement par lequel on veut faire transiter
+            une information pour en ressortir un comportement donné. C'est pourquoi il n'est pas rare de se retrouver à
+            débugger son code pendant des heures pour trouver une erreur qui peut sembler stupide.</p>
+
+        <p>Par exemple, combien de temps vous faut-il pour trouver le bug qu'il y a dans ce code ?</p>
+
+        <div class="jumbotron">
+            <p>for (const i=0; i<3; i++){</p>
+                    <p>console.log(i)</p>
+                    <p>}</p>
+        </div>
+
+        <p>Et celui-ci ?</p>
+
+        <div class="jumbotron">
+            <p>let reader = "Rayed"</p>
+            <p>if (reader = "Samy") {</p>
+            <p>console.log('Hello Samy')</p>
+            <p>} else {</p>
+            <p>console.log('Hello ${reader}')</p>
+            <p>}</p>
+        </div>
+
+        <p>Dans ces deux exemples, les bugs sont dus à des erreurs triviales, pourtant même des développeurs seniors
+            peuvent les faire.</p>
+
+        <p>Dans le premier cas, nous avons tellement l’habitude de déclarer nos variables dans des constantes que par
+            réflexe on peut se retrouver à déclarer notre itérateur en tant que constante. Du coup impossible
+            d’incrémenter la variable. A vous maintenant de débugger votre code en essayant de comprendre pourquoi votre
+            code n’entre qu’une fois dans la boucle.</p>
+
+        <p>Dans l’exemple suivant, l’erreur peut être due à une simple faute de frappe et d’une inattention parce qu’un
+            collègue vous a interrompus ou que vous avez une nouvelle notification sur votre téléphone. Pourtant,
+            JavaScript ne va pas vous alerter de votre erreur. Il va simplement toujours rentrer dans le bloc if. Vous
+            vous en rendrez compte rapidement au lancement de votre app. Sauf si vous avez codé plusieurs dizaines de
+            lignes dans plusieurs fichiers et qu’il vous faut quinze minutes à remonter ce nouveau code avant de
+            retrouver cette erreur d’inattention.</p>
+
+        <div class="jumbotron">
+            <p>// Avant ESLint</p>
+            <p>function sum (a, b) {</p>
+            <p> return a+b</p>
+            <p>}</p>
+            <p>// Après ESLint</p>
+            <p>function sum = (a,b)=> a+b</p>
+        </div>
+
+        <h3>Comment installer ESLint</h3>
+
+        <p>Pour faire fonctionner ESLint sur votre projet, il faut que vous preniez le temps de vérifier votre version
+            de node. Celle-ci doit être supérieure à 11.10</p>
+
+        <p>Saisissez ensuite la commande:</p>
+
+        <div class="jumbotron">
+            npm install eslint --save-dev
+        </div>
+
+        <p>ou</p>
+
+        <div class="jumbotron">
+            yarn add -D eslint
+        </div>
+
+        <p>Une fois installé sur votre projet, vous pouvez lancer la configuration du projet via la commande npx eslint
+            --init. Votre terminal va ensuite vous poser une série de questions pour configurer ESLint en fonction de
+            votre projet.</p>
+
+        <h3>Configuration</h3>
+
+        <p>Après l'installation d'ESLint sur votre projet, vous retrouverez un fichier .eslintrc à la racine de votre
+            projet. Celui se présente au format JavaScript en commençant par un module.exports ou au format YAML. C'est
+            dans ce fichier que se définissent vos règles de lint.</p>
+
+        <div class="jumbotron">
+            <p>{</p>
+            <p>"extends": "eslint:recommended",</p>
+            <p>"rules": {</p>
+            <p> "semi": ["error", "always"],</p>
+            <p>"quotes": ["error", "double"]</p>
+            <p>}</p>
+            <p>}</p>
+        </div>
+
+        <p>Par défaut ESLint va étendre les règles que vous aurez choisies à l'installation. Ce sont des règles définies
+            par Google, Airbnb ou les standards d'ESLint. Vous pouvez les surcharger ou définir des configurations
+            avancées.</p>
+
+        <p>Dans cette configuration, les règles standards d'ESLint s'appliqueront. Les règles personnalisées, présentes
+            dans l'objet rules vont signaler une erreur dans le cas où il manque un point-virgule ou si une String est
+            déclarée en utilisant des simples guillemets au lieu de doubles.</p>
+
+        <p>Le fichier .eslintrc est obligatoire pour qu'ESlint puisse savoir quelles sont les règles à imposer.</p>
+
+        <h4>env: L'Environnement</h4>
+
+        <p>ESlint a besoin de savoir sur quel environnement doit tourner le code qu'il va analyser. Suivant qu'il
+            s'agisse d'analyser du code destiné à tourner sur un navigateur, du code NodeJS à destination du serveur, du
+            code de tests unitaires, les règles à suivre vont changer.</p>
+
+        <p>Vous pouvez définir plusieurs environnements pour un même fichier .eslintrc:</p>
+
+        <div class="jumbotron">
+            <p>{</p>
+            <p>"env": {</p>
+            <p>"browser": true,</p>
+            <p>"node": true</p>
+            <p>}</p>
+            <p>}</p>
+        </div>
+
+        <h4>Les plugins</h4>
+
+        <p>Les plugins sont des sets de règles rédigées par la communauté. Par défaut, le plugin eslint:recommended est
+            proposée. Il existe toutefois de nombreux plugins tels que eslint-plugin-react, eslint-plugin-vue ou
+            eslint-plugin-node. Vous trouverez ici une liste de plugins dans laquelle faire votre marché.</p>
+
+        <h4>Les règles</h4>
+
+        <p>En complément des règles fournies dans les plugins, ESlint permet aussi de configurer ou de surcharger des
+            règles suivant vos besoins.</p>
+
+        <p>Il existe 3 niveaux de paramétrage pour chaque règle:</p>
+
+        <ul>
+            <li>"off" ou 0 permet de désactiver une règle</li>
+            <li>"warn" ou 1 donne un avertissement</li>
+            <li>"error" ou 2 donne une erreur bloquante, soulignée en rouge dans votre IDE</li>
+        </ul>
+
+        <p>Ces règles, dont vous pourrez retrouver la liste ici, seront contrôlées dans toute votre codebase.</p>
+
+        <p>Il est possible qu'à certains endroits de votre code vous souhaitiez permettre une entorse à la règle
+            qu'ESlint tente d'imposer. Ajoutez en première ligne de votre fichier le code /* eslint-disable
+            nom-de-la-regle */ pour désactiver une règle sur tout un fichier ou /* eslint-disable-next-line */ juste
+            au-dessus de l'endroit où vous voulez faire taire ESlint si vous souhaitez un ciblage plus précis.</p>
+
+        <p>En règle générale, il vaut mieux éviter au maximum de faire des exceptions pour maintenir un code source
+            standardisé. Trop d'exceptions vont annuler les bienfaits qu'ESlint apporte.</p>
+
+        <h3>Linter son code</h3>
+
+        <p>Pour exécuter les vérifications d'ESLint sur votre code, il vous suffit de taper la commande eslint --ext
+            .js. ESLint va lister l'ensemble des points à corriger dans votre code.</p>
+
+        <p>En complément d'ajouter ESLint sur votre projet, je vous encourage à ajouter le plug-in à votre éditeur IDE.
+            Que ce soit pour WebStorm ou VSCode, les plugins ESLint vont vous permettre de vous alerter en temps réel si
+            votre code présente des anomalies. Il pourra également corriger automatiquement toutes les erreurs à chaque
+            fois que vous sauvegarderez le fichier.</p>
+
+        <h3>Aller plus loin en combinant ESLint avec Prettier</h3>
+
+        <p>Prettier vient en complément de ESLint et vient forcer la correction de vos erreurs suivant un set de règles.
+            Là où ESLint de base ne fait que lister les erreurs, Prettier vient scanner votre fichier à la recherche
+            d'erreurs de style et vient automatiquement les corriger.</p>
+
+        <p>Il est possible d'utiliser Prettier en complément d'ESLint à condition d'avoir configuré le même set de
+            règles.</p>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Node server : tout savoir sur la création de serveur et le fonctionnement</h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>Node Server : pour quelle utilité ?
+            </li>
+            <li>Pourquoi Node.JS pour le web ?</li>
+            <li>Bons usages pour un node server</li>
+            <li>Limites d’un server node</li>
+            <li>Node Js create server : Comment créer un serveur node js ?</li>
+            <li>Utiliser un Framework pour un meilleur node server</li>
+            <li>Aller plus loin</li>
+        </ul>
+
+        <p>Coder un serveur node est beaucoup plus facile à faire qu’on peut imaginer. Appréhender son fonctionnement
+            est une autre histoire. Pour faciliter votre compréhension des challenges auxquels vous ferez face une fois
+            votre premier node server créé, il est important de comprendre comment il fonctionne.</p>
+
+        <p>Que ce soit en node, en PHP ou peu importe le langage, une application ou un site web a besoin d’un serveur
+            pour fonctionner. Ce serveur est un ordinateur - avec plus de puissance processeur et de mémoire RAM, mais
+            sans carte graphique - qui est branché dans un datacenter et constamment allumé. Son rôle est de répondre
+            aux demandes des utilisateurs et de leur livrer une page HTML ou de la donnée (au format JSON ou plus
+            rarement XML).</p>
+
+        <h3>Node Server : pour quelle utilité ?</h3>
+
+        <h4>Pourquoi Node.JS pour le web ?</h4>
+
+        <p>Contrairement à PHP, Ruby on Rails ou Java, un node js server tourne avec un seul thread. C’est-à-dire qu’il
+            va performer une action à la fois. Par contre, un serveur node js n’est jamais en attente. Si la demande
+            d’un client est chronophage, il a la capacité de lancer l’opération et passer aux suivantes sans attendre
+            que celle-ci soit terminée. On appelle ça l’asynchrone.</p>
+
+        <h4>Bons usages pour un node server</h4>
+
+        <p>De ce fait, faire tourner une application ou un site web sur un node server peut se révéler très pertinent
+            dans la mesure où les demandes sont des opérations d’input ou output. Quand on y pense, la plupart des
+            applications ou site web ont pour vocation de vous afficher une donnée qui a été stockée dans une base de
+            données ou de vous permettre d’insérer ou modifier de la donnée dans cette même base de données.</p>
+
+        <p>Par conséquent, votre serveur a besoin de traiter l’ordre que votre client (un navigateur, une application
+            mobile, un objet connecté) vient de lui transmettre et de faire passer à la base de donnée un ordre de
+            lecture ou d’écriture.</p>
+
+        <p>Sauf qu’en attendant que la base de donnée réponde - ce qui est plus ou moins rapide suivant la requête et le
+            volume de données - votre node server va aller traiter les demandes des autres clients. Une fois qu’il a la
+            réponse de votre requête, il va vous servir la réponse.</p>
+
+        <h4>Limites d’un server node</h4>
+
+        <p>Là où un serveur node est très fort pour répondre aux besoins de la plupart des applications web, il est
+            nettement moins adapté pour des opérations gourmandes en ressources CPU. Traiter de grands jeux de données
+            ou performer de longs calculs sera bien plus efficace en Python qu’en Node.</p>
+
+        <p>C’est une des raisons qui pousse les grosses applications web à se structurer autour de microservices. Pour
+            une même application, un serveur node va être en charge de traiter les requêtes HTTP et sous traiter la
+            réalisation d’opérations plus complexes à d’autres services. Ces derniers pourront être développés dans un
+            langage plus adapté.</p>
+
+        <h3>Node Js create server : Comment créer un serveur node js ?</h3>
+
+        <p>Avant de pouvoir créer un serveur node, assurez-vous d’avoir installé node.js. Si ce n’est pas déjà fait,
+            voici les liens pour savoir comment faire suivant votre système d’exploitation:</p>
+
+        <p>Voici à quoi ressemble le code d’un node js web server extrêmement simple:</p>
+
+        <div class="jumbotron">
+            <p>const http = require("http");</p>
+            <p>const server = http.createServer(function(req, res) {</p>
+            <p>// A l'arrivée d'une requête</p>
+            <p>res.write("Hello World!");</p>
+            <p>res.end();</p>
+            <p>})</p>
+            <p>// Lancer le serveur
+            </p>
+            <p>server.listen(3000)</p>
+        </div>
+
+        <p>En 5 lignes, vous avez de quoi recevoir les requêtes des clients et pouvoir leur répondre, du moins un Hello
+            World !</p>
+
+        <p>Pour comprendre ce que ce code fait, on va décomposer les éléments importants:
+            La constante http nous permet d’importer le code venant du module “http” présent nativement dans nodejs.</p>
+
+        <div class="jumbotron">const http = require("http");</div>
+
+        <p>Le module http est un objet javascript, contenant des données et des fonctions dont nous allons avoir besoin
+            pour créer un serveur web.</p>
+
+        <div class="jumbotron">
+            <p>const server = http.createServer(function(req,res){</p>
+            <p>// A l'arrivée d'une requête</p>
+            <p>res.write('Hello World');
+            </p>
+            <p>res.end();</p>
+            <p>})</p>
+        </div>
+
+        <p>Dans la suite de notre code, nous utilisons la fonction “createServer” présente dans l’object HTTP. Cette
+            fonction prend en paramètre une callback, une fonction qui est invoquée au moment où la fonction qui
+            l’appelle a terminé.</p>
+
+        <p>Cette callback prend 2 paramètres:</p>
+
+        <p>L’objet requête (req) qui va contenir les informations envoyées par le client comme, par exemple, l’URL, les
+            paramètres (tout ce qui vient après le “?” dans une URL) ou le navigateur utilisé et sa version.</p>
+
+        <p>L’objet réponse (res) qui contient les éléments dont le client a besoin pour considérer sa requête comme
+            terminée avec succès, ou le cas échéant l’erreur à communiquer à l’utilisateur.</p>
+
+        <p>Dans ce morceaux de code, on demande à notre node server de répondre à chaque requête qu’il va recevoir en
+            affichant le text brut “Hello World !” puis signaler la fin de la réponse.</p>
+
+        <p>Pour lancer et tester votre node server sur votre machine:</p>
+
+        <ul>
+            <li>Ouvrez votre terminal, naviguez jusqu’à votre répertoire</li>
+            <li>Créez un fichier server.js dans votre répertoire de travail</li>
+            <li>Collez le code</li>
+            <li>
+                De retour sur votre terminal, tapez la commande node server.js</li>
+            <li>Ouvrez votre navigateur et tapez localhost:3000 pour lui envoyer une requête</li>
+        </ul>
+
+        <h3>Utiliser un Framework pour un meilleur node server</h3>
+
+        <p>Vous avez réussi à lancer votre node server en local ? Bravo ! Seulement votre serveur ne sert à rien à part
+            répondre un Hello World. C’est très bien pour un début mais maintenant vous allez vouloir ajouter des
+            comportements différents suivant les actions des utilisateurs, stocker des données en base, gérer des
+            sessions d’utilisateurs authentifiés ou non…</p>
+
+        <p>Pour développer une application plus complexe, inutile de tout faire en nodejs pur. On va utiliser un
+            Framework.</p>
+
+        <p>Un framework est une librairie qui va abstraire le gros du boulot et rendre l’écriture de votre code serveur
+            plus simple. Les frameworks nodejs les plus connussont Express, Nest, Koa parmi tant d’autres.</p>
+
+        <p>Le même node server en Express.js se présenterait comme ceci:</p>
+
+        <div class="jumbotron">
+            <p>const express = require('express')</p>
+            <p>const app = express()</p>
+            <p>app.get('/', (req,res) => {</p>
+            <p> res.send('Hello World')</p>
+            <p>})</p>
+            <p>app.get('/health',(req,res) => {</p>
+            <p>res.send('I')</p>
+            <p>})</p>
+            <p>app.listen(8080,() => {</p>
+            <p>console.log("Server up and running")</p>
+            <p>})</p>
+        </div>
+
+        <p>Nous commençons par importer le module express. Contrairement au module HTTP, Express n’est pas inclus avec
+            node. Il faut télécharger ce paquet en utilisant npm via la commande suivante:</p>
+
+        <div class="jumbotron">
+            npm install express
+        </div>
+
+        <p>La ligne suivante sert à lancer express et ses fonctionnalités dont on aura besoin pour coder notre node web
+            server.</p>
+
+        <div class="jumbotron">
+            const app = express()
+        </div>
+
+        <p>On commence par déclarer la première route. Lorsqu’un client enverra une requête HTTP “GET” à l’url
+            ‘localhost:8080/’, notre serveur node lui répondra “Hello World”.</p>
+
+        <p>Une fois notre route déclarée, nous pouvons lancer le serveur et lui demander d’écouter le port 8080.</p>
+
+        <h3>Aller plus loin</h3>
+
+        <p>Maintenant, pour enrichir votre serveur, vous pouvez utiliser le routeur d’express pour déclarer de nouvelles
+            routes, sur des requêtes GET, PUT, PATCH ou DELETE.</p>
+
+        <p>Vous pouvez également brancher une base de données Mongo ou SQL à votre server node en utilisant des packages
+            comme MongoClient, Mongoose ou Sequelize.</p>
+    </div>
+</body>
+
+</html>

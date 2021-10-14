@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Comment faire une Code Review constructive</h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>S'immerger dans le contexte du code
+            </li>
+            <li>Formuler ses critiques lors de la code review</li>
+            <li>Eviter le vocabulaire négatif</li>
+            <li>Discuter avec son collègue</li>
+            <li>Souligner les réussites</li>
+            <li>Le moment d'apprendre</li>
+        </ul>
+
+        <p>Mettre en place la Code Review permet de réduire le nombre de bugs qui arrivent en production et de rendre le
+            code plus maintenable. Cette pratique, que l'on retrouve pourtant dans beaucoup d'entreprises, n'est que
+            rarement normée. La façon de faire la Code Review est propre à chaque développeur et, lorsqu'on débute, on
+            ne sait pas trop ce qu'on doit faire.</p>
+
+        <p>Si la Code Review a des objectifs clairs, pourquoi est-ce qu'on ne norme pas les Code Review de la même façon
+            qu'on a des normes de code ?</p>
+
+        <p>Ce qu'on cherche dans une Code Review dépend de son niveau d'ancienneté en tant que développeur, son
+            expérience au sein de l'entreprise et du projet et de ces mêmes critères appliqués à l'auteur du code. C'est
+            pourquoi il va falloir adapter la code review en fonction de la situation.</p>
+
+        <p>Certains conseils s'appliquent à tous les développeurs, quel que soit leur niveau d'ancienneté ou
+            d'expérience. La code review est un procédé de feedback de développeur à développeur. Pour qu'elle apporte
+            ses bénéfices, les reviews doivent respecter certains principes de bienveillance. Si les développeurs ne se
+            sentent pas en sécurité à exposer leur code, ils seront toujours sur leur garde et les commits se feront de
+            plus en plus rares.</p>
+
+        <h3>S'immerger dans le contexte du code</h3>
+
+        <p>Une code review arrive le plus souvent dans un contexte d'une Issue ou d'une User Story. Celle-ci doit être
+            documentée dans un outil de gestion de code source, comme Github, Gitlab ou Bitbucket, ou un outil de
+            gestion de projet, comme Jira ou éventuellement Trello.</p>
+
+        <p>Avant de démarrer la lecture du code, il est bon de commencer par relire à l'issue ou l'user story, puis s'il
+            y a, les commentaires qu'à pu ajouter l'auteur à sa Pull Request. Le fait de prendre le temps de s'immerger
+            dans le contexte dans lequel le code a été créé va vous permettre, lorsque vous lirez le code produit, de
+            vous mettre au mieux à la place de l'auteur. Vous comprendrez ainsi que s'il a choisi de structurer son code
+            de cette façon, c'est peut-être parce que le reste du fichier ou du module a été structuré comme cela par le
+            passé et qu'il a souhaité garder la même approche plutôt que d'avoir deux logiques différentes pour un même
+            module.</p>
+
+        <p>En tant qu'auteur, il est utile de prendre le temps, avant de soumettre sa PR à ses collègues, d'expliquer
+            certains choix lorsque vous savez que ceux-ci pourraient être questionnés. Vous anticipez les interrogations
+            de vos lecteurs et y apportez un élément de réponse. Cela n'empêche pas aux reviewers de remettre en
+            question votre choix mais çà facilite le travail de mise en condition pour qu'ils vous comprennent.</p>
+
+        <p>Certaines équipes font le choix avant de démarrer le développement de faire un "Three amigos". Ce rituel,
+            tiré des méthodes agiles, consiste à rassembler le Product Owner, le futur auteur du code et un (ou
+            plusieurs) autre développeur afin de discuter de l'issue ou user story à implémenter. Le P.O assiste pour
+            clarifier le besoin et s'assurer que l'approche choisie répondra aux besoins métier. Les développeurs vont
+            pouvoir échanger de vive voix sur les solutions possibles. Documenter les choix arrêtés lors d'un Three
+            Amigos va permettre aux reviewers de savoir ce qui a été décidé. Inutile de questionner des choix qui ont
+            déjà été fait en amont, ils vont pouvoir concentrer leur attention sur d'autres aspects, comme la modularité
+            et la lisibilité du code ainsi que la couverture de tests.</p>
+
+        <h3>Formuler ses critiques lors de la code review</h3>
+
+        <p>Pour garder un environnement de travail en paix, il est très important de faire preuve de bienveillance lors
+            des code reviews. Ceci ne veut pas dire pour autant qu'il faut fermer les yeux sur certains segments du code
+            sous prétexte qu'il y a déjà beaucoup de commentaires et qu'il faut rester sympa.</p>
+
+        <h4>Eviter le vocabulaire négatif</h4>
+
+        <p>Je commence par le plus évident mais c'est le plus critique: les commentaires dégradants ! Formuler un
+            commentaire disant "C'est nul ! Ton code se répète et tu n'as pas fait de test unitaire", est purement
+            dégradant. Même si le code produit ne répond pas au standard imposé, le fait de tolérer ce genre de
+            commentaire nuit gravement à l'équipe. Si l'auteur n'est pas capable de produire du code satisfaisant pour
+            l'équipe, c'est qu'il n'a pas été suffisamment bien formé. La faute est à l'équipe qui n'a pas su le former
+            ou qui l'a recruté pour une mission pour laquelle il n'avait pas le niveau.</p>
+
+        <p>Le plus courant en revanche est le commentaire négatif vis-à-vis d'une approche. Par exemple, "Il ne faut pas
+            utiliser de boucle for, on utilise uniquement des map, for ... of ou for ...in". Ce commentaire est purement
+            factuel et peut paraître acceptable. En vérité ce commentaire fait de vive voix est acceptable. En revanche
+            à l'écrit il est beaucoup plus négatif. En tant qu'auteur, recevoir une série de commentaires type "fait pas
+            ci, fait pas çà" est pesant sur le moral. Ce même commentaire peut être formulé de manière plus positive en
+            disant "C'est pas mal ! As-tu essayé de faire cette boucle avec un .map() ? On préfère utiliser cette
+            syntaxe dans le projet, d'ailleurs tu peux trouver un exemple sur tel lien ou dans notre style guide dans le
+            wiki".</p>
+
+        <h4>Discuter avec son collègue</h4>
+
+        <p>S'il y a beaucoup de points à revoir suite à une code review, n'hésitez pas à aller parler directement à
+            votre collègue immédiatement après avoir posté vos commentaires. En personne est le mieux, en chat vidéo ou
+            audio si ce n'est pas possible. Ceci est d'autant plus important si vous savez que vous avez tendance à dire
+            les choses crument dans la vie de tous les jours. Le fait de se parler de vive voix va permettre de
+            désamorcer les tensions qui pourraient apparaître si l'auteur prenait mal une de vos formulations écrite.
+        </p>
+
+        <h3>Souligner les réussites</h3>
+
+        <p>La code review n'est pas uniquement un moment de critique. Elle peut également servir de moment de
+            félicitations et d'encouragement.</p>
+
+        <p>Lorsqu'un collègue met en pratique une recommendation que vous aviez faite par le passé, prenez le temps de
+            vous arrêter et de mettre un petit mot ou un emoji. Ce petit geste est fortement apprécié par les
+            développeurs juniors. Non seulement il montre que vous aussi faites attention à ce qui est bien mais il
+            encourage à prendre les futures remarques comme des leçons et non des reproches.</p>
+
+        <h3>Le moment d'apprendre</h3>
+
+        <p>Si vous démarrez sur le projet, lire les code reviews peut être compliqué. Vous n'êtes pas encore familier
+            avec toutes les briques du projet et vous ne pouvez probablement qu'évaluer la composition du code sans
+            pouvoir mesurer les implications sur l'ensemble du système.</p>
+
+        <p>Servez-vous de ces Pull Request pour poser des questions sur le projet. Si vous n'êtes pas familier avec un
+            segment de l'application, l'auteur du code ou un autre collègue pourra prendre le temps de vous expliquer sa
+            raison d'être. Le timing est idéal car pour l'auteur et les autres reviewers le sujet est encore frais.</p>
+    </div>
+</body>
+
+</html>

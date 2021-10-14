@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Architecture 3 tiers pour une API Node JS
+        </h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>Qu'est-ce que l'architecture 3 tiers ?
+            </li>
+            <li>Comment fonctionne l'architecture 3 tiers ?</li>
+            <li>Les Models - la couche data</li>
+            <li>Les Controllers et les Services - la couche applicative</li>
+            <li>A vous d'implémenter votre architecture 3 tiers</li>
+            <li>Etape 1 - Séparer la connexion à la base de données</li>
+            <li>Etape 2 - Extraire la couche Data</li>
+            <li>Etape 3 - Séparer la couche logique</li>
+            <li>Etape 4 - Extraire les routes dans un module dédié</li>
+            <li>Pour conclure</li>
+        </ul>
+
+        <p>Dans les articles précédents, nous avons vu comment créer une Node JS API et comment y connecter une base de
+            données MongoDB. Aujourd'hui, nous allons voir comment implémenter une architecture 3 tiers ou n-tiers à
+            notre API Node JS.</p>
+
+        <p>Jusqu'à maintenant, nous avons ajouté le code de notre API dans un seul fichier. Aujourd'hui nous allons
+            revoir l'architecture de notre API avant que le code source ne devienne un énorme plat de spaghetti 🍝.</p>
+
+        <h3>Qu'est-ce que l'architecture 3 tiers ?</h3>
+
+        <p>L'architecture 3 tiers est un pattern d'architecture de code source qui permet de séparer les différentes
+            couches de l'application. À l'instar du pattern MVC, l'architecture 3 tiers propose de séparer la couche
+            données, la couche métier et la couche interface utilisateur.</p>
+
+        <div class="jumbotron">
+            ℹ️ Dans le cas d'une API, la couche d'interface est simplement le retour JSON et non pas des fichiers HTML.
+        </div>
+
+        <h3>Comment fonctionne l'architecture 3 tiers ?</h3>
+
+        <p>Avant de réinventer la roue, je trouve pertinent d'observer comment les frameworks dominants du marché ont
+            fait leurs choix d'architecture. Le travail réalisé est issu d'années d'expérience de la part des
+            contributeurs des projets open source et il serait dommage de se priver de ce savoir.</p>
+
+        <p>Que ce soit NestJS, Adonis, Laravel ou Ruby on Rails, tous ces frameworks ont choisi une architecture MVC du
+            fait qu'ils sont principalement utilisés pour créer une application ou un site en Server Side Rendering.
+            Lorsqu'on conçoit une API, nous n'avons pas de notions d'interface mais l'architecture va rester
+            sensiblement la même.</p>
+
+        <h4>Les Models - la couche data</h4>
+
+        <p>Dans l'architecture 3 tiers, comme en MVC, la couche donnée réside dans ses propres modules.</p>
+
+        <p>Le but est de découpler la logique métier des opérations de base de données. Ainsi, vous pourrez faire
+            évoluer votre métier et votre base de données séparément. Par exemple, si vous devez faire évoluer une
+            fonctionnalité et que votre code métier se reflète que par des requêtes SQL ou des requêtes Mongo, le
+            travail du développeur va être beaucoup plus délicat et vous serez dans l'incapacité de faire des tests
+            unitaires sur votre fonction.</p>
+
+        <h4>Les Controllers et les Services - la couche applicative</h4>
+
+        <p>Dans l'architecture 3 tiers, une seule brique représente la couche applicative. Or cette brique peut être
+            scindée en plusieurs niveaux. On parle là d'une architecture N Tiers.</p>
+
+        <p>Dans une application très simple, mettre son code métier dans le controller peut être acceptable. En revanche
+            dès que votre application se complexifie, il est considéré comme meilleur pratique de séparer votre logique
+            métier en Services ou Repositories et ne laisser au controller que les tâches de validation, vérification de
+            droits utilisateurs etc.</p>
+
+        <h3>A vous d'implémenter votre architecture 3 tiers</h3>
+
+        <p>À toi de jouer ! Nous allons retravailler l'architecture de notre application en séparent plusieurs briques
+            dans des modules séparés.</p>
+
+        <h4>Etape 1 - Séparer la connexion à la base de données</h4>
+
+        <p>Cette étape étant délicate, je vais te guider un peu plus que pour les autres.</p>
+
+        <p>Jusqu'à maintenant, votre serveur et votre base de données étaient lancés tous les deux depuis le fichier
+            index.js. Ce qu'on va faire c'est séparer la connexion à la base de données dans un autre fichier.</p>
+
+        <p>Créez un fichier database.js à la racine du projet:</p>
+
+        <div class="jumbotron">
+            const database = {}
+
+
+            database.connect = async () => {
+            /**
+            * Import MongoClient & connexion à la DB
+            */
+            const MongoClient = require('mongodb').MongoClient;
+            const url = 'mongodb://localhost:27017';
+            const dbName = 'parkingApi';
+            let db
+            MongoClient.connect(url, function(err, client) {
+            console.log("Connected successfully to MongoDB Server");
+            db = client.db(dbName);
+            database.db = db
+            });
+            }
+
+            module.exports = database
+        </div>
+
+        <p>Dans ce fichier, je commence par créer un objet vide que je vais appeler database. Cet objet englobera une
+            méthode que j'appelle connect et que je déclare juste après. Tu remarqueras que j'ai récupéré le code
+            présent dans index.js.</p>
+
+        <p>Dans la callback de la connexion, j'ai créé la clé db à laquelle j'ai attribué la connexion à la base de
+            données 'parkingApi'.</p>
+
+        <p>Dans le tuto précédent, j'utilisais l'objet db pour faire mes requêtes à la base de données, par exemple:</p>
+
+        <div class="jumbotron">
+            db.collection('parkings').find({}).toArray()
+        </div>
+
+        <p>Étant donné que je vais avoir besoin d'utiliser cet objet pour faire des requêtes dans d'autres fichiers que
+            database.js, je l'ajoute à l'objet database que je vais exporter.</p>
+
+        <p>Ainsi je pourrais réutiliser ma connexion à la base de données dans d'autres fichiers.</p>
+
+        <p>Pour créer cette connexion au lancement du serveur, je modifie le fichier index.js, j'importe le fichier
+            database.js et je remplace tout le bloc contenant MongoClient par database.connectDB()</p>
+
+        <div class="jumbotron">
+            const database = require('./database')
+
+            database.connect()
+        </div>
+
+        <h4>Etape 2 - Extraire la couche Data</h4>
+
+        <p>Maintenant que nous avons préparer notre app, nous pouvons mettre en place le découpage en couches séparées
+            en commençant par la couche Data.</p>
+
+        <p>Créez un répertoire Model ainsi que les fichiers Parking.js et Reservation.js. Chacun de ces fichier va
+            rassembler les opérations MongoDB.</p>
+
+        <p>De la même façon que nous avons procédé pour database.js, nous allons créer un objet en début de fichier qui
+            contiendra l'ensemble des méthodes afin d'être exporté comme module.</p>
+
+        <p>Voici un exemple avec une requête Mongo:</p>
+
+        <div class="jumbotron">
+            const connection = require('../database')
+            const parking = {}
+
+            parking.list = async function () {
+            return await connection.db.collection('parkings').find({}).toArray()
+            }
+
+            module.exports = parking
+        </div>
+
+        <p>A votre tour de terminer le fichier en y ajoutant les autres méthodes de CRUD</p>
+
+        <h4>Etape 3 - Séparer la couche logique</h4>
+
+        <p>La deuxième étape de ce projet est de séparer la logique métier de nos routes.</p>
+
+        <p>Créez un répertoire Controller dans lequel vous créerez les fichiers parkingController.js et
+            reservationController.js.</p>
+
+        <p>Pour chaque controller, nous allons créer les méthodes CRUD et faire appel aux méthodes que nous avons créé
+            dans le module Model</p>
+
+        <div class="jumbotron">
+            const parking = require('../Model/parking')
+            const parkingController = {}
+
+            parkingController.getParkings = async (req,res)=> {
+            try {
+            const docs = await parking.list()
+            res.status(200).json(docs)
+            } catch (err) {
+            console.log(err)
+            throw err
+            }
+            }
+
+            module.exports = parkingController
+        </div>
+
+        <p>On distingue maintenant deux couches, la couche Data dans le répertoire Model et la couche applicative dans
+            les controllers.</p>
+
+        <p>Complétez les fichiers pour retrouver l'ensemble des fonctionnalités de parking et réservations.</p>
+
+        <h4>Etape 4 - Extraire les routes dans un module dédié
+        </h4>
+
+        <p>Jusque-là nous avons laissé nos routes les unes à la suite des autres dans le fichier index.js. Bien que pour
+            l'instant ça soit encore tenable, chaque ajout de fonctionnalité va agrandir ce fichier qui sert pour
+            l'instant de fourre-tout.</p>
+
+        <p>D'après la documentation d'express, nous pouvons extraire les routes dans leur propre module et les importer
+            dans notre fichier index.js</p>
+
+        <p>Donc on va passer d'un bloc de code qui fait tout:</p>
+
+        <div class="jumbotron">
+            app.get('/parkings', async (req,res) => {
+            try {
+            const docs = await db.collection('parkings').find({}).toArray()
+            res.status(200).json(docs)
+            } catch (err) {
+            console.log(err)
+            throw err
+            }
+            })
+        </div>
+
+        <p>ainsi que l'ensemble des autres routes à :</p>
+
+        <div class="jumbotron">
+            app.get('/parkings', parkingController.getParkings)
+        </div>
+
+        <p>et index.js réduit à une seule ligne:</p>
+
+        <div class="jumbotron">
+            app.use(routes.js)
+        </div>
+
+        <div class="jumbotron">
+            ℹ️ La méthode use() de l'instance d'Express permet d'implémenter un Middleware. Le Middleware est une
+            méthode par laquelle la requête HTTP va passer. Il peut soit l'intercepter pour en faire quelque chose de
+            particulier, puis le passer au middleware suivant, soit l'intercepter pour traiter la requête complètement
+            et renvoyer la réponse.
+        </div>
+
+        <p>Créez un fichier routes.js à la racine du projet puis déplacez-y l'ensemble de nos routes. N'oubliez pas
+            d'exporter le module routeur comme illustré sur la documentation.</p>
+
+        <p>À vous de jouer pour compléter votre refactor</p>
+
+        <h3>Pour conclure</h3>
+
+        <p>Vous l'avez probablement remarqué, notre architecture 3 tiers est incomplète. Nous avons toujours la couche
+            de présentation et la couche applicative qui sont encore très liées dans le controller.
+
+        </p>
+
+        <p>C'est un choix que j'ai décidé de garder pour ne pas ajouter de complexité prématurée à notre code. Dans les
+            tutos suivant, nous allons ajouter de plus en plus de fonctionnalités et à ce moment-là nous séparerons la
+            couche applicative dans des Services plutôt que de la laisser dans les Controllers</p>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Comment utiliser des variables Postman dans vos collections
+        </h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>Utiliser des variables Postman
+            </li>
+            <li>Définir dynamiquement des variables</li>
+        </ul>
+
+        <p>L'outil indispensable lorsqu'on développe une API est Postman. Rapidement après avoir fait vos premières
+            requêtes, vous allez devoir récupérer des données, que vous aurez saisies ou qui vous seront retournées par
+            le serveur afin de les réutiliser dans des futures requêtes. Pour cela, les variables Postman vont
+            considérablement vous simplifier la vie. Vous allez pouvoir stocker les ids, les tokens, les clés API dans
+            des variables afin de pouvoir dérouler vos appels les uns après les autres sans avoir à vous interrompre
+            pour copier/coller.</p>
+
+        <h3>Utiliser des variables Postman</h3>
+
+        <h4>Scope des variables Postman</h4>
+
+        <p>Les variables postman sont divisées en plusieurs scopes:</p>
+
+        <ul>
+            <li>Les variables globales</li>
+            <li>Les variables d'environnement</li>
+            <li>Les variables de collection</li>
+            <li>Les variables de sessions (à partir de la version 6.2)</li>
+        </ul>
+
+        <h4>Les variables globales</h4>
+
+        <p>Ces variables sont accessibles par tous les environnements et toutes les collections. Elles sont utilisées
+            dans les cas où des variables vont être réutilisées dans plusieurs endroits à travers l'espace de travail
+            sans dépendre de la collection ou de l'environnement.</p>
+
+        <p>Pour définir une variable globale:</p>
+
+        <h4>Les variables d'environnement</h4>
+
+        <p>Lorsqu'il s'agit de variables, il y a toujours des différences suivant l'environnement sur lequel on veut
+            faire des requêtes. Une clé API ne sera jamais la même sur un environnement de dev, de pré-production ou de
+            production.</p>
+
+        <p>C'est pourquoi Postman permet de définir des environnements différents pour une même suite de collections.
+            Ainsi, vous pourrez mettre en variable l'URL de façon à faire des appels sur localhost:8080 lorsque vous
+            êtes en cours de développement et, en un clic, changer d'environnement pour faire vos appels sur votre
+            serveur de pré-production ou de production.</p>
+
+        <p>Pour définir une variable d'environnement:</p>
+
+        <p>Puis si on change d'environnement:</p>
+
+        <h4>Les variables de session</h4>
+
+        <p>Certaines variables sont privées et même si vous êtes amené à partager votre collection, vous ne souhaitez
+            pas forcément partager toutes vos variables d'environnement. Par exemple, votre API Key peut être privée et
+            vous ne voulez pas forcément la partager.</p>
+
+        <p>Pour çà, il faut modifier la colonne Initial Value dans la liste des variables d'environnement pour mettre un
+            exemple à la place de la vraie variable.</p>
+
+        <h3>Définir dynamiquement des variables</h3>
+
+        <p>Dans le développement de votre API, vous allez arriver à un stade où certaines variables seront définies
+            dynamiquement. Par exemple, si vous voulez modifier un objet après l'avoir créé, vous devrez récupérer son
+            ID pour le passer à la requête suivante.</p>
+
+        <p>Dans l'exemple ci-dessous, j'ai créé une collection où je crée un objet, je le modifie puis je le supprime:
+        </p>
+
+        <p><strong>Je vais avoir besoin de récupérer l'ID retourné par la requête POST pour le passer dynamiquement aux
+                requêtes suivantes.</strong></p>
+
+        <p>Étant donné que la variable ID est la même, quel que soit l'environnement et qu'elle pourrait être partagée,
+            je vais la définir directement dans une variable globale à l'issue de la requête.</p>
+
+        <p>Pour ce faire, il faut se rendre dans l'onglet Tests, parser la réponse en JSON et définir la variable
+            globale:</p>
+
+        <p>Avant de lancer cette requête, la variable object_id n'existe pas. Après l'avoir exécuté, on voit dans la
+            liste des variables globales qu'elle est maintenant définie et prête à être utilisée dans les autres
+            requêtes:</p>
+
+        <p>Je peux maintenant exécuter toute la collection en effectuant des tests automatisés à chaque requête pour
+            m'assurer que chaque étape se comporte comme désiré.</p>
+    </div>
+</body>
+
+</html>

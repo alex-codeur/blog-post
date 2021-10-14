@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Docker: Comment utiliser Docker pour son API NodeJS</h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>Qu’est-ce que Docker ?
+            </li>
+            <li>Pourquoi m’intéresser à Docker ?</li>
+            <li>Docker pour une API NodeJS</li>
+            <li>Installer le daemon Docker</li>
+            <li>Essayez pour voir</li>
+            <li>Coordonner plusieurs images</li>
+            <li>Adapter notre code</li>
+            <li>Lancez vos containers</li>
+            <li>Conclusion</li>
+        </ul>
+
+        <p>Docker fait partie de l'écosystème de technologies que tout développeur web se doit de connaître. Dans le
+            cadre de notre série d'articles concernant la conception d'une API REST avec NodeJS, Express et MongoDB,
+            nous allons voir comment intégrer Docker à notre projet.</p>
+
+        <p>Si vous avez manqué les articles précédents, voici un rappel:</p>
+
+        <ol>
+            <li>Créer un serveur NodeJS Express pour son API REST</li>
+            <li>Connecter une base de données MongoDB</li>
+            <li>Architecture 3 tiers pour son API REST</li>
+        </ol>
+
+        <h3>Qu’est-ce que Docker ?</h3>
+
+        <p>Que ce soit pour développer localement sur sa machine ou pour déployer votre application sur un serveur cloud
+            ou baremetal, vous aurez certainement besoin d’utiliser Docker.</p>
+
+        <p>Docker est une plateforme qui permet de dissocier votre application de l’infrastructure sur laquelle elle
+            doit tourner en créant un container dans lequel se trouvent le code source de votre application et les
+            technologies nécessaires pour la faire fonctionner.</p>
+
+        <p>Par exemple, imaginez une application complète faite en Ruby on Rails. Grâce à Docker, vous pourrez exécuter
+            cette application sur n’importe quelle machine, même si elle n’a pas Ruby on Rails d’installé dans son
+            système d’exploitation. Quelle que soit la machine sur laquelle le container sera exécuté, l’application
+            aura toujours le même comportement. Et ça, c’est le gros avantage de Docker. Plus de surprises.</p>
+
+        <p>Au lieu d’installer une machine virtuelle complète, Docker permet de créer des containers, qui partageront
+            des ressources communes de l’OS d’une machine virtuelle ou physique, tout en s’assurant que l’environnement
+            contient les paquets et librairies nécessaires pour faire tourner votre application.</p>
+
+        <p>Docker est utilisé au développement, pour s’assurer que tous les développeurs travaillent sur les mêmes
+            versions d’un langage, d’une base de données ou de n’importe quel autre service ou middleware. Il est
+            également utilisé au déploiement, puisque votre application packagée dans un container va être plus
+            facilement déployable sur n’importe quel serveur.</p>
+
+        <h4>Pourquoi m’intéresser à Docker ?</h4>
+
+        <p>Si vous aviez l’habitude de travailler localement et de ne déployer que sur des infrastructures types PaaS ou
+            FaaS, il est possible que vous ne vous soyez jamais intéressé à Docker.</p>
+
+        <h3>Docker pour une API NodeJS</h3>
+
+        <p>Dans le cadre de ce guide, voyons comment mettre en place Docker pour notre API Node JS.</p>
+
+        <p>Pour pouvoir faire tourner les containers Docker sur votre machine, il est indispensable d’installer le
+            daemon Docker sur votre machine. Pour ce faire, rendez-vous sur nos tutos pour installer docker sur mac ou
+            installer docker sur Windows, suivant votre machine.</p>
+
+        <h4>Essayez pour voir</h4>
+
+        <p>Avant de dockerizer notre API, essayez dans un premier temps de faire tourner une application via Docker
+            plutôt qu’en lançant en local avec la commande node ou nodemon.</p>
+
+        <p>Créez un fichier index.js qui va vous servir d'application "Hello World" avec Node et Express:</p>
+
+        <div class="jumbotron">
+            <p>const express = require('express)</p>
+            <p>const app = express()</p>
+            <p>app.listen(8080, () => {</p>
+            <p>console.log("Serveur prêt")</p>
+            <p>})</p>
+        </div>
+
+        <p>Maintenant, créons un fichier Dockerfile:</p>
+
+        <div class="jumbotron">
+            <p>FROM node:12.4</p>
+            <p>WORKDIR /usr/src/app</p>
+            <p>COPY package*.json ./</p>
+            <p>RUN npm install</p>
+            <p>COPY . .</p>
+            <p>EXPOSE 8080</p>
+        </div>
+
+        <p>Nous allons voir en détail juste après ce que sont ces différentes lignes, mais pour l'instant continuons
+            pour faire fonctionner votre app Node.
+        </p>
+
+        <p>Dans votre terminal, saisissez la commande suivante:</p>
+
+        <div class="jumbotron">
+            docker build .
+        </div>
+
+        <p>Docker est en train de construire une image en fonction des paramètres qui lui sont fourni dans le fichier
+            Dockerfile.</p>
+
+        <p>Il va englober dans un container la version Node que nous avons défini, il va récupérer les package.json et
+            package-lock.json, installer les dépendances (en l'occurence, Express), exposer le port 8080, en interne
+            uniquement et lancer la commande node index.js</p>
+
+        <p>Une fois votre image construite, vous pourrez la trouver avec la commande docker images dans votre terminal.
+            Pour lancer votre application dans son container grâce à votre image fraichement construite, tapez la
+            commande suivante:</p>
+
+        <div class="jumbotron">
+            docker run -p 8080:8080 id-de-votre-image
+        </div>
+
+        <p>Si tout s'est bien passé, vous pouvez maintenant accéder à votre API comme si vous l'aviez lancé en local.
+        </p>
+
+        <p>Ces premiers pas avec Docker doivent vous laisser plus de questions que d'éléments de réponse. C'est normal.
+            Il va falloir que vous preniez le temps de vous documenter sur son fonctionnement et fera l'objet de son
+            propre guide complet.</p>
+
+        <h4>Coordonner plusieurs images</h4>
+
+        <p>Dans l’exemple qu’on a vu précédemment, nous avons réussi à faire tourner un serveur web NodeJS sans pour
+            autant utiliser d’autres briques qui sont essentielles à la conception d’une API, comme la base de données
+            par exemple.
+        </p>
+
+        <p>Qu’il s’agisse d’une base de données MongoDB ou SQL, notre API en aura forcément besoin. Or par convention,
+            il ne faut pas mélanger toutes ces briques dans une même image Docker, mais plutôt utiliser une image par
+            brique technologique à implémenter.
+        </p>
+
+        <p>Il faudra donc, pour notre API, implémenter MongoDB via Docker.
+        </p>
+
+        <p>C’est là qu’entre en jeu Docker-compose. Compose est l’outil fourni par Docker qui permet de définir et
+            exécuter un environnement comportant plusieurs containers.
+        </p>
+
+        <p>Après avoir défini les éléments inhérents à votre application dans le Dockerfile, vous créerez un fichier
+            docker-compose.yml qui servira pour lister et coordonner les autres images à utiliser. Si par exemple vous
+            aviez besoin d’intégrer elasticsearch, kafka ou redis, vous pourriez les coordonner depuis le
+            docker-compose.yml.</p>
+
+        <div class="jumbotron">
+            <p>version: '3.8'</p>
+            <p>services:</p>
+            <p>api:</p>
+            <p>build: .</p>
+            <p>ports:</p>
+            <p>- "8080:8080"</p>
+            <p>links:</p>
+            <p>- mongo</p>
+            <p>mongo:</p>
+            <p>image: mongo:4.2</p>
+            <p>ports:</p>
+            <p>- "27017:27017"</p>
+            <p>expose:</p>
+            <p>- "27017-27019"</p>
+            <p>volumes:</p>
+            <p>- ./data:/data/db</p>
+        </div>
+
+        <p>Dans cette configuration, nous avons défini les deux briques essentielles, appelées aussi services, au bon
+            fonctionnement de notre API. Le premier, nommé api, fait référence à notre serveur web NodeJS. Le second
+            container, que j'ai nommé mongo, fait référence à l'image Mongo dans sa version 4.2. Cette image est une
+            publique et hébergée sur le Docker Hub.</p>
+
+        <p>On peut observer que le container api a un lien vers le container mongo. Il spécifie à Docker que pour que ce
+            container fonctionne, il a une dépendance vers le container mongo.</p>
+
+        <p>La propriété expose permet au container mongo d'autoriser les connexions venant d'autres containers via ce
+            port. C'est ce qu'aura besoin notre API pour se connecter à la base de données. La propriété volumes
+            représente l'endroit où sera stockée la donnée.</p>
+
+        <h4>Adapter notre code</h4>
+
+        <p>Jusque-là, notre API se connectait à la base de données mongo via une connection string commençant par
+            localhost:27017.</p>
+
+        <p>Sauf que maintenant, nous ne voulons plus nous connecter à un serveur MongoDB installé sur notre machine mais
+            au container mongo. Il faut donc adapter le code de connexion à la base de données dans le fichier
+            database.js</p>
+
+        <div class="jumbotron">
+            <p>database.connect = async () => {</p>
+            <p>/**
+                * Import MongoClient & connexion à la DB
+                */</p>
+            <p>const MongoClient = require('mongodb').MongoClient;</p>
+            <p>const url = 'mongodb://mongo:27017/parkingApi';</p>
+            <p>let client = await MongoClient.connect(url,{ useNewUrlParser: true });</p>
+            <p>let db = client.db('parkingApi');</p>
+            <p>database.db = db</p>
+            <p>}</p>
+        </div>
+
+        <p>La string de connexion laisse place à mongo à la place de localhost pour faire référence au nom du container.
+        </p>
+
+        <div class="jumbotron">
+            ⚠️ Pensez à actualiser index.js pour appeler la méthode connect dans une Promise
+        </div>
+
+        <h4>Lancez vos containers</h4>
+
+        <p>Pour lancer conjointement vos container, Compose vous propose d'utiliser la ligne de commande suivante</p>
+
+        <div class="jumbotron">
+            docker-compose up
+        </div>
+
+        <p>Si vous souhaitez lancer qu'un seul container, mongo par exemple, et lancer votre API localement comme vous
+            en aviez l'habitude, vous pouvez spécifier le ou les containers à lancer avec la commande:</p>
+
+        <h3>Conclusion </h3>
+
+        <p>Cette introduction à Docker va vous servir à la fois dans le développement de votre API mais également pour
+            vos déploiements.</p>
+
+        <p>Vous verrez plus tard que vos images dockers peuvent être lancés plusieurs fois. Par exemple si votre API
+            commence à avoir du trafic, vous pourrez lancer plusieurs instances de cette dernière et répartir le trafic
+            entre ces instances.</p>
+
+        <p>Continuez à vous intéresser à Docker et surtout essayez de le mettre en pratique pour vos repositories.</p>
+
+        <p>Voici l'URL avec le code source de l'API Node JS dockerizé.</p>
+</body>
+
+</html>

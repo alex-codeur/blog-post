@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Qu'est-ce que la JAMstack et devrais-je m'en soucier ?
+        </h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>La JAMStack, c'est quoi ?
+            </li>
+            <li>Comment JAMStack fait du statique en 2020 ?</li>
+            <li>L'exemple d'un Blog Wordpress hébergé</li>
+            <li>L'exemple du même blog en JAMStack</li>
+            <li>Les requêtes dynamiques en JAMStack</li>
+            <li>Quel est l'intérêt de la JAMStack comparé React ou Vue ?</li>
+            <li>Single Page App (SPA) contre Server Side Rendering (SSR)
+            </li>
+            <li>Avantage et Inconvénients du "Tout inclut" de la JAMStack</li>
+            <li>Intéressante pour tous, Indispensable pour certains</li>
+        </ul>
+        <p>Dans l'écosystème javascript, il semblerait qu'à toutes les 5 minutes un nouveau framework ou librairie
+            JavaScript censé révolutionner le web apparaît. Depuis 2019, une des technos qui a fait son apparition dans
+            la sphère JavaScript est la JAMStack. Next, Nuxt et Gatsby se sont imposés comme framework pour des apps
+            JAMStack.</p>
+
+        <h3>La JAMStack, c'est quoi ?</h3>
+
+        <p>Le concept de la JAMStack repose sur des assets (les fichiers HTML, CSS, images, polices...) pré-assemblés et
+            servis aux clients par un CDN géographiquement au plus proche du point de départ de leur requête.</p>
+
+        <p>En plaçant un maximum de fichiers statiques au plus près du client, on améliore au maximum les performances
+            de temps de chargement du site. Or le temps de chargement est crucial dans certains domaines comme
+            l’e-commerce, et influe sur le référencement naturel.</p>
+
+        <p>La JAMStack repose sur trois piliers qui constituent son nom: JavaScript, API et Markup:</p>
+
+        <ul>
+            <li><strong>JavaScript</strong> sert à gérer toutes les fonctions dynamiques que pourrait avoir le site ou
+                l'application.</li>
+            <li><strong>API</strong> fait référence au moyen dont se sert ce système pour interagir avec un serveur et
+                une base de données</li>
+            <li><strong>Markup</strong> fait référence au concept de servir un site HTML statique, créé soit par un
+                générateur de site, soit compilé au moment du développement afin de créer toutes les pages statiques.
+            </li>
+        </ul>
+
+        <h3>Comment JAMStack fait du statique en 2020 ?</h3>
+
+        <p>En 2020, à part un site vitrine, ça paraît compliqué de faire un site statique. La donnée évolue tellement
+            vite qu'on semble avoir besoin de faire des requêtes à une base de données ou à des API externes en
+            permanence pour avoir un site un minimum utile.</p>
+
+        <h4>L'exemple d'un Blog Wordpress hébergé</h4>
+
+        <p>Dans le web tel qu'on l'a toujours connu, nous avons un serveur chez un prestataire comme OVH ou IONOS. Notre
+            serveur dispose de sa base de données, de son moteur PHP et du serveur apache qui va être à l'écoute des
+            requêtes HTTP des visiteurs.</p>
+
+        <p>Lorsqu'un client veut se rendre sur votre page, sa requête va aller de son point de départ jusqu'au data
+            center de votre hébergeur. Il peut être dans le Nord de la France (pour OVH), en Irlande (Heroku), en
+            Allemagne (IONOS) ou n'importe où ailleurs. Plus le trajet est long, plus on perd de précieuses
+            millisecondes.</p>
+
+        <p>Votre serveur PHP va faire une requête à la base de données pour récupérer la liste d'articles, mettre en
+            forme le HTML et CSS puis livrer les fichiers au navigateur du client, faisant toute la route inverse.</p>
+
+        <h4>L'exemple du même blog en JAMStack</h4>
+
+        <p>Le cas de figure en JAMStack se déroule complètement différemment. Vous n'avez pas d'abonnement chez un
+            hébergeur puisque vous utiliserez les services de Netlify ou Vercel, qui sont des hébergeurs gratuits. Ces
+            derniers proposent d'héberger votre site ou app web dans un CDN au plus près de votre utilisateur. Ainsi,
+            votre site sera accessible au Canada aussi rapidement qu'en Australie.</p>
+
+        <p>Dans l'exemple du blog, lorsqu'un nouvel article est publié, il faudra relancer un "build" du site.
+            C’est-à-dire que votre générateur de site, ou votre code, va aller interroger le CMS pour récupérer le ou
+            les nouveaux articles et écrire la page HTML en dur avant de l'envoyer sur Netlify ou Vercel.</p>
+
+        <p>Le processus semble plus long au déploiement d'un nouvel article mais grâce à çà, les requêtes des visiteurs
+            peuvent être complétées beaucoup plus rapidement. Après tout, il n'est pas souvent si important qu'un blog
+            puisse publier un article en moins de 5 minutes, pourtant il est important qu'un lecteur puisse accéder à sa
+            page en 250ms ou moins.</p>
+
+        <h4>Les requêtes dynamiques en JAMStack</h4>
+
+        <p>Parfois il est indispensable d'avoir des requêtes dynamiques. Un site e-commerce par exemple doit pouvoir
+            afficher ou non un article en fonction de s'il est en stock à chaque instant. Si un visiteur commande le
+            dernier article en stock, il faut que le site puisse empêcher le visiteur suivant, qui peut arriver dans les
+            millisecondes qui suivent, d'acheter ce même article.</p>
+
+        <p>Pour çà, les frameworks JAMStack ont permis au développeur de décomposer leurs requêtes en 3 familles.</p>
+
+        <ul>
+            <li>Les requêtes statiques (qu'on a vu plus haut)</li>
+            <li>Les requêtes dynamiques client</li>
+            <li>Les requêtes dynamiques serveur
+            </li>
+        </ul>
+
+        <p>Ainsi, un site e-commerce pourra charger une page statique contenant la photo du produit et la description,
+            de la même façon qu'on a vu pour l'exemple du blog, et faire une requête dynamique pour aller récupérer le
+            prix et le stock disponible.</p>
+
+        <p>Les requêtes dynamiques peuvent être faites directement du client vers une API ou, pour des requêtes
+            nécessitant des accès particuliers, via un code serveur. Par exemple, l'API qui donne les prix de vente des
+            produits sur un site e-commerce est certainement privée et réservé au site lui-même. On ne peut pas laisser
+            le navigateur avoir accès direct à cet API. Pour avoir le prix d'un produit, le client va interroger un code
+            serveur, qui lui a les codes d'accès - la clé API pour accéder à cette donnée.</p>
+
+        <p>Pour maintenir ses performances, le code serveur que vous aurez développé pour répondre aux requêtes
+            dynamiques sera répliqué par Netlify ou Vercel dans différents data centers à travers le monde de façon
+            qu’elles puissent répondre le plus rapidement possible.</p>
+
+        <h3>Quel est l'intérêt de la JAMStack comparé React ou Vue ?</h3>
+
+        <p>Depuis que Gmail a démocratisé la Single Page app, ce type de comportement est devenu standard dans les
+            attentes des internautes. Le chargement complet d'une nouvelle page est devenu visuellement désagréable. Le
+            succès des frameworks Angular, React et Vue ont poussé ce clivage frontend/backend et a incité au
+            développement de Single Page Apps.</p>
+
+        <h4>Single Page App (SPA) contre Server Side Rendering (SSR)</h4>
+
+        <p>La question de l'intérêt de la JAMstack peut se poser pour ceux qui ont l'habitude de coder leurs apps en
+            Angular, Vue ou React.</p>
+
+        <p>Un site ou une application web a un intérêt à être en SSR plutôt qu'en SPA dès lors que le temps de réponse
+            est un critère important. C'est typiquement le cas pour tout site grand public, un média ou un site
+            marchand. Ce type de site va valoriser les gains de performances au temps de réponse plus largement qu'un
+            portail client par exemple.</p>
+
+        <p>En revanche si votre site a besoin de beaucoup de rendus dynamique, l'utilisation de la JAMStack ne vous sera
+            d'aucun bénéfice si vous partez déjà d'une Single Page App en développant votre propre serveur Express ou
+            autre dans un autre framework ou langage backend.</p>
+
+        <h4>Avantage et Inconvénients du "Tout inclut" de la JAMStack</h4>
+
+        <p>Ce qui m'a séduit dans la JAMStack est d'avoir en un seul repository la possibilité de faire du frontend et
+            du backend, sans avoir à gérer plusieurs fois la même chose. Côté backend, je n'avais pas à développer tout
+            un serveur, il me suffisait de créer des fonctions, façon serverless. L'avantage était un gain de temps
+            énorme dans mon développement.</p>
+
+        <p>En revanche, développer une app en JAMStack crée un fort couplage avec la techno que vous aurez choisi.
+            Certes Next.JS et Gatsby sont basés sur React, Nuxt est basé sur Vue, mais si vous avez placé votre logique
+            métier dans ces framework, il vous sera difficile de vous en défaire.</p>
+
+        <p>De plus, à l'heure où j'écris cet article, l'intégration de tests automatisés dans Next ou Gatsby est encore
+            une tâche laborieuse. Il est compliqué de décomposer et couvrir de tests chaque composant du frontend au
+            backend.</p>
+
+        <h3>Intéressante pour tous, Indispensable pour certains</h3>
+
+        <p>Pour conclure, la JAMStack est une techno intéressante pour tous les développeurs. Je vous encourage tous à
+            essayer via un projet de blog connecté à un CMS Headless par exemple. Pour les développeurs Backend ou
+            Fullstack, cette expérience vous servira à avoir une meilleure compréhension de la techno.</p>
+
+        <p>En revanche pour les développeurs Frontend et intégrateurs, mettre les mains dans la JAMStack me semble
+            indispensable. C'est un paradigme qui est là pour rester et qui va s'imposer dans des projets dans un proche
+            avenir. Acquérir de l'expérience sur ces framework ne pourra que vous être utile.</p>
+    </div>
+</body>
+
+</html>

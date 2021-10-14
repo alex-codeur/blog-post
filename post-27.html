@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Fastify: le framework nodejs qui veut faire mieux qu’Express
+        </h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>Pourquoi regarder ailleurs qu’Express ?</li>
+            <li>Express n’implémente pas l’async/await</li>
+            <li>La librairie est devenue un zombie</li>
+            <li>Pourquoi envisager Fastify ?</li>
+            <li>Créer un serveur Fastify</li>
+            <li>Validez vos requêtes et vos réponses</li>
+            <li>Réagissez aux requêtes grâce aux hooks</li>
+            <li>Enrichissez vos requêtes et vos réponses grâce aux Decorators</li>
+            <li>Comment utiliser les plugins Fastify ?</li>
+            <li>Les plugins officiels et communautaires</li>
+            <li>Connecter une base de données à un serveur Fastify</li>
+            <li>Utiliser TypeScript avec Fastify</li>
+            <li>Écrire des tests sur son serveur Fastify</li>
+            <li>Devrais-je envisager Fastify pour mon prochain projet ?</li>
+        </ul>
+
+        <p>L’écosystème JavaScript est connu pour sa richesse, pour ne pas dire son excès, de librairies et de
+            frameworks. Côté backend, ExpressJS est de loin le framework NodeJS le plus populaire. Il existe toutefois
+            de nombreuses autres options, moins connues, qui méritent toutefois notre attention. Il existe des framework
+            dits haut niveau, avec des avis très tranchés, tels que NestJS ou Adonis. Ces frameworks vont embarquer
+            plusieurs librairies et vous proposer à la fois des fonctionnalités, des implémentations de bonnes pratiques
+            telles que l’injection de dépendance et proposer une architecture.</p>
+
+        <p>Ces frameworks de haut niveau viennent souvent avec des choix de librairies imposés, ce qui ne convient pas
+            toujours aux développeurs. C’est pourquoi les frameworks bas niveau, à l’instar d’Express, existent et vous
+            laissent avoir beaucoup de contrôle sur les librairies à condition que vous acceptiez de les implémenter
+            vous-même.</p>
+
+        <p>Pourtant, pour une raison que j’ignore, Express et ces frameworks bas niveau sont encore très populaires dans
+            l’écosystème JavaScript. Alors dans ce cas, pourquoi challenger le leader incontesté ?</p>
+
+        <h3>Pourquoi regarder ailleurs qu’Express ?</h3>
+
+        <p>Pour la première fois depuis son entrée au classement de State Of JS en 2017, Express a perdu sa place de
+            favoris au profit de Next.js. Ces deux frameworks ne jouent absolument pas dans la même cour. Next étant
+            plus orienté framework Fullstack avec une grosse dominante frontend et un backend inclus de façon à créer
+            une API très simple dans le même projet. Express quant à lui est un framework purement backend, qui certes
+            peut être couplé avec des moteurs de templating tels que Jade, Pug ou Handlebars afin de servir des pages
+            HTML, mais en pratique il est bien plus souvent utilisé pour des process backend pur.</p>
+
+        <p><strong>Alors pourquoi s’inquiéter d’express simplement parce qu’il y a (encore) un nouveau framework JS à la
+                mode ?</strong></p>
+
+        <p>Express est tellement populaire qu’il est automatiquement associé lorsqu’on parle de Node pour un serveur
+            web, de la même façon qu’on associe Rails à Ruby ou Django à Python. Express a même pris sa place dans des
+            acronymes de tech stacks tels que MEAN ou MERN.</p>
+
+        <p>Pourtant de plus en plus de développeurs JS semblent inquiets par Express pour les raisons suivantes:</p>
+
+        <h4>Express n’implémente pas l’async/await</h4>
+
+        <p>Tant aimée par les développeurs depuis son arrivée avec ES8, la syntaxe async/await a simplifié la vie de
+            nombreux de développeurs JavaScript. Sauf qu’Express lui est resté à l’utilisation de callbacks.</p>
+
+        <p>// Exemple de code</p>
+
+        <p>Au-delà de la syntaxe de votre serveur, qui certes peut vous déplaire mais on peut s’en remettre, il y a le
+            fait d’utiliser des async/await dans le code que vous développerez et que vous implémenterez dans des
+            middlewares express.</p>
+
+        <p>Si vous utilisez async/await dans votre controller ou dans un middleware, vous vous exposez à des erreurs
+            UnhandledPromiseRejectionWarning.</p>
+
+        <h4>La librairie est devenue un zombie</h4>
+
+        <p>Au moment où j’écris cet article, la version 5 d’express est en alpha depuis plus de 6 ans, le dernier
+            incrément de version date plus de deux ans et le dernier merge sur la branche master a plus de 9 mois.</p>
+
+        <p>Bien qu’il existe toujours de Pull Requests récentes, la librairie semble évoluer très lentement et je ne
+            suis pas convaincu que nous verrons la version 5 d’Express sur npm avant encore plusieurs années.</p>
+
+        <h3>Pourquoi envisager Fastify ?</h3>
+
+        <p>Bien que conçu pour être un framework pour n’importe quelle application web, Fastify brille par ses
+            performances lorsqu’il est utilisé dans la conception d’API REST. Fastify permet d’avoir des performances
+            remarquables en termes de volume de requêtes qu’il peut traiter.</p>
+
+        <p>Suivant ce benchmark publié sur la documentation de Fastify, ce framework est bien supérieur à ses pairs en
+            termes de capacité de traitement. Attention toutefois à ne pas prendre pour argent comptant ce type de
+            benchmark car nous n'avons pas le détail du test et il y a fort à parier que celui-ci ne reflète pas
+            forcément une véritable application en production.</p>
+
+        <p>Fastify propose également un principe d’encapsulation qui permet de rendre disponible des modules uniquement
+            dans certains espaces de votre application. La capacité d’encapsuler les modules de manière très simple
+            permet d’appliquer des concepts d’architecture.</p>
+
+        <p>Dans cette illustration tirée de la documentation de Fastify, nous pouvons voir comment l'encapsulation que
+            propose Fastify permet d'isoler certains plugins. Par exemple, les plugins déclarés dans le carré "Child
+            Context" supérieur seront utilisables lorsque la requête traversera le code du "Child Context" ainsi que de
+            son "Grandchild Context". En revanche il ne sera pas disponible dans le bloc Child Context inférieur ni son
+            bloc GrandChild.</p>
+
+        <p>Cette encapsulation va nous permettre de découpler des modules de l'application. Ce découplage va éviter au
+            développeur de créer des dépendances entre blocs de codes qui ne devraient pas être liés en termes de
+            métier.</p>
+
+        <p>Voici à quoi ressemble l'encapsulation dans le code d'une app Fastify:</p>
+
+        <div class="jumbotron">
+            // server.js
+            const fastify = require('fastify')({ logger: true })
+
+            // La méthode décorateRequest permet d'ajouter un objet à l'objet Request
+            fastify.decorateRequest('user', 'rayed')
+            /*
+            Etant donné qu'il est déclaré à la racine de mon serveur,
+            il est accessible partout
+            */
+
+            fastify.get('/', async (request, reply) => {
+            return { user: request.user, email:request.email }
+            })
+            // Ici, l'objet retourné sera {user:'rayed'}
+            // car nous n'avons pas encore décoré la request avec l'objet email
+
+
+            // Lancer le serveur
+            const start = async () => {
+            try {
+            await fastify.listen(3000)
+            } catch (err) {
+            fastify.log.error(err)
+            process.exit(1)
+            }
+            }
+            start()
+        </div>
+
+        <p>Après avoir lancé ce code, lorsque nous faisons une requête GET sur l'API REST que nous venons de créer, nous
+            avons la réponse {"user":"rayed"}.</p>
+
+        <p>Ajoutons maintenant une autre route qui aura accès à l'objet request.email:</p>
+
+        <div class="jumbotron">
+            // fichier routes.js
+
+            async function routes (fastify, options) {
+            fastify.decorateRequest('email', 'rayed@email.com')
+            fastify.get('/email', async (request, reply) => {
+            return { user: request.user, email:request.email }
+            })
+            }
+
+            module.exports = routes
+        </div>
+
+        <p>D'abord nous créons un fichier routes.js, dans lequel nous allons ajouter le decorateRequest et déclarer une
+            route /email</p>
+
+        <p>Ensuite nous irons modifier le fichier server.js pour déclarer cette nouvelle route à notre serveur Node:</p>
+
+        <div class="jumbotron">
+            // server.js
+
+            const fastify = require('fastify')({ logger: true })
+            // On importe le fichier routes.js
+            const routes = require('./routes')
+
+            // Ici nous déclarons le plugin dans le rootContext
+            fastify.register(routes)
+
+            fastify.decorateRequest('user', 'rayed')
+
+            fastify.get('/', async (request, reply) => {
+            return { user: request.user, email:request.email }
+            })
+
+            const start = async () => {
+            try {
+            await fastify.listen(3000)
+            } catch (err) {
+            fastify.log.error(err)
+            process.exit(1)
+            }
+            }
+            start()
+        </div>
+
+        <p>En relançant notre serveur, on peut voir qu'en faisant une requête GET sur l'endpoint / nous avons toujours
+            la réponse {"user":"rayed"} mais lorsqu'on fait une requête /email nous avons accès à {"user":"rayed",
+            "email":"rayed@email.com"}.</p>
+
+        <p>La fonction decorateRequest placée dans notre fichier routes.js n'est pas accessible quand le code ne la
+            traverse pas, ce qui nous permet d'isoler le fonctionnement d'un module du reste de la codebase.</p>
+
+        <h3>Créer un serveur Fastify</h3>
+
+        <p>Créer un serveur web avec Fastify est aussi facile qu'avec Express. Installez le package avec npm you Yarn:
+        </p>
+
+        <div class="jumbotron">
+            npm install fastify
+        </div>
+
+        <p>Créez un fichier server.js:</p>
+
+        <div class="jumbotron">
+            const fastify = require('fastify')({ logger: true })
+
+            fastify.get('/', async (request, reply) => {
+            return { hello: 'world' }
+            })
+
+            const start = async () => {
+            try {
+            await fastify.listen(3000)
+            } catch (err) {
+            fastify.log.error(err)
+            process.exit(1)
+            }
+            }
+            start()
+        </div>
+
+        <p>Lancez-le avec la commande node server depuis votre terminal.</p>
+
+        <h4>Validez vos requêtes et vos réponses</h4>
+
+        <p><strong>Une fonctionnalité vraiment intéressante de Fastify est sa capacité à valider les requêtes à grande
+                vitesse.</strong></p>
+
+        <p>La validation est une étape qui, à l'arrivée d'une requête HTTP sur le serveur, va vérifier un set de règles
+            que vous aurez défini, avant même de faire une opération lente tel qu'un appel en base de données ou
+            n'importe quelle action asynchrone.</p>
+
+        <p>Suivant vos besoins, vous pourrez vous assurer que, pour chaque route spécifiquement, la requête entrante
+            contient bien les headers, les params, le body ou les query params de votre choix.</p>
+
+        <p>Lorsque vous définirez vos routes, vous pourrez passer un schema, de la même façon que vous l'auriez fait sur
+            Mongoose par exemple, afin de définir les règles de validation.</p>
+
+        <div class="jumbotron">
+            const querySchema = {
+            querystring: {
+            type: 'object',
+            properties: {
+            name: {
+            type: 'string',
+            enum:['user-a','user-b']
+            },
+            excitement: {
+            type: 'integer'
+            },
+            },
+            required: ['name']
+            }
+            }
+
+            fastify.route({
+            method: 'GET',
+            url: '/',
+            schema: querySchema,
+            handler: async (request, reply) => {
+            return { hello: 'world' }
+            }
+            })
+        </div>
+
+        <p>Dans cet exemple tiré de la documentation, le développeur impose un querystring ayant la clé "name" pour tout
+            appel HTTP sur l'endpoint / et n'acceptera que les valeurs imposées dans l'objet enum.</p>
+
+        <p>Si une requête entrante déroge à ces règles, Fastify retournera immédiatement une erreur 400 avec
+            suffisamment de détails pour que le client puisse reformuler sa requête.</p>
+
+        <p>Sous le capot, Fastify utilise la librairie Ajv et la norme JSON-Schema. Pour maximiser les performances de
+            votre serveur Fastify, je vous encourage à utiliser au maximum les validations proposées par JSON-Schema
+            avant de développer vos propres règles.</p>
+
+        <h4>Réagissez aux requêtes grâce aux hooks</h4>
+
+        <p>Les hooks permettent de greffer votre code en réaction au cycle de vie d'une requête HTTP. Fastify a créé
+            plusieurs hooks sur lesquels vous pourrez accrocher votre code afin qu'il soit exécuté à un instant précis
+            de la requête sur un endpoint déterminé.</p>
+
+        <p>Fastify propose neuf hooks différents, positionnés tout au long du cycle de vie d'une requête:</p>
+
+        <ul>
+            <li>onRequest est le premier hook, juste après l'arrivée de la requête et le premier message de log. À ce
+                stade le body n'est pas encore accessible.</li>
+            <li>preParsing arrive juste avant que Fastify transforme la requête et transforme en objet JSON.</li>
+            <li>preValidation se déclenche juste avant la validation de la requête par rapport aux règles définies dans
+                les schémas de validation. À ce stade le body devient accessible.</li>
+            <li>preHandler se déroule juste avant la passation du code vers la suite de votre application, très souvent
+                au niveau du controller.</li>
+            <li>preSerialization se déroule à la fin de votre code et juste avant la préparation de l'objet response
+            </li>
+            <li>onError est un hook utile s'il faut ajouter du code spécifique en cas d'erreur.</li>
+            <li>onSend est un hook appelé juste avant l'envoi de la réponse au client. Cette étape est utile pour
+                envelopper votre payload dans un body de réponse standardisée par exemple.</li>
+            <li>onTimeout se déclenche lorsque le serveur ne répond pas à la requête à temps. Ce hook peut être utile si
+                on souhaite effectuer une nouvelle tentative par exemple.</li>
+        </ul>
+
+        <p>Il existe également des hooks liés à votre serveur:</p>
+
+        <ul>
+            <li>onReady : lorsque le serveur a terminé son initialisation.</li>
+            <li>onClose : lorsque le serveur est sur le point de s'arrêter.</li>
+            <li>onRoute : lorsqu'une route est déclarée.</li>
+            <li>onRegister : lorsqu'un plugin est enregistré.</li>
+        </ul>
+
+        <p>Les hooks n'ont pas la même utilité que les middlewares. Ces derniers sont déclarés au nouveau du serveur et
+            vont agir sur l'ensemble des requêtes, quel que soit le verbe HTTP envoyé. Les hooks ont la même idée mais
+            permettent une gestion plus fine de quand les déclencher.</p>
+
+        <h4>Enrichissez vos requêtes et vos réponses grâce aux Decorators</h4>
+
+        <p>L'API decorators permet d'enrichir les objets Fastify tels que le serveur, les requêtes et les réponses.
+            L'utilisation des fonctions decorators permet d'enrichir ces objets sans affecter la performance de votre
+            serveur Fastify.</p>
+
+        <p>Dans la documentation, Fastify explique pourquoi ce code qui souhaite enrichir l'objet request est un frein
+            pour le moteur JavaScript:</p>
+
+        <div class="jumbotron">
+            // Bad example! Continue reading.
+
+            // Attach a user property to the incoming request before the request
+            // handler is invoked.
+            fastify.addHook('preHandler', function (req, reply, done) {
+            req.user = 'Bob Dylan'
+            done()
+            })
+
+            // Use the attached user property in the request handler.
+            fastify.get('/', function (req, reply) {
+            reply.send(`Hello, ${req.user}`)
+            })
+        </div>
+
+        <p>En changeant la structure de l'objet, dans ce cas en y ajoutant la clé 'user' et sa valeur, JavaScript va
+            devoir modifier l'instance de l'objet request à chaque fois que ce hook est déclenché.</p>
+
+        <p>La bonne approche utilisant les decorators serait:</p>
+
+        <div class="jumbotron">
+            // Decorate request with a 'user' property
+            fastify.decorateRequest('user', '')
+
+            // Update our property
+            fastify.addHook('preHandler', (req, reply, done) => {
+            req.user = 'Bob Dylan'
+            done()
+            })
+            // And finally access it
+            fastify.get('/', (req, reply) => {
+            reply.send(`Hello, ${req.user}!`)
+            })
+        </div>
+
+        <p>En utilisant le decorator decorateRequest avant le hook, chaque objet request sera par défaut construit avec
+            la propriété user et la valeur d'une chaîne de caractères vide, correspondant au type qui lui sera affecté
+            plus tard. Le fait de lui modifier sa valeur au niveau du hook sera plus optimal que de modifier la
+            structure de l'objet en lui affectant également une nouvelle clé.</p>
+
+        <p>Les décorateurs les plus courants sont decorate, qui sont utilisés pour personnaliser l'instance serveur de
+            Fastify, decorateRequest et decorateReply qui portent bien leurs noms.</p>
+
+        <h3>Comment utiliser les plugins Fastify ?</h3>
+
+        <p>Fastify a bâti son framework autour des plugins afin de faciliter la modularité et l'isolation du code. Ils
+            permettent d'englober des fonctions, des routes, des decorators, des hooks et potentiellement d'autres
+            plugins afin de rendre tout cela disponibles au contexte dans lesquels ils seront importés.</p>
+
+        <p>Les plugins Fastify sont importés dans votre code via la fonction fastify.register. Par défaut, la fonction
+            register va créer un nouveau scope, de telle sorte à ce que permettre l'encapsulation.</p>
+
+        <h4>Les plugins officiels et communautaires</h4>
+
+        <p>Les contributeurs Fastify ont créé 44 plugins officiels et la communauté en a créé plus de 140 autres de
+            façon à répondre à leurs besoins. Parmi les plugins core, on retrouve des connecteurs à des bases de données
+            tels que MongoDB, ElasticSearch, Postgresql ou Redis, des plugins fonctionnels pour mettre en cache, limiter
+            les requêtes entrantes, charger des variables d'environnement ou utiliser des websockets.</p>
+
+        <h4>Connecter une base de données à un serveur Fastify</h4>
+
+        <p>Grâce aux plugins officiels, connecter une base de données à son serveur Fastify se fait très simplement. Par
+            exemple, le plugin fastify-mongodb peut être implémenté de la façon suivante:</p>
+
+        <div class="jumbotron">
+            const fastify = require('fastify')()
+
+            fastify.register(require('fastify-mongodb'), {
+            forceClose: true,
+            // URL de votre DB en local ou sur MongoDB Atlas
+            url: 'mongodb://mongo/mydb'
+            })
+
+            fastify.get('/user/:id', function (req, reply) {
+            // Or this.mongo.client.db('mydb')
+            const db = this.mongo.db
+            db.collection('users', onCollection)
+
+            function onCollection (err, col) {
+            if (err) return reply.send(err)
+
+            col.findOne({ id: req.params.id }, (err, user) => {
+            reply.send(user)
+            })
+            }
+            })
+
+            fastify.listen(3000, err => {
+            if (err) throw err
+            })
+        </div>
+
+        <p>La fonction register va créer l'objet mongo dans le contexte. La connexion à la base de données sera
+            accessible dans le module ainsi que dans tous les modules enfants en utilisant this.mongo.db.</p>
+
+        <p>Pour faire fonctionner le serveur avec une base de données SQL, le plugin fastify-postgres permet d'arriver
+            aux mêmes fins avec très peu de changements.</p>
+
+        <p>Pouvoir encapsuler son code dans différents plugins est un des deux principaux atouts que Fastify a par
+            rapport à Express. La capacité d'isoler du code du reste de la codebase permet de maintenir un code source
+            propre et limiter les effets de bords.</p>
+
+        <p>Comme on l'a vu, utiliser un plugin dans un contexte est aussi simple que de faire fastify.register. Pour
+            créer un plugin, il suffit de créer un module javascript et de l'exporter:</p>
+
+        <div class="jumbotron">
+            // notre-premier-plugin.js
+            async function firstPlugin (fastify,options) {
+            fastify.get('/plugin', async (request, reply) => {
+            return { hello: 'world' }
+            })
+            }
+        </div>
+
+        <p>Dans le serveur, il suffira de réimporter le fichier en faisant un require puis en utilisant la fonction
+            fastify.register.</p>
+
+        <h3>Utiliser TypeScript avec Fastify</h3>
+
+        <p>TypeScript est devenu un incontournable dans l'écosystème JavaScript. Bien que Fastify soit écrit en
+            JavaScript, l'équipe cœur de Fastify a mis un point d'honneur à rendre les "type definitions" disponibles
+            pour les développeurs souhaitant utiliser Fastify avec TypeScript.</p>
+
+        <p>Fastify repose déjà sur la librairie JSON Schema pour effectuer la validation des requêtes. Fastify invite
+            les développeurs ayant défini leurs schémas à capitaliser sur ces derniers afin de définir des Types
+            réutilisables plus tard dans votre code.</p>
+
+        <p>Grâce à la librairie json-schema-to-ts, vous pouvez ajouter un script à votre fichier package.json afin de
+            compiler les schémas en types et les réutiliser dans votre code.</p>
+
+        <h4>Écrire des tests sur son serveur Fastify</h4>
+
+        <p>Vous savez déjà à quel point les tests automatisés sont la colonne vertébrale de toute application. Sans
+            tests, votre code n'est qu'un château de cartes qui menace de s'effondrer à chaque fois qu'on y touche.</p>
+
+        <p>Comme pour tous les autres frameworks node, Fastify peut être testé avec Jest, Mocha-Chai ou n'importe quelle
+            autre librairie de votre choix. La rédaction de tests unitaire ne va rien avoir de spécifique sur Fastify
+            par rapport à Express.</p>
+
+        <p>Là où Fastify devient intéressant est lorsqu'il faut coder des tests fonctionnels. La fonction inject permet
+            de faire une fausse requête HTTP avec les paramètres de son choix. Plus besoin d'utiliser nock ou Supertest.
+        </p>
+
+        <h3>Devrais-je envisager Fastify pour mon prochain projet ?</h3>
+
+        <p>Bien que Fastify soit très bien maintenu et que la communauté soit très active, il faut d'abord t'interroger
+            sur le but de ce projet. S'il s'agit de monter en compétence en JavaScript ou TypeScript dans un contexte
+            backend, c'est très intéressant d'utiliser Fastify pour découvrir une nouvelle approche.</p>
+
+        <p>S'il s'agit de créer une véritable application fonctionnelle avec des utilisateurs, et que tu n'as pas
+            spécialement de préférence ou d'expérience à part avec Express, je te conseille de te pencher sur les
+            frameworks plus haut niveau tels qu'Adonis ou NestJS.</p>
+
+        <p>Si tu souhaites développer tes compétences en vue de devenir développeur et décrocher ton premier CDI, je te
+            conseille plutôt de persérvérer sur ExpressJS qui reste le framework le plus utilisé dans l'écosystème, et
+            de loin.</p>
+
+        <p>Enfin, si tu es développeur backend plus aguerri, que tu souhaites rester sur un framework bas niveau parce
+            que tu aimes contrôler les librairies que tu veux utiliser dans ton projet et que tu es lassé d'express,
+            Fastify est une bonne option pour ton projet.</p>
+    </div>
+</body>
+
+</html>

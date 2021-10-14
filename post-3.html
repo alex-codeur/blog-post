@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>4 idées de projets perso pour un développeur débutant</h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>Projets perso #1: Construire un Blog statique</li>
+            <li>Features additionnelles</li>
+            <li>Projets perso #2: Construire un site d'actualités</li>
+            <li>Projets perso #3: Le Dealabs des cours en ligne</li>
+            <li>Projets perso #4: Recréez lodash</li>
+            <li>Choisis un seul projet et mène-le au bout</li>
+        </ul>
+
+        <p>Inutile d'expliquer en quoi avoir des projets perso est essentiel quand on est développeur débutant.
+            Seulement de nombreux développeurs parlent de projets perso, qu'ils ont fait ou sur lesquels ils ont
+            contribué pendant leurs formations mais peu sont ceux qui ont quelque chose de tangible à montrer.</p>
+
+        <p>Sans plus attendre, voici 4 idées de projets perso à réaliser qui ne vous feront pas gagner un centime mais
+            qui vous créeront peut-être une opportunité d'emploi !</p>
+
+        <h3>Projets perso #1: Construire un Blog statique</h3>
+
+        <p>Même si ce projet ne semble pas être le plus fun, c'est un des projets perso les plus complets.</p>
+
+        <p>Le but ici n'est pas de développer un blog sur lequel vous allez vraiment publier des articles. Si tel est
+            votre objectif, écrivez sur Medium ou créez un site Wordpress vous irez plus vite à l'essentiel qui est la
+            publication.</p>
+
+        <p>Dans notre cas, le but est de s'entraîner à mettre en place un site, via un générateur de site statique comme
+            Next JS, Gatsby ou Nuxt, et de le déployer sur un hébergeur. Votre blog sera vraiment en ligne et vous aurez
+            la possibilité de partager le frontend et l'accès à votre CMS Contentful auprès des recruteurs.</p>
+
+        <p>Ce qui est intéressant dans ce projet est que vous apprendrez à manipuler une API avec contrôle d'accès, à
+            générer un site statique via le framework que vous aurez choisi et à déployer votre application via votre
+            terminal.</p>
+
+        <h4>Prérequis</h4>
+
+        <p>Pour pouvoir faire ce projet perso, il faut savoir manipuler React ou Vue et de découper son code en
+            composants. Il faut également savoir faire un appel à une API.</p>
+
+        <h4>Stack suggérée:</h4>
+
+        <ul>
+            <li>Gatsby ou Next.JS si vous faites du React - Nuxt si vous faites du Vue</li>
+            <li>TailwindCSS ou tout autre libraire pour vous aider avec le CSS</li>
+            <li>Contentful API pour le CMS</li>
+            <li>Vercel ou Netlify pour le déploiement</li>
+        </ul>
+
+        <h4>Features MVP</h4>
+        <ul>
+            <li>Afficher une liste d'articles comprenant chacun un titre, un body et un ou plusieurs tags</li>
+            <li>Afficher l'intégralité d'un seul article (son titre, son body et ses tags) sur une page à part entière
+            </li>
+            <li>Avoir un affichage responsive sur la largeur de la page sans AUCUN autre style CSS</li>
+        </ul>
+
+        <p>Remplissez le contenu de votre blog avec 10 articles. Utilisez un générateur de texte Lorem Ipsum pour
+            générer des titres et articles.</p>
+
+        <h4>Features V1</h4>
+
+        <ul>
+            <li>Créer une page auteur vous décrivant. Le contenu doit comporter une photo de vous ainsi que du texte. Le
+                contenu doit être posté via Contentful</li>
+            <li>Ajouter une image de couverture pour chaque article et affichez-la dans la liste de tous les articles
+                ainsi que pour chaque page article.</li>
+            <li>Mettez du style à votre blog en utilisant les composants de Tailwind (ou d'une autre librairie CSS)</li>
+            <li>Proposer une page par tag qui regroupe l'ensemble des articles contenant ce tag</li>
+        </ul>
+
+        <h4>Features additionnelles</h4>
+
+        <ul>
+            <li>Ajouter un menu Horizontal ou Vertical façon "hamburger menu" sur les petits écrans</li>
+            <li>Tests automatisés avec Jest</li>
+        </ul>
+
+        <p>Ici le challenge n'est pas dans de la tech innovante. Le but est de prouver que vous savez manipuler React ou
+            Vue, créer des composants réutilisables, savoir organiser vos appels API.</p>
+
+        <h3>Projets perso #2: Construire un site d'actualités</h3>
+
+        <p>Qui dit site d'actualités dit récupérer de la donnée souvent et mettre à jour votre frontend. Dans ces cas-là
+            l'utilisation d'un Static Site Generator n'est, a priori, peut-être pas la meilleure idée mais ce n'est pas
+            forcément incohérent non plus.</p>
+
+        <p>Plusieurs solutions s'offrent à vous pour récupérer des news. Vous avez des API fournissant l'actualité, que
+            vous pouvez régulièrement interroger et vous pouvez aller scraper les sites d'actualités que nous
+            connaissons pour récupérer les titres.</p>
+
+        <h4>Prérequis</h4>
+
+        <p>Pour réaliser ce projet, pas plus de prérequis que le projet précédent. De bonnes connaissances JavaScript
+            ainsi qu'en React ou Vue devraient vous permettre de réaliser ce projet.</p>
+
+        <h4>Stack suggérée:</h4>
+
+        <p>Que vous utilisiez une API ou que vous décidiez de scrapper vos données, vous aurez besoin d'un peu de code
+            backend, ne serait-ce que pour "masquer" votre clé API.</p>
+
+        <ul>
+            <li>Next.JS, Nuxt si vous choisissez le Server Side Rendering ou une API Express.js pour le backend avec Vue
+                ou React pour le frontend</li>
+            <li>TailwindCSS ou autre pour le CSS</li>
+            <li>Puppeteer si vous souhaitez scraper</li>
+        </ul>
+
+        <h4>Features MVP</h4>
+
+        <ul>
+            <li>Récupérer les news depuis une API</li>
+            <li>Afficher les titres, l'auteur et la description</li>
+            <li>Travailler une interface responsive en utilisant uniquement les composant Tailwind (ou autre librairie
+                CSS)</li>
+        </ul>
+
+        <h4>Features V1</h4>
+
+        <ul>
+            <li>Proposer un filtre sur la source de la news</li>
+            <li>Classer les news par ordre décroissant</li>
+        </ul>
+
+        <h4>Features additionnelles</h4>
+
+        <ul>
+            <li>Scrapez un site populaire de news et ajoutez-les au flux</li>
+            <li>Allez régulièrement récupérer les news de vos différentes sources pour récupérer les actualités fraîches
+            </li>
+            liLes actualités fraîches s'ajoutent sans avoir à actualiser la page (regardez côté socket.io pour vous
+            aider)
+        </ul>
+
+        <h3>Projets perso #3: Le Dealabs des cours en ligne</h3>
+
+        <p>Si tu ne connais pas Dealabs, tu perds de l'argent ! C'est un site communautaire qui permet de référencer les
+            bonnes affaires. Chacun est libre de poster une bonne affaire qu'il aurait repérée et les utilisateurs vont
+            venir voter + ou - pour chaque deal.</p>
+
+        <p>Ton challenge est de recréer Dealabs mais en récupérant les cours en ligne de Udemy et Coursera. Pour cet
+            exercice, pas d'autre choix que de scraper la donnée.</p>
+
+        <h4>Stack suggérée:</h4>
+
+        <p>Ce projet perso peut être mené à bien avec les mêmes stacks que le précédent.</p>
+
+        <h4>Features</h4>
+
+        <ul>
+            <li>Lister les deals avec Nom, prix, votes, auteur</li>
+            <li>Pouvoir ajouter des deals</li>
+            <li>Pouvoir voter + ou - sur chaque deal</li>
+        </ul>
+
+        <h3>Projets perso #4: Recréez lodash</h3>
+
+        <p>Ce projet perso est un pur challenge d'algorithmie qui va challenger vos connaissances en JavaScript. Bien
+            qu'il n'ait pas d'aspect frontend à mettre en avant, ce projet perso va vous permettre de progresser et de
+            montrer à d'éventuels recruteurs votre maîtrise de JavaScript.</p>
+
+        <p>Pour ce projet perso, seul votre connaissance de JavaScript (ES6 et plus moderne) est nécessaire.</p>
+
+        <p>Libre à vous de choisir les fonctions que vous souhaitez reconstruire. Rendez-vous sur la documentation de
+            lodash et commencez à coder.</p>
+
+        <p>Vous pouvez regrouper l'ensemble de vos fonctions dans un seul fichier JavaScript.</p>
+
+        <h3>Choisis un seul projet et mène-le au bout</h3>
+
+        <p>La difficulté du projet perso n'est pas de le démarrer, mais plutot de le terminer. Dans ce cas, votre projet
+            perso a uniquement pour vocation de prouver vos compétences auprès d'un futur employeur. Alors ne vous
+            formalisez pas avec le design, si ça n'est pas aligné, les couleurs ne sont pas terribles, c'est que c'est
+            bien. L'important est d'avancer dans les fonctionnalités pour proposer un projet le plus complet possible.
+        </p>
+
+        <p>N'essaye pas de faire plusieurs projets en même temps. Choisissez en un et menez-le au bout.</p>
+    </div>
+</body>
+
+</html>

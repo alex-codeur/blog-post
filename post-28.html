@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Utiliser Postman pour concevoir une API
+        </h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>A quoi sert Postman</li>
+            <li>Faire des requêtes POST, PUT, PATCH et DELETE</li>
+            <li>Effectuer des tests automatisés</li>
+            <li>Débuter avec Postman</li>
+            <li>Installer Postman</li>
+            <li>Executer ses premières requêtes</li>
+            <li>Aller plus loin avec Postman:</li>
+        </ul>
+
+        <p>Lorsque vous débutez dans le développement backend, particulièrement si vous travaillez sur une API, l'outil
+            essentiel pour vous aider dans votre développement s'appelle Postman.</p>
+
+        <h3>A quoi sert Postman</h3>
+
+        <p>Disponible sur Linux, MacOS et PC, Postman sert à effectuer des requêtes HTTP que vous pourriez difficilement
+            faire via votre navigateur ou via des requêtes curL. L'avantage est de pouvoir avoir une interface graphique
+            pour manipuler votre API.</p>
+
+        <h3>Faire des requêtes POST, PUT, PATCH et DELETE</h3>
+
+        <p>Lorsque vous développez un serveur et ses différents comportements, vous allez avoir besoin de tester ses
+            fonctionnalités assez tôt dans le développement. Pour ne pas avoir à dépendre du développement du frontend
+            avant de pouvoir tester les comportements de votre serveur, Postman vous permet de faire les requêtes
+            directement via son interface.</p>
+
+        <p>Là où un navigateur simple vous permet de faire des requêtes GET directement dans la barre d'URL, Postman
+            permet d'avoir une interface graphique pour manipuler les différents query parameters, HTTP methods, request
+            headers et request body afin de tester votre serveur avant même d'avoir développé le client.</p>
+
+        <p>Au fur et à mesure que votre API se complexifie, vous allez avoir des cas d'usage qui nécessitent plusieurs
+            appels.</p>
+
+        <p>Grâce à Postman et l'utilisation de ses collections, vous pourrez lancer vos appels de manière séquentielle
+            et utiliser la réponse des appels précédents dans les appels suivants, le tout sans avoir à copier/coller
+            les données.</p>
+
+        <h3>Effectuer des tests automatisés</h3>
+
+        <p>Non seulement Postman permet d'effectuer des requêtes séquentielles, mais il permet également de les évaluer.
+            Grâce à sa librairie de test et sa syntaxe JavaScript, vous pourrez évaluer le résultat d'une requête pour
+            vous assurer de sa réponse. Par exemple dans une requête PUT, vous pourrez vérifier que à une étape donnée
+            de la séquence, le statut de la réponse est bien 200 et que le body contient bien l'élément modifié.</p>
+
+        <p>Il est également compatible avec la librairie Newman qui permet de lancer cette suite de test directement en
+            ligne de commande et de l'intégrer dans un pipeline d'intégration continu DevOps.</p>
+
+        <h3>Débuter avec Postman</h3>
+
+        <h4>Installer Postman</h4>
+
+        <p>Quel que soit votre système d'exploitation, rendez-vous sur le site de postman pour télécharger le fichier
+            d'installation.</p>
+
+        <p>Si vous aviez déjà installé l'extension sur votre navigateur, prenez le temps de la supprimer. Ce client a
+            été déprécié par l'équipe core pour se concentrer sur son client natif.</p>
+
+        <h3>Executer ses premières requêtes</h3>
+
+        <p>Une fois le client installé, assurez-vous d'avoir lancé votre serveur, en local ou un serveur en ligne puis
+            saisissez l'endpoint que vous voulez tester dans l'URL.</p>
+
+        <p>Vous pourrez choisir la méthode HTTP, définir les headers et le body.</p>
+    </div>
+</body>
+
+</html>

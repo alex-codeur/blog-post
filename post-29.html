@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Jest: tout savoir du framework de test JavaScript
+        </h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>Pourquoi Jest ?</li>
+            <li>L’ivresse de la vitesse</li>
+            <li>“L’homme” à tout faire</li>
+            <li>Installer Jest sur un projet Nodejs</li>
+            <li>Install avec NPM</li>
+            <li>Lancer Jest</li>
+            <li>Assertions dans Jest</li>
+            <li>Les assertions Jest les plus communes</li>
+            <li>Le cas des spy, stubs et mocks</li>
+            <li>Comment bien rédiger ses tests nodejs</li>
+        </ul>
+
+        <p>Créée et maintenu par Facebook en 2014, Jest, rendu open-source, est une librairie de test JavaScript ayant
+            énormément gagné en popularité depuis sa mise en libre circulation. Conçu pour fonctionner aussi bien sur du
+            JavaScript côté navigateur (frontend) que côté serveur (backend), Jest a su convaincre par sa rapidité
+            d’exécution des tests, son API complète et sa facilité d’installation. Sa documentation complète et bien
+            maintenue en fait la librairie la plus populaire pour tous les différents tests js.</p>
+
+        <p>Jest est sans conteste l'un des outils nodejs les plus incontournables pour un développeur Javascript.</p>
+
+        <h3>Pourquoi Jest ?</h3>
+
+        <h4>L’ivresse de la vitesse</h4>
+
+        <p>En 2017, Airbnb a migré tous ses tests de Mocha vers Jest pour les gains de performances en termes de temps
+            d’exécution. D’après un article Medium signé Gary Borton, ingénieur chez Airbnb, ce changement a réduit le
+            temps d’exécution de leur suite de tests de plus de 12 minutes à 4 minutes 30.</p>
+    </div>
+
+    <p>Un des principes fondamentaux des tests est qu’ils doivent être rapides. En effet, la valeur des tests réside
+        dans le fait que les développeurs vont se baser dessus à chaque développement pour pouvoir construire et
+        refactorer leur code sans avoir peur de causer une régression. Ils doivent donc pouvoir les lancer aussi souvent
+        qu’il le faut sans avoir l’impression que le temps d'exécution des suites de tests ralentit leur travail.</p>
+
+    <p>Pour pouvoir atteindre ces performances en termes de temps de traitement, Jest lance plusieurs suites de tests en
+        parallèle dans un pool de child_process nodejs. Cette exécution en parallèle va pouvoir produire sa pleine
+        puissance lorsqu’elle est exécutée sur une machine ayant suffisamment de ressources CPU et RAM pour lancer
+        efficacement ces tests simultanément. Pour que vos tests fonctionnent bien, il est d’autant plus important avec
+        Jest que ces derniers soient isolés les uns des autres. Il s’agit là aussi d’un fondamental d’un test bien
+        conçu.</p>
+
+    <p>En effet, si un test influe sur un autre test, il se peut que vous ne vous en rendiez pas compte si les tests
+        sont lancés dans l’ordre. Sauf qu’avec Jest ils seront lancés en simultané et si l’ordre est inversé, votre test
+        échouera et ça ne sera pas dû à une erreur dans le code.</p>
+
+    <h4>“L’homme” à tout faire</h4>
+
+    <p>Contrairement à Mocha où il faut le plus souvent ajouter toute une suite de librairies pour avoir l’ensemble des
+        outils nécessaires à une rédaction de tests, Jest est fourni “toutes options”.Là où en utilisant Mocha il aurait
+        fallu ajouter Sinon pour réaliser les spies, stubs et mock, puis ajouter Istanbul pour avoir le code coverage,
+        Jest est livré avec ces fonctionnalités.</p>
+
+    <h3>Installer Jest sur un projet Nodejs</h3>
+
+    <p>Jest brille aussi par sa simplicité d’installation, de configuration et d’utilisation. En une commande NPM ou
+        Yarn, vous êtes prêts à écrire votre premier test JavaScript.</p>
+
+    <h4>Install avec NPM
+    </h4>
+
+    <p>Pour installer Jest, il suffit d’entrer la commande suivante dans votre terminal, au niveau de votre répertoire
+        de travail:</p>
+
+    <div class="jumbotron">
+        npm install jest --save-dev
+    </div>
+
+    <p>ou son raccourci:</p>
+
+    <div class="jumbotron">
+        npm i -D jest
+    </div>
+
+    <p>L’option save-dev ou -D ordonne à npm de n’installer ce package que si l’environnement, défini par la variable
+        d’environnement NODE_ENV, n'est pas celui de production. En effet, inutile de surcharger son serveur de
+        production de dépendances de tests puisque vous n’aurez pas vocation à faire tourner ceux-ci en production. Vous
+        lancerez les tests en local ou sur votre pipeline d’intégration continue.</p>
+
+    <h4>Lancer Jest</h4>
+
+    <p>Une fois Jest installé comme dépendance sur votre répertoire de travail, vous pouvez lancer les tests en tapant
+        la commande jest sur votre terminal.</p>
+
+    <p>Avec cette commande, Jest va chercher dans votre répertoire de travail, à l’exception du répertoire node_modules,
+        les fichiers présents dans un répertoire __tests__ ou ayant un nom de fichier se terminant par .spec.js ou
+        .test.js (ou .ts si vous faites du Typescript).</p>
+
+    <p>Bien évidemment, n’ayant écrit encore aucun test, Jest ne peut pas fonctionner. Allons maintenant écrire notre
+        premier test. J’ai créé la fonction très triviale ci-dessous que nous allons tester:</p>
+
+    <div class="jumbotron">
+        const theTruth = () => true
+
+        module.exports = { theTruth }
+    </div>
+
+    <p>Nous voulons tester que lorsqu’on appelle la fonction theTruth, celle-ci nous retourne toujours true. Pour faire
+        ça, nous allons créer un fichier nommé theTruth.spec.js dans lequel je vais écrire le squelette d’un test.</p>
+
+    <div class="jumbotron">
+        describe('ma première suite de tests', () => {
+        test('mon premier test', () => {
+        expect(false).toBe(true)
+        })
+        })
+    </div>
+
+    <p>Ce test ne passera jamais car je lui demande de s’attendre à ce que false soit true Mais je commence par un
+        exemple pour m’assurer que Jest fonctionne bien et vous expliquer la structure d’une suite de tests sur Jest.
+    </p>
+
+    <p>La fonction describe de Jest permet d’englober une série de tests. C’est ce qu'on appelle une suite de tests.
+        Vous pouvez avoir autant de suites que vous voulez, dans un même fichier ou dans plusieurs fichiers. Elle sert
+        de chapitre et vous permet de vous y retrouver quand vous lirez le rapport des tests une fois que vous aurez
+        lancé Jest.
+        La fonction test, que vous pouvez aussi utiliser via son alias it, va englober le test en lui-même. C’est là que
+        vous allez mettre en place les variables nécessaires puis donner le résultat attendu. Dans le expect doit se
+        trouver la variable, et dans le .toBe le résultat attendu.</p>
+
+    <p>En changeant le test pour mettre expect(false).toBe(false), cela va nous donner le résultat suivant :</p>
+
+    <p>Nous savons donc que Jest est bien fonctionnel. Place au vrai test maintenant. Il faut importer la fonction que
+        nous souhaitons tester dans notre fichier de test, la placer dans une variable à l'intérieur de notre test, et
+        modifier la fonction expect pour qu’elle évalue cette variable.</p>
+
+    <div class="jumbotron">
+        const {theTruth} = require('./index')
+
+        describe('ma première suite de tests', () => {
+        test('mon premier test', () => {
+        const isTrue = theTruth()
+        expect(isTrue).toBe(true)
+        })
+        })
+    </div>
+
+    <p>Le fait d’assigner le résultat de ma fonction dans une variable me permet d’avoir un test plus lisible. Si
+        maintenant je lance Jest :</p>
+
+    <p>J’ai mon code qui est fonctionnel et mon test unitaire qui a réussi.</p>
+
+    <p>Grâce à Jest vous pouvez également évaluer votre couverture de code en passant l’option -- coverage:</p>
+
+    <p>Dans ce cas très simple, Jest me confirme qu’il est bien passé par 100% des cas de mon code. Si vous aviez
+        plusieurs “branches”, notamment avec des conditions if/else, il faudrait écrire un test pour chaque cas d’if
+        afin d’avoir une couverture de code complète.</p>
+
+    <h3>Assertions dans Jest</h3>
+
+    <h4>Les assertions Jest les plus communes</h4>
+
+    <p>Pour vérifier que la fonction que vous êtes en train de tester retourne bien ce que vous souhaitez, il faut
+        utiliser une des assertions d’égalité.</p>
+
+    <p>L’assertion .toBe est la plus large. Vous pouvez vérifier que la variable attendue soit une instance de Number ou
+        qu’elle soit true directement. Mais il existe de nombreuses assertions plus spécifiques comme .toBeTruthy,
+        .toBeInstanceOf, .toBeLessThanOrEqual qui vous permettent d’avoir des tests plus explicites.</p>
+
+    <p>Vous avez également des assertions liées aux appels de vos fonctions, que vous devrez utiliser avec un Mock. Jest
+        nomme les stubs et les mocks de la même façon, bien qu’il y ait une nuance. Il s’agit de fausses fonctions, qui
+        viennent remplacer le comportement d’une vraie fonction présente dans votre code et qui permettent de simuler un
+        comportement. Ces mocks sont essentiels dans la conception des tests unitaires.</p>
+
+    <p>Dans le cas des mocks, vous pourrez appeler des assertions telles que .hasBeenCalledWith ou .hasBeenCalledTimes
+        pour vous assurer qu’au long de l’exécution de votre code, vous avez bien utilisé votre fonction le bon nombre
+        de fois avec les bons paramètres.</p>
+
+    <h4>Le cas des spy, stubs et mocks</h4>
+
+    <p>Jest vous propose la possibilité de remplacer vos fonctions par des “jest functions”. Ces dernières se
+        substituent aux véritables fonctions de votre code et retourneront ce que vous voudrez.</p>
+
+    <p>Prenons l’exemple d’une fonction getCharacter, qui elle-même appelle une autre fonction getBulbosaur. Cette
+        dernière a pour but d’aller chercher les propriétés de ce Pokémon sur une API externe.</p>
+
+    <p>Pour que nos tests soient bien écrits, il faut abstraire l’appel à l’API. Dans le cas d’un test unitaire, on va
+        créer un stub (un mock dans le cas de Jest) qui va me retourner un objet contenant le Pokémon et ses propriétés.
+    </p>
+
+    <p>Dans un premier temps je crée un objet getElements qui englobe chacune des deux fonctions. Ensuite, je change
+        l’appel de getBulbosaur() dans getCharacter pour qu’elle fasse référence à l’objet getElements plutôt que
+        directement. Cette modification n’apporte aucune conséquence à votre code mais est essentielle pour pouvoir
+        mocker la fonction getBulbosaur().</p>
+
+    <p>Je modifie ensuite mon test pour inclure une “Jest function” à la place de la véritable fonction getBulbosaur.
+        Bien que je n’invoque jamais cette fonction directement dans mon test, elle est invoquée à l’intérieur de ma
+        fonction getCharacter.</p>
+
+    <p>Dans ce test, je cherche à m’assurer qu’en appelant la fonction getCharacter, je passe bien par la fonction
+        getBulbosaur qui appellera l’API. J’évalue donc que la fonction getBulbosaur a bien été appelée. Inutile
+        cependant de vérifier que le retour est bien “Bulbosaur” parce que c’est défini “en dur” dans le
+        mockReturnValue.</p>
+
+    <h3>Comment bien rédiger ses tests nodejs</h3>
+
+    <p>Savoir installer Jest et écrire un test est la fondation à l’édifice d’un meilleur code. Cette compétence
+        essentielle va néanmoins demander de la pratique afin de savoir rédiger correctement des tests unitaires et des
+        tests fonctionnels pour assurer la stabilité de votre codebase.</p>
+
+    <p>Savoir rédiger des tests sert aussi à pouvoir appliquer la méthodologie Test Driven Development (TDD). Grâce à
+        elle, vous pourrez coder plus efficacement et découvrir vos algorithmes étape par étape, en rédigeant d’abord
+        des tests unitaires représentant les résultats souhaités avant d’en écrire le code.</p>
+</body>
+
+</html>

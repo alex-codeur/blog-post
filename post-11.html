@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Node JS MongoDB: Connecter votre API à une base de donnée MongoDB</h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>Pourquoi utiliser MongoDB avec une API Node JS ?
+            </li>
+            <li>Les choix techniques avant de démarrer</li>
+            <li>MongoDB en local ou dans le cloud ?</li>
+            <li>Quelle librairie utiliser pour connecter MongoDB à notre API Node JS ?
+            </li>
+            <li>Connexion de MongoDB à notre API Node JS</li>
+            <li>Importer nos données dans MongoDB</li>
+            <li>Refactoriser le code de l'API Node JS MongoDB</li>
+            <li>Récupérer les données de la base MongoDB</li>
+            <li>Les nuances de l'update</li>
+            <li>À vous de jouer !</li>
+            <li>Besoin d'aide pour avancer ?</li>
+            <li>Retrouvez le code source de l'API sur Github</li>
+            <li>La suite de l'API NodeJS MongoDB</li>
+        </ul>
+
+        <p>Dans le poste précédent, nous avons vu comment créer une Node JS API en simulant des données depuis des
+            fichiers JSON. Or dans la vraie vie, une API va être connectée à une (voir plusieurs) base de données afin
+            de pouvoir faire son travail.</p>
+
+        <p>MongoDB est une technologie de base de données NoSQL qui est très populaire dans l'écosystème JavaScript.
+            Cette compétence est souvent recherchée chez les développeurs NodeJS. Dans ce post, nous allons reprendre
+            l'exemple de code précédent et connecter une base de données MongoDB à notre API NodeJS.</p>
+
+        <h3>Pourquoi utiliser MongoDB avec une API Node JS ?</h3>
+
+        <ol>
+            <li>
+                <h5>Une compétence très demandée</h5>
+                Cette demande est probablement née d'une tendance autour de la stack MEAN ou MERN. Toujours est-il
+                qu'aujourd'hui de nombreux projets en entreprise utilisent la stack Node JS et MongoDB.
+            </li>
+            <li>
+                <h5>Une solution pratique
+                </h5>
+                MongoDB fonctionne en stockant vos données sous forme d'objets BSON, très similaire à l'objet JSON avec
+                lesquels les développeurs JavaScript sont très familiers.
+            </li>
+        </ol>
+
+        <h3>Les choix techniques avant de démarrer</h3>
+
+        <h4>MongoDB en local ou dans le cloud ?</h4>
+
+        <p>Comme vous le savez peut-être, il existe deux façons d'avoir accès à une base de données MongoDB Soit en
+            l'installant localement sur votre PC ou votre mac, soit en utilisant un service cloud comme MongoDB Atlas.
+        </p>
+
+        <h3>Quelle librairie utiliser pour connecter MongoDB à notre API Node JS ?</h3>
+
+        <p>Pour pouvoir vous connecter à votre base de données MongoDB, là aussi, deux choix s'offrent à vous. Utiliser
+            la librairie officielle de MongoDB ou utiliser la librairie Mongoose.</p>
+
+        <p>MongoDB Client vous permet d'être au plus près de votre base de données et utiliser les fonctions natives de
+            MongoDB comme si vous étiez connectés sur un shell Mongo.</p>
+
+        <p>Mongoose est une surcouche qui vient apporter la possibilité d'imposer un Schema, soit une structure
+            obligatoire, à votre modèle de données. C'est également l'option la plus populaire.</p>
+
+        <p>Dans notre cas nous allons utiliser Mongodb Client et l'installer via le gestionnaire de paquets npm.</p>
+
+        <h3>Connexion de MongoDB à notre API Node JS</h3>
+
+        <p>La première étape est d'ajouter le package mongodb à notre projet. Je ne vous explique pas la commande (mais
+            n'oubliez pas de vous mettre dans le répertoire du projet dans votre terminal).</p>
+
+        <div class="jumbotron">
+            npm install mongodb
+        </div>
+
+        <p>Suivant la documentation de Mongodb Client, voici à quoi ressemblerait la connexion à notre base de données.
+        </p>
+
+        <div class="jumbotron">
+            <p>const express = require('express')</p>
+            <p>const app = express()</p>
+            <p>const parkings = require('./parkings.json')</p>
+            <p>/**
+                * Import MongoClient & connexion à la DB
+                */</p>
+            <p>const MongoClient = require('mongodb').MongoClient;</p>
+            <p>const url = 'mongodb://localhost:27017';</p>
+            <p>const dbName = 'parkingApi';</p>
+            <p>let db</p>
+            <p>MongoClient.connect(url, function(err, client) {</p>
+            <p>console.log("Connected successfully to server");</p>
+            <p>db = client.db(dbName);</p>
+            <p>});</p>
+            <p>app.use(express.json())</p>
+            <p>app.get('/parkings', (req,res) => {</p>
+            <p>res.status(200).json(parkings)</p>
+            <p>})</p>
+            <p>app.get('/parkings/:id', (req,res) => {</p>
+            <p>const id = parseInt(req.params.id)</p>
+            <p>const parking = parkings.find(parking => parking.id === id)</p>
+            <p>res.status(200).json(parking)</p>
+            <p>})</p>
+            <p>app.post('/parkings', (req,res) => {</p>
+            <p>parkings.push(req.body)</p>
+            <p>res.status(200).json(parkings)</p>
+            <p>})</p>
+            <p>app.put('/parkings/:id', (req,res) => {</p>
+            <p>const id = parseInt(req.params.id)</p>
+            <p>let parking = parkings.find(parking => parking.id === id)</p>
+
+            <p> parking.name =req.body.name,</p>
+            <p>parking.city =req.body.city,</p>
+            <p> parking.type =req.body.type,</p>
+            <p>res.status(200).json(parking)</p>
+            <p>app.delete('/parkings/:id', (req,res) => {</p>
+            <p>const id = parseInt(req.params.id)</p>
+            <p>let parking = parkings.find(parking => parking.id === id)</p>
+            <p>parkings.splice(parkings.indexOf(parking),1)</p>
+            <p>res.status(200).json(parkings)</p>
+            <p>})</p>
+            <p>app.listen(8080, () => {</p>
+            <p>console.log("Serveur à l'écoute")</p>
+            <p>})</p>
+        </div>
+
+        <p>Avant de relancer mon serveur, je vais me connecter au Shell Mongo et évaluer les connexions actives au
+            serveur MongoDB.</p>
+
+        <p>Je vois dans l'objet current que pour l'instant il n'y a qu'une seule connexion en cours. Je vais maintenant
+            lancer mon serveur Node et vérifier à nouveau le nombre de connexion.</p>
+
+        <p>À en croire mon terminal, la callback de ma fonction MongoClient.connect() a bien été appelé, ce qui me
+            laisse croire que la connexion à la base de données a bien fonctionné. Je vais vérifier à nouveau sur le
+            shell:</p>
+
+        <p>On voit que cette fois il y a 2 connexions courantes, celle du Shell et celle de l'API. On peut être confiant
+            sur le fait que notre API est bien connectée à la base de données.</p>
+
+        <div class="jumbotron">
+            Attention toutefois au message de la callback "Connected successfully to server" car il peut être trompeur.
+            Si je cherche à provoquer une erreur de connexion en modifiant l'URL de connexion à mongodb://localhost:21
+            au lieu de mongodb://localhost:27017, mon terminal va clairement m'alerter comme quoi il y a une erreur,
+            mais il va passer dans la callback et exécuter l'instruction console.log("Connected successfully to
+            server"); alors que la connexion n'est pas établie.
+        </div>
+
+        <h3>Importer nos données dans MongoDB</h3>
+
+        <p>Jusque-là, nous utilisions des données dans un fichier JSON plutôt qu'une base de données. Pour continuer
+            notre cas pratique, nous allons maintenant importer ces données dans MongoDB.</p>
+
+        <p>Pour vous simplifier la tâche, vous pouvez utiliser un client graphique MongoDB tel que Mongo Compass ou si
+            vous êtes à l'aise avec les requêtes mongo, utiliser le shell directement. C'est l'option que nous allons
+            choisir ici</p>
+
+        <div class="jumbotron">
+            mongoimport --jsonArray --db parkingApi --collection parkings --file parkings.json
+        </div>
+
+        <p>Vérifions maintenant que les données sont bien dans notre base de données via le shell:</p>
+
+        <h3>Refactoriser le code de l'API Node JS MongoDB</h3>
+
+        <p>Nous avons la certitude que notre API se connecte bien à notre base de données et que celle-ci contient les
+            éléments pour que notre API continue de fonctionner. Nous allons maintenant réécrire le code de notre API
+            Node JS MongoDB pour utiliser cette nouvelle base de données.</p>
+
+        <h4>Récupérer les données de la base MongoDB</h4>
+
+        <p>Comme on l'a vu dans notre requête dans le shell, la requête suivante va nous permettre d'afficher la liste
+            de tous nos parkings:</p>
+
+        <div class="jumbotron">db.parkings.find()</div>
+
+        <p>Je vais donc adapter le code correspondant à ma route GET / afin d'exécuter cette requête:</p>
+
+        <div class="jumbotron">
+            <p>app.get('/parkings', (req,res) => {</p>
+            <p>db.collection('parkings').find({}).toArray(function(err, docs) {</p>
+            <p>if (err) {</p>
+            <p>console.log(err)</p>
+            <p>throw err</p>
+            <p>}</p>
+            <p>res.status(200).json(docs)</p>
+            <p>})</p>
+        </div>
+
+        <p>Ce code vient de la documentation de Mongodb. Il reprend l'objet db qui correspond à la connexion à la base
+            de données Mongo et nous permet d'utiliser ses requêtes. Dans notre cas, nous avons utilisé la requête find
+            sans passer de filtres de telle sorte à ce qu'il nous retourne tous les objets présents en base.</p>
+
+        <div class="jumbotron">
+            Le code sollicitant une opération en base de données est asynchrone
+            Dans la mesure où une requête interrogeant une base de données va prendre plus que quelques millisecondes,
+            l'event loop NodeJS va sous-traiter cette opération dans une queue à part. Lorsque la base de données aura
+            répondu à la requête, au prochain passage de la boucle d'évènement Node JS, exécutera la fonction en
+            callback, qui contient l'ordre de réponse.
+        </div>
+
+        <p>L'utilisation des callbacks n'est plus très appréciée dans l'écosystème JavaScript. Depuis l'arrivée de
+            l'ES6, les promises sont privilégiées. Modifions notre code afin qu'il soit plus "acceptable"</p>
+
+        <div class="jumbotron">
+            <p>app.get('/parkings', (req,res) => {</p>
+            <p>db.collection('parkings').find({}).toArray()</p>
+            <p>.then(docs => res.status(200).json(docs))</p>
+            <p>.catch(err => {</p>
+            <p>console.log(err)</p>
+            <p>throw err</p>
+            <p>})</p>
+            <p>})</p>
+        </div>
+
+        <p>Depuis l'ES8, une troisième syntaxe est proposée pour faire ses requêtes asynchrones. La syntaxe async/await
+            offre une syntaxe très lisible pour les requêtes asynchrones. Voici à quoi ça ressemble:</p>
+
+        <div class="jumbotron">
+            <p>app.get('/parkings', async (req,res) => {</p>
+            <p>try {</p>
+            <p>const docs = await db.collection('parkings').find({}).toArray()</p>
+            <p>res.status(200).json(docs)</p>
+            <p>} catch (err) {</p>
+            <p>console.log(err)</p>
+            <p>throw err</p>
+            <p>}</p>
+            <p>})</p>
+        </div>
+
+        <div class="jumbotron">La syntaxe async/await est simplement du sucre syntaxique autour de l'utilisation des
+            Promises. Les deux pratiques sont retrouvées en entreprise et il est important de savoir les manipuler.
+        </div>
+
+        <p>Récupérer un seul parking depuis notre API Node JS MongoDB</p>
+
+        <p>Nous avons pu récupérer l'ensemble des parkings, maintenant nous pouvons utiliser la même requête et la
+            modifier légèrement pour ne récupérer qu'un seul objet de la base de données.</p>
+
+        <div class="jumbotron">
+            <p>app.get('/parkings/:id', async (req,res) => {</p>
+            <p>const id = parseInt(req.params.id)</p>
+            <p>try {</p>
+            <p>const docs = await db.collection('parkings').find({id}).toArray()</p>
+            <p>res.status(200).json(docs)</p>
+            <p>} catch (err) {</p>
+            <p>console.log(err)</p>
+            <p>throw err</p>
+            <p>}</p>
+            <p>})</p>
+        </div>
+
+        <h4>Les nuances de l'update</h4>
+
+        <p>Dans l'exercice précédent, nous avons très brièvement abordé le sujet de la modification d'un objet dans
+            notre API. Nous utilisions la méthode PUT pour venir remplacer l'intégralité de l'objet à chaque fois.</p>
+
+        <p>Or il existe deux approches à la mise à jour d'un objet dans une API CRUD:</p>
+
+        <ul>
+            <li>La modification, où vous venez modifier uniquement un ou plusieurs champs de votre objet</li>
+            <li>Le remplacement; où vous écrasez l'intégralité des données de l'objet par les nouvelles données</li>
+        </ul>
+
+        <p>MongoDB reproduit ces 2 approches en vous offrant deux méthodes, updateOne et replaceOne, pour répondre à ces
+            besoins.</p>
+
+        <p>Parfois vous n'aurez pas l'intégralité des données de votre objet lorsque vous souhaiterez le mettre à jour.
+            Dans ce cas il faudra utiliser la méthode PATCH au lieu de PUT.</p>
+
+        <p>Ajoutez une route PATCH /parkings/:id à votre API</p>
+
+        <h3>À vous de jouer !</h3>
+
+        <p>À la différence du guide précédent, celui-ci va être volontairement moins exhaustif. Le but étant de vous
+            faire manipuler MongoDB et vous laisser avancer jusqu'à trouver comment réaliser vos premières opérations
+            MongoDB.</p>
+
+        <p>Si vous ne l'avez pas déjà lu, je vous invite à consulter la page décrivant les requêtes CRUD en mongodb dont
+            vous aurez besoin pour terminer ce cas pratique.</p>
+
+        <p>Pour terminer votre API NodeJS MongoDB, vous devez modifier le code correspondant aux routes POST /parkings,
+            PUT /parkings/:id et DELETE /parkings/:id pour qu'il interagisse avec votre base de données MongoDB.</p>
+
+        <p>Si vous voulez aller plus loin, vous pouvez importer le fichier reservations.json dans votre base de données,
+            dans une collection reservations et modifier le code correspondant aux requêtes de réservations pour avoir
+            une API NodeJS MongoDB complète.</p>
+
+        <p>Une fois que vous aurez terminé, vous pourrez effacer les fichiers parkings.json et reservations.json du
+            repository</p>
+
+        <div class="jumbotron">
+            🎁 BONUS
+            Si tu regardes bien, tu verras que le code de connexion à la base de données est aussi conçu avec une
+            callback. Essaye de le refactorer de telle sorte qu'il utilise une Promise au lieu d'une callback.
+        </div>
+
+        <h4>Besoin d'aide pour avancer ?</h4>
+
+        <h5>Je ne vois pas comment terminer l'exercice ?</h5>
+
+        <p>Les 3 fonctionnalités restantes sont l'ajout d'un nouveau parking, la modification d'un parking existant et
+            la suppression d'un parking.</p>
+
+        <p>Je te suggère de commencer par l'ajout d'un nouveau parking. Regarde dans la page des query mongo comment
+            ajouter un élément à la base de données. Inspire-toi du code présent dans les routes GET et modifie la
+            requête mongoDB pour qu'elle fasse ce que tu veux.</p>
+
+        <p>Le code pour effacer un parking est également très similaire à celui de l'ajout d'un parking. Trouve la bonne
+            méthode dans la doc de mongoDB et applique-la dans la bonne route.</p>
+
+        <p>Enfin, les deux méthodes de modifications (PUT et PATCH) sont un petit peu plus complexes. Là aussi tu
+            trouveras facilement des exemples sur la documentation.</p>
+
+        <h5>Pourquoi est-ce qu'on a "id" et "_id" pour chaque objet parking?</h5>
+
+        <p>Dans notre premier guide, nous avions besoin d'un id pour pouvoir identifier et manipuler chaque objet
+            parking indépendamment. C'est pourquoi je l'ai ajouté en dur dans notre objet JSON.</p>
+
+        <p>Lors de l'import de notre fichier JSON, MongoDB a créé par défaut _id, rendant le champ id redondant. Pour
+            continuer votre API Node JS MongoDB, trois options s'offrent à vous:</p>
+
+        <ul>
+            <li>Ignorer le champ _id et continuer à créer manuellement le champ id ,en tant que nombre qui s'incrémente
+                pour chaque objet. Vous pourriez créer une fonction qui viendrait automatiquement reprendre et
+                incrémenter l'id</li>
+            <li>Remplacer le champ id par le champ _id, cette solution est la plus simple mais vous allez vous retrouver
+                avec des URL peu lisibles comme /parkings/5f48a58c9f93aa6fe9c865cc</li>
+            <li>Créer un champ slug qui serait une chaîne de caractères unique reprenant le nom de votre parking, tout
+                en minuscule et sans espaces. Par exemple : "parking-pas-cher-roissy" ou "parking-vinci-lille-europe".
+                L'URL est bien plus lisible mais risque de devenir plus longue. Dans ce cas, il faudra prévoir la
+                création de ce slug à partir du champ nom dans la méthode appelée lors de la création d'un nouveau
+                parking.</li>
+        </ul>
+
+        <h3>Retrouvez le code source de l'API sur Github</h3>
+
+        <p>Tu pourras retrouver le code source de notre API Node JS MongoDB si tu souhaites comparer ton code au mien.
+        </p>
+
+        <p>Si tu as le repository sur ton poste, n'oublie pas de changer de branche pour aller sur la branche
+            part2/mongodb</p>
+
+        <h3>La suite de l'API NodeJS MongoDB</h3>
+
+        <p>Cette série de mise en pratique ne s'arrêtera pas là ! Au programme du prochain épisode on va revoir
+            l'architecture de notre API et mettre en place le pattern d'architecture N-tier !</p>
+    </div>
+</body>
+
+</html>

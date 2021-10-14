@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Comprendre l’aggregation mongo
+        </h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>Pipeline d'aggregation mongo
+            </li>
+            <li>Les opérateurs d'agrégation mongo</li>
+            <li>$match</li>
+            <li>$project</li>
+            <li>$group</li>
+            <li>$unwind</li>
+            <li>$lookup</li>
+            <li>$sort</li>
+            <li>$limit et $skip</li>
+            <li>Pour aller plus loin</li>
+        </ul>
+
+        <p>MongoDB est une base NoSQL qui a pris le parti de faire fi de la séparation des données en différentes tables
+            à réunir via des jointures. Dans mongoDB, les documents sont le plus souvent conçus pour héberger l’ensemble
+            des données qui concernent cet objet, quitte à ce qu’il y ait de la duplication. Pour retrouver les
+            fonctionnalités essentielles d’analyse de la donnée, MongoDB a créé le concept d’aggregation Mongo.</p>
+
+        <p><strong>L’aggregatio Mongo est une série d’opérations visant à prendre une collection de documents en entrée,
+                procésser les documents et rendre une vision analytique de cette collection.</strong></p>
+
+        <p>Les opérations d'aggregation mongo s'exécutent via la commande db.collection.aggregate(). Depuis la version
+            4.2 de mongo, vous pouvez également lancer des opérations d'aggregation mongo lors des commandes
+            findAndModify et update</p>
+
+        <h3>Pipeline d'aggregation mongo</h3>
+
+        <p>Pour performer des opérations d'agrégation mongo, il faut définir une série d'opérations à travers lesquelles
+            la collection va passer. L'output de chaque étape du pipeline sera l'input de l'opération suivante.</p>
+
+        <p>Les étapes du pipeline peuvent servir à exclure certains documents du pipeline ou à créer de nouveaux
+            documents à la sortie. C'est pourquoi le nombre de documents à la sortie du pipeline ne sera pas forcément
+            égal au nombre de documents à l'entrée.</p>
+
+        <p>Pour définir chaque étape du pipeline, on va passer les opérateurs dans la commande d'aggregation mongo :</p>
+
+        <div class="jumbotron">
+            db.collection.aggregate([operateurEtape1, operateurEtape2, operateurEtape3, ...])
+        </div>
+
+        <h3>
+            Les opérateurs d'agrégation mongo
+        </h3>
+
+        <h4>$match</h4>
+
+        <p>L'opérateur $match sert pour filtrer les documents d'une collection. Il est souvent le premier opérateur dans
+            un pipeline d'aggregation mongo. Même si parfois, il arrive de le trouver en seconde position derrière
+            l'opérateur $project, MongoDB sait identifier tous les champs présents dans le $match suivant et qui sont
+            inexistants avant l'étape $project. Il effectue ensuite sous le capot un $match avant le $project, afin de
+            limiter le nombre de documents à traiter.</p>
+
+        <p>Après l'étape du $match, il y a normalement moins de documents qu'avant cette étape.</p>
+
+        <h4>$project</h4>
+
+        <p>L'opérateur $project a pour but de remodeler chaque document dans la collection. Il prend en paramètre les
+            spécifications que vous voulez mettre en place pour ce nouveau format de document attendu en sortie.</p>
+
+        <p>Par exemple si vous avez une collection "appartements" contenant des objets comme ceci:</p>
+
+        <div class="jumbotron">
+            {
+            _id : 1,
+            type: "T2",
+            squareMeters: 47,
+            owner: {
+            last: "Martin",
+            first: "Laurie"
+
+            },
+            city: "Paris"
+            }
+        </div>
+
+        <p>Si vous appliquez l'aggregation mongo suivante:</p>
+
+        <div class="jumbotron">
+            db.appartements.aggregate([
+            { $project : { "type" : 1 , "squareMeters" : 1 }}
+            ])
+        </div>
+
+        <p>Vous obtiendrez l'objet suivant:</p>
+
+        <div class="jumbotron">
+            { "_id" : 1, type: "T2", squareMeters: 47, }
+        </div>
+
+        <p>À la suite d'une opération $project, vous aurez autant de documents à la sortie qu'il y en avait à l'entrée.
+        </p>
+
+        <h4>$group</h4>
+
+        <p>Comme son nom l'indique, l'opérateur d'aggregation mongo $group sert à regrouper les documents et faire des
+            opérations d'accumulation sur les documents.</p>
+
+        <p>Par exemple, nous avons les objets suivants dans notre collection "appartements" :</p>
+
+        <div class="jumbotron">
+            [
+            {
+            "_id" : 1,
+            type: "T2",
+            squareMeters: 47,
+            city: "Paris"
+            },
+            {
+            "_id" : 2,
+            type: "T3",
+            squareMeters: 86,
+            city: "Lille"
+            },
+            {
+            "_id" : 3,
+            type: "T3",
+            squareMeters: 84,
+            city: "Lille"
+            },
+            {
+            "_id" : 4,
+            type: "T2",
+            squareMeters: 59,
+            city: "Marseille"
+            },
+            {
+            "_id" : 5,
+            type: "T4",
+            squareMeters: 115,
+            city: "Paris"
+            },
+            {
+            "_id" : 6,
+            type: "T2",
+            squareMeters: 39,
+            city: "Paris"
+            }
+            ]
+        </div>
+
+        <p>Si vous appliquez l'aggregation mongo suivante :</p>
+
+        <div class="jumbotron">
+            db.appartements.aggregate([
+            { $group : {
+            _id : "$city",
+            avgSize : {$avg : $squareMeters },
+            count: { $count: $type}
+            }
+            }])
+        </div>
+
+        <p>La collection "appartements" vous affichera :</p>
+
+        <div class="jumbotron">
+            [
+            { "_id" : "Paris", avgSize: 67, count: 3 },
+            { "_id" : "Lille", avgSize: 85, count: 2 },
+            { "_id" : "Marseille", avgSize: 59, count: 1 },
+            ]
+        </div>
+
+        <p>L'opérateur $group vous retournera donc moins d'objets à la sortie qu'il n'en a reçu à l'entrée.</p>
+
+        <h4>$unwind</h4>
+
+        <p>L'opérateur $unwind est le seul opérateur qui va retourner plus de documents à la sortie qu'il n'en a pris à
+            l'entrée. $unwind sert à aplatir les objets contenant un tableau en les dédoublants.</p>
+
+        <p>Si vous aviez une collection "articles" contenant le document suivant :</p>
+
+        <div class="jumbotron">
+            [
+            {
+            _id : 1,
+            name: "article 1",
+            stock: [
+            {taille: 44, stock: 5},
+            {taille: 45, stock:4}
+            ]
+            }
+            ]
+        </div>
+
+        <p>L'opérateur $unwind va dédoubler le document et vous retourner:</p>
+
+        <div class="jumbotron">
+            [
+            { _id : 1, name: "article 1" stock: {taille: 44, stock: 5}},
+            { _id : 1, name: "article 1" stock: {taille: 45, stock: 4}},
+            ]
+        </div>
+
+        <h4>$lookup</h4>
+
+        <p>L'opérateur $lookup est l'équivalent d'un LEFT OUTER JOIN en SQL. Disponible depuis la version 32 de mongo,
+            c'est un véritable atout car jusque-là il n'était pas possible de faire ce type d'opérations.</p>
+
+        <h4>$sort</h4>
+
+        <p>Là aussi, son nom est suffisamment explicite. L'opérateur $sort a pour but de trier les documents en fonction
+            d'une ou plusieurs propriétés de l'objet. Il peut les trier dans l'ordre croissant ou décroissant. Pour
+            bénéficier des meilleures performances de MongoDB, il est fortement conseillé d'utiliser les index sort pour
+            faciliter les requêtes de tri.</p>
+
+        <p>$sort arrive en fin de pipeline et ressortira le même nombre d'objets qu'il a reçu à l'entrée.</p>
+
+        <h4>$limit et $skip</h4>
+
+        <p>$skip et $limit sont des frontières, permettant d'éliminer respectivement les N premiers et les N derniers
+            documents du pipeline.</p>
+    </div>
+</body>
+
+</html>

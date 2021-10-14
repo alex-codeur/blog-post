@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>MongoDB 5.0: les nouveautés expliquées</h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>MongoDB 5.0 intègre les Time Series en natif
+            </li>
+            <li>Mise à jour majeure du Mongo Shell</li>
+            <li>Ajout du Syntax Highlight</li>
+            <li>Live Resharding: Modification du Sharding sans interruption de service
+            </li>
+            <li>Un effort supplémentaire sur la sécurité et la confidentialité</li>
+            <li>Nouveau rythme de releases et une API versionnée</li>
+            <li>Mises à jour sur MongoDB Atlas</li>
+            <li>MongoDB Serverless: la nouveauté chez MongoDB Atlas</li>
+            <li>MongoDB Charts accepte MongoDB Atlas Data Lake</li>
+            <li>MongoDB Realm: le FlexibleSync pour le mobile et l'IoT</li>
+            <li>Atlas Search ajoute les synonymes et le scoring</li>
+        </ul>
+
+        <p>Considérée comme 5e base de données la plus populaire et et première base de données noSQL, MongoDB continue
+            à investir dans son produit.</p>
+
+        <p>Comme annoncé en 2020, MongoDB continue son cycle de déploiement d'une nouvelle version majeure chaque année.
+        </p>
+
+        <p>Découvrons ce que MongoDB 5.0 nous réserve:</p>
+
+        <h3>MongoDB 5.0 intègre les Time Series en natif</h3>
+
+        <p>Depuis 2015, les time séries Database (TSDB) sont le segment de base de données spécialisé connaissant une
+            des plus fortes croissances en termes d’utilisation.</p>
+
+        <p>Par nature, ces bases de données doivent être capables d’encaisser un fort volume d’écritures et de pouvoir
+            répondre à des requêtes d’agrégations rapidement.</p>
+
+        <p>Jusqu’ici, le marché des bases de données spécialisées dans les Time Series était dominé par influxDB et
+            Grafana. Elasticsearch a également apporté sa pièce à l’édifice avec la Stack ELK (ElasticSearch, Logstash
+            et Kibana) pour l’utilisation des Time Series pour des logs.</p>
+
+        <p>Avec MongoDB 5.0, il est désormais possible de créer un nouveau type de collection spécialisé pour les
+            séquences de temps dans une base de données MongoDB.</p>
+
+        <p>Conçues pour rester simple d’utilisation, répondre aux requêtes efficacement et optimiser le stockage des
+            données, les collections Time Series natives à MongoDB permettront aux utilisateurs de Mongo de stocker et
+            manipuler ce type de données directement dans leurs clusters, s’affranchissant du besoin d’une nouvelle base
+            de données dans l’infrastructure.</p>
+
+        <p>Les collections Time Series restent compatibles avec les fonctionnalités des documents classiques, tels que
+            l’imbrication des données, les index et les agrégations.</p>
+
+        <h3>Mise à jour majeure du Mongo Shell</h3>
+
+        <h4>Ajout du Syntax Highlight</h4>
+
+        <p>L'équipe de développeurs MongoDB a travaillé sur une nouvelle version du Mongo Shell. Les outils en CLI
+            (Command Line Interface) étant dans le quotidien des développeurs, proposer une expérience développeur (DX)
+            agréable était un indispensable pour la roadmap du shell Mongo.</p>
+
+        <p>Les commandes sont mises en forme en couleurs, les erreurs sont maintenant plus explicites et l'outil propose
+            même de l'auto.</p>
+
+        <p>Ce nouveau shell est enrichi de fonctionnalités de scripting plus avancées, permettant d'utiliser des
+            packages npm.</p>
+
+        <h3>Live Resharding: Modification du Sharding sans interruption de service</h3>
+
+        <p>Le Sharding est une technique de scaling horizontal permettant aux développeurs d'éclater leur base de
+            données et de répartir leurs contenus dans plusieurs partitions suivant un champ qui sera défini comme Shard
+            Key (ou clé de partition).
+        </p>
+
+        <p>Jusqu'à la version MongoDB 5.0, définir une Shard Key était une opération où la modification était délicate.
+            Les données étaient partitionnées suivant la shard key initiale et tout changement aurait nécessité de
+            dupliquer l'intégralité de la collection avec une nouvelle clé de partition ou de faire une migration à la
+            volée sur les documents en incluant une nouvelle shard key.</p>
+
+        <p>Grâce à MongoDB 5.0, les développeurs pourront modifier leur Shard Key sans avoir à attendre une lente
+            migration de données ni sans avoir à doubler leur espace de stockage et faire la bascule manuellement.</p>
+
+        <p>MongoDB 5.0 va cloner la collection existante et commencer à appliquer toutes les opérations d'update de la
+            collection actuelle vers la nouvelle collection shardée. Toutes les opérations d'écritures qui arriveront
+            auront lieu sur cette nouvelle collection, permettant à la base de données de fonctionner normalement.
+            Lorsque toute la collection aura été clonée et shardée suivant le nouveau shard key, la collection initiale
+            sera automatiquement détruite.</p>
+
+        <h3>Un effort supplémentaire sur la sécurité et la confidentialité</h3>
+
+        <p>Introduis en 2019, le cryptage FLE côté client utilisait les drivers MongoDB pour encrypter les données
+            sensibles avant même qu'ils quittent l'application en route pour la base de données.</p>
+
+        <p>Initialement conçu sur le système de gestion de clés de cryptage d'AWS - Amazon’s Key Management Service
+            (KMS) - MongoDB 5.0 rend disponible l'usage des produits équivalents chez GCP et Azure.</p>
+
+        <p>Cela rend vos données illisibles par n'importe quel gestionnaire de votre base de données MongoDB, incluant
+            les ingénieurs MongoDB si vous utilisez Atlas.</p>
+
+        <h3>Nouveau rythme de releases et une API versionnée</h3>
+
+        <p>MongoDB prend très aux sérieux la vélocité avec laquelle ils déploient de nouvelles versions. Dans leur
+            communiqué, ils ont annoncé que dorénavant, une nouvelle version majeure allait sortir chaque année et que
+            chaque trimestre une mise à jour intermédiaire apportera un lot de changements significatifs.</p>
+
+        <p>Pour permettre aux développeurs de suivre et mettre à jour leurs versions de base de données sans risquer de
+            causer des régressions, les développeurs de MongoDB ont introduit le versionning de l'API.</p>
+
+        <p>Les développeurs pourront configurer leurs drivers Mongo de tel sorte à ce qu'ils acceptent les requêtes
+            respectant une version déterminée de l'API mongo, tout en choisissant s'ils tolèrent des requêtes legacy:
+        </p>
+
+        <div class="jumbotron">
+            <p>client = MongoClient(</p>
+            <p>"mongodb://host/",</p>
+            <p>api={"version": "1", "strict": True})</p>
+        </div>
+
+        <p>En passant le paramètre strict à true les queries dépréciées donneront une erreur:</p>
+
+        <div class="jumbotron">
+            <p>{</p>
+            <p> "ok" : 0,</p>
+            <p>"errmsg" : "Provided apiStrict:true, but replSetGetStatus is not in API Version 1",
+                "code" : 323,</p>
+            <p>"code" : 323,</p>
+            <p>"codeName" : "APIStrictError"</p>
+            <p>}</p>
+        </div>
+
+        <h3>Mises à jour sur MongoDB Atlas</h3>
+
+        <p>Atlas est le service de Database as a Service (DBaaS) proposé par l'entreprise MongoDB. Celui-ci vous permet
+            d'avoir en quelques clics un cluster MongoDB managé et qui peut s'adapter suivant vos besoins.</p>
+
+        <h4>MongoDB Serverless: la nouveauté chez MongoDB Atlas</h4>
+
+        <p>La première nouveauté est le lancement de l'offre MongoDB en mode Serverless.</p>
+
+        <p>Jusqu'à récemment, un cluster MongoDB accepte un nombre limité de conexions simultanées. Dans une
+            architecture client-serveur classique, il n'y a aucun problème car il suffit d'une connexion TCP, ouverte en
+            permanence, pour chaque instance du serveur. Les opérations peuvent ensuite être traitées rapidement par le
+            serveur MongoDB.</p>
+
+        <p>Sauf qu'une architecture Serverless n'est plus un nombre prédéfini de serveurs qui traitent l'ensemble des
+            requêtes entrantes mais une panoplie d'instances éphémères qui doivent chacune créer une connexion et
+            réaliser l'opération avant de disparaître.</p>
+
+        <p>AWS était le premier fournisseur cloud à proposer des technologies de base de données adaptées à cette
+            architecture. DynamoDB était le produit NoSQL orienté document qui pouvait s'approcher le plus de MongoDB
+            mais en Serverless.</p>
+
+        <p>Plus récemment, Fauna a vu le jour, proposant une base de données document, orientée serverless.</p>
+
+        <p>Maintenant, c'est au tour de MongoDB de monter dans ce wagon et de proposer eux-mêmes un produit équivalent,
+            leur permettant de rester pertinents auprès des développeurs qui feraient le choix du Serverless.</p>
+
+        <h4>MongoDB Charts accepte MongoDB Atlas Data Lake</h4>
+
+        <p>En Juin 2020, MongoDB a mis en service leur service Atlas Data Lake.</p>
+
+        <p>Contrairement aux Data Warehouses tels que Snowflake ou Redshift qui nécessitent un traitement avant de
+            pouvoir insérer les données, Atlas Data Lake a été conçu pour apporter la flexibilité des documents dans la
+            modélisation des données que le Data Lake peut recevoir.</p>
+
+        <p>MongoDB Charts quant à lui est un outil de Data Visualization, permettant d'exploiter les données stockées
+            dans votre cluster afin de générer des graphiques.</p>
+
+        <p>Grâce à cette nouvelle mise à jour, MongoDB Charts peut désormais interpréter les données présentes dans le
+            Data Lake, notamment les fichiers bruts qui peuvent être stockés dans un bucket S3, et pas seulement dans la
+            base de données traditionnelle.</p>
+
+        <h4>MongoDB Realm: le FlexibleSync pour le mobile et l'IoT</h4>
+
+        <p>En 2019, MongoDB rachète la société Realm dans le but de donner aux développeurs un moyen, rapide de
+            synchroniser la donnée d'un hardware, qu'il s'agisse d'une application mobile ou d'un objet connecté, avec
+            une base de données dans le cloud.</p>
+
+        <p>Jusqu'à cette mise à jour, MongoDB Realm stockait les données d'un appareil via une partition. Les données
+            étaient compartimentalisées dans ces partitions et le développeur pouvait choisir quand il allait précharger
+            chacune de ces partitions pour y avoir un accès hors ligne.
+        </p>
+
+        <p>Avec cette mise à jour, MongoDB propose le Flexible Sync. Il permet au développeur de choisir quelles données
+            seront synchronisées via des requêtes natives au langage.</p>
+
+        <p>Cette flexibilité permet d'avoir une meilleure gestion de la donnée chargée sur l'appareil, avec un contrôle
+            plus fin des données accessibles hors ligne.</p>
+
+        <h4>Atlas Search ajoute les synonymes et le scoring</h4>
+
+        <p>Atlas Search était la réponse de MongoDB aux bases de données orientées recherche telles qu'ElasticSearch,
+            MeiliSearch ou Algolia.</p>
+
+        <p>Lorsqu'une application avait des besoins de recherche avancés, comme de rechercher un segment de texte dans
+            un paragraphe ou plusieurs éléments dans plusieurs tableaux de données, les requêtes MongoDB n'étaient pas
+            suffisantes.</p>
+
+        <p>Atlas Search est venu combler ce manque et propose aux utilisateurs de MongoDB sur Atlas de créer
+            automatiquement un service de recherche basé sur la base de données actuellement sur Atlas.</p>
+
+        <p>Plus besoin de déployer un cluster ElasticSearch sur un autre fournisseur cloud et s'assurer de la bonne
+            indexation des données à la fois sur la base de données MongoDB et sur les index ElasticSearch.</p>
+
+        <p>Avec cette mise à jour, Atlas Search se rapproche encore des fonctionnalités d'ElasticSearch en ajoutant la
+            possibilité de définir des synonymes.</p>
+
+        <p>Il est également possible de concevoir des fonctions qui vont scorer les résultats suivant les requêtes, afin
+            de donner un ordre de réponse plus pertinents aux utilisateurs.</p>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>MongoDB Client: les outils GUI pour manipuler sa base de données ?
+        </h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>L'intérêt des MongoDB client pour un développeur
+            </li>
+            <li>Modifier ou supprimer un document MongoDB</li>
+            <li>Gérer les index et leur bon fonctionnement</li>
+            <li>MongoDB client : les GUI pour gérer sa base de données
+            </li>
+            <li>MongoCompass (PC + Mac + Linux)</li>
+            <li>RoboMongo 3T (PC + Mac + Linux)</li>
+            <li>Mongo Management Studio (PC + Mac + Linux)</li>
+            <li>Aller plus loin</li>
+        </ul>
+
+        <p>Parce qu'il n'est pas toujours évident de s'y retrouver dans les nombreuses lignes de commandes d'un
+            terminal, de nombreux outils ont développé des clients ou des Graphic User Interfaces (GUI) afin d'aider les
+            utilisateurs à manipuler un outil. MongoDB ne fait pas exception à la règle. En effet, il existe plusieurs
+            MongoDB client disponible pour faciliter l'utilisation de cette technologie.</p>
+
+        <h3>L'intérêt des MongoDB client pour un développeur</h3>
+
+        <p>Après avoir installé MongoDB sur votre PC Windows, votre poste Linux ou sur votre mac, vous avez probablement
+            testé le Mongo Shell. Ce terminal MongoDB vous permet de vous connecter et manipuler votre serveur de base
+            de données et réaliser les opérations que vous souhaitez.</p>
+
+        <p>Seulement savoir manipuler toutes ces commandes demande de l'expérience, surtout pour des opérations
+            critiques comme la modification ou suppression de documents, de collections ou de la base complète.</p>
+
+        <h4>Modifier ou supprimer un document MongoDB
+        </h4>
+
+        <p>Le premier besoin lorsqu'on utilise de la donnée est de pouvoir la manipuler. Que ce soit en phase de
+            développement, en pré-production et parfois en production (même si ça doit rester exceptionnel), un
+            développeur a parfois besoin de venir modifier un objet. C'est là où un mongodb client va nous permettre de
+            gagner du temps.</p>
+
+        <p>En effet, une opération critique comme la modification d'un objet va nécessiter au développeur de vérifier ce
+            qu'il fait. S'il doit réaliser l'opération depuis son shell, il fera probablement une première requête pour
+            récupérer le document:</p>
+
+        <div class="jumbotron">
+            db.collection.find({"name":"Rayed"})
+        </div>
+
+        <p>Une fois qu'il est sûr d'avoir le bon document, il va pouvoir faire la requête de modification. Supposons
+            qu'il doit modifier le prénom et enlever le champ "verified"</p>
+
+        <div class="jumbotron">
+            db.collection.updateOne({"name":"Rayed"}, {"name":"Fred", $unset: "verified"})
+        </div>
+
+        <p>Pour une opération relativement simple, il a fallu prendre le temps de taper 2 requêtes. Imaginer qu'il
+            faille accéder à une propriété imbriquée qui héberge un tableau de string et qu'il faille supprimer un
+            élément du tableau ? La requête devient alors plus complexe. Il faudra probablement un peu de temps de
+            recherche sur la documentation de Mongodb pour bien la rédiger.</p>
+
+        <p>Grâce à un mongodb client, vous pourrez accéder à votre document en un clic et modifier ce que vous
+            souhaitez. Ce gain de temps va vous permettre de passer plus de temps à développer votre application plutôt
+            qu'à manipuler vos données.</p>
+
+        <h4>Gérer les index et leur bon fonctionnement</h4>
+
+        <p>Les index sont critiques au bon fonctionnement d'une application qui vit. Lorsque vous développez votre
+            application et que vous n'avez qu'une dizaine de documents dans votre collection, une opération recherche
+            find ou findOne reste suffisamment rapide.</p>
+
+        <p>En revanche, lorsque votre application grandit et que vous avez maintenant plusieurs centaines ou milliers
+            d'entrées, une recherche par "nom" va demander à MongoDB de parcourir l'ensemble des documents. On appelle
+            ça un collectionScan.</p>
+
+        <p>Pour améliorer les performances de votre application, vous serez rapidement amenés à créer des index. Ces
+            créations peuvent se faire dans votre code depuis votre application nodejs mongodb, depuis le mongo shell ou
+            depuis votre mongodb client.</p>
+    </div>
+
+    <p>Dans votre mongodb gui vous verrez le nombre d'objets qui ont été indexés ainsi que la taille qu'ils
+        représentent.</p>
+
+    <h3>MongoDB client : les GUI pour gérer sa base de données</h3>
+
+    <p>Pour vous aider dans la gestion de votre base de données, plusieurs clients Mongodb gui ont vu le jour:</p>
+
+    <h4>MongoCompass (PC + Mac + Linux)
+    </h4>
+
+    <p>MongoCompass est le Mongodb client officiel proposé par la société MongoDB. C'est le mongodb client le plus
+        travaillé graphiquement et agréable à manipuler. Son interface est intuitive, même pour les débutants. Elle
+        permet de performer les opérations de modifications sur vos documents et de performer des queries mongo
+        directement depuis l'outil.</p>
+
+    <h4>RoboMongo 3T (PC + Mac + Linux)</h4>
+
+    <p>RoboMongo propose deux solutions Mongodb gui. Robo3T est la solution "Community" open source et l'édition Studui
+        3T, plus complète, pour entreprises. Anciennement connue sous le nom de Robomongo, ce mongodb gui a gagné sa
+        popularité du fait qu'il ait été le premier sur le marché à proposer une solution légère et gratuite.</p>
+
+    <h4>Mongo Management Studio (PC + Mac + Linux)</h4>
+
+    <p>Mongo Management Studio est un Mongodb client d'origine allemande, exploitant une fenêtre navigateur pour se
+        connecter à votre base de données. Tout comme les deux autres mongodb client cités, MMS vous permet de manipuler
+        vos données ou exécuter des queries ou des agrégations directement dans l'outil. Il est toutefois plus limité
+        dans le sens où il ne prend pas en charge les versions de MongoDB supérieures à 3.4 là ou les deux autres
+        prennent en charge les versions 4 et +.</p>
+</body>
+
+</html>

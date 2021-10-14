@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Comment progresser en tant que développeur backend
+        </h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>Coder des tests automatisés pour une API
+            </li>
+            <li>Mettre en place une Intégration Continue</li>
+            <li>Se spécialiser dans une technologie de base de données</li>
+            <li>Documenter une API</li>
+            <li>Savoir Versionner son API</li>
+            <li>Techniques d'authentification et autorisations</li>
+            <li>Gestion des secrets</li>
+            <li>Gestion des erreurs</li>
+            <li>Logging, Monitoring et Alerting</li>
+            <li>Gestion du Cache</li>
+            <li>Et la liste peut encore s'allonger...</li>
+        </ul>
+
+        <p>Très tôt dans votre carrière de développeur, vous êtes encouragés à choisir votre camp. Que ce soit backend
+            ou Frontend, l’essentiel est que vous évitiez de vous placer comme FullStack, du moins au début de votre
+            carrière.</p>
+
+        <p>Si vous êtes de ceux qui préfèrent le développement backend, vous avez probablement déjà commencé à coder vos
+            premières API REST. Seulement, il ne s’agit pas simplement de coder un CRUD en NodeJS pour devenir
+            développeur backend.</p>
+
+        <p>Dans cet article, nous allons voir comment vous pouvez passer du développeur capable de produire une API de
+            type CRUD à un développeur backend plus complet.</p>
+
+        <h3>Coder des tests automatisés pour une API
+        </h3>
+
+        <p>Sans tests automatisés, il est impossible de maintenir une API dans le temps. Non seulement ils sont
+            essentiels au projet, les tests automatisés sont une compétence recherchée par les employeurs.</p>
+
+        <p>Dans le cas d'un développeur backend, les tests indispensables à maîtriser sont les tests unitaires et les
+            tests d'intégration.</p>
+
+        <p>Il existe d'autres types de tests automatisés, comme des tests de contrat, des tests End-to-End entre APIs,
+            des tests de charge... Ces tests peuvent être intégrés dans la politique de tests de votre projet suivant
+            les choix de votre tech lead ou de l'architecte.</p>
+
+        <p>En tant que développeur backend, monter en compétences sur les différents types de tests en comprenant bien
+            pourquoi chaque test existe et quelle est sa raison d'être vous aidera à produire des tests de qualité et
+            avoir une API résistante aux changements.</p>
+
+        <h3>Mettre en place une Intégration Continue</h3>
+
+        <p>Dans la continuité des tests automatisés, implémenter une intégration continue (ou CI) est une des phases de
+            la boucle du DevOps (Lien vers Devops).</p>
+
+        <p>Les projets ayant vocation à Scaler, chez les grands groupes comme chez les Startups, implémentent tous une
+            CI. Elle permet de s'assurer qu'à tout moment sa codebase passe la suite de tests codée par les
+            développeurs. Ainsi, pas de régression possible ni de différence de comportement entre les différents
+            environnements.</p>
+
+        <p>En tant que développeur backend, intervenir sur une codebase qui a déjà un pipeline d'intégration continu en
+            place ne nécessitera pas de connaissances particulières. En revanche, pour progresser il sera important de
+            comprendre comment elle fonctionne.</p>
+
+        <p>Apprendre à mettre en place un pipeline de CI sur un projet perso ou sur un projet test est une compétence
+            qui vous demandera de jouer avec différents fichiers de configuration, entre ceux de votre application et la
+            configuration du Provider de CI. Il faudra également mettre les mains dans Docker et docker compose pour
+            recréer de façon programmatique un environnement afin que votre CI puisse y faire tourner la suite de tests.
+        </p>
+
+        <h3>Se spécialiser dans une technologie de base de données</h3>
+
+        <p>Qu'il s'agisse de SQL ou de MongoDB (Lien vers MongoDB), en tant que développeur backend il est essentiel que
+            vous ayez une bonne connaissance de votre technologie de base de données.</p>
+
+        <p>Les opérations CRUD que vous avez pratiquées lors de vos premiers pas dans le développement backend ne seront
+            pas suffisantes.</p>
+
+        <p>Avoir une bonne compréhension du moteur de base de données, savoir indexer les bonnes données, faire des
+            requêtes optimales fait la différence entre un développeur simple et un véritable développeur Backend.</p>
+
+        <p>Pour monter en compétences sur l'utilisation d'une technologie de base de données, vous pouvez pratiquer sur
+            des datasets existant et conséquent. Vous verrez que votre requête pour récupérer les éléments suivant un
+            critère particulier sur un champ non indexé (lien vers mongodb index) se passe beaucoup moins bien lorsqu'il
+            y a un million de lignes (ou de documents) que lorsqu'il y en a une dizaine.</p>
+
+        <h3>Documenter une API</h3>
+
+        <p>Une API n'a d'utilité qu'à la limite de sa documentation. Bien que ce soit une tâche peu appréciée des
+            développeurs, votre API ne sert à rien si vous et vos collègues êtes les seuls à savoir vous en servir.</p>
+
+        <p>Que l'API soit publique (destinée à tous les développeurs) ou privée (lors d'usages internes à une
+            entreprise), la documentation est essentielle. Avec l'émergence des API, des standards de documentations ont
+            vu le jour. Les spécifications tels que RAML, OpenAPI ou API BluePrint sont devenus des références chez les
+            développeurs.</p>
+
+        <p>Ces standards impliquent que le code soit documenté avec des fichiers JSON incluant les Endpoints, les
+            verbes, les ressources, les paramètres et les Query Params possibles. Une fois renseignés, ces outils
+            permettent de générer automatiquement une documentation technique de l’API.</p>
+
+        <p>Ceci ne dispense pas un travail de rédaction permettant à votre document ressource de passer d'un simple API
+            Referential à une véritable documentation. D'autres outils tels que GitBook permettent de rédiger une
+            véritable documentation donnant du contexte et des exemples aux lecteurs.</p>
+
+        <h3>Savoir Versionner son API</h3>
+
+        <p>Parce que les API ont pour vocation d’être consommés par d’autres programmes, nous ne pouvons pas nous amuser
+            à changer leur comportement sans risquer de causer des dysfonctionnements parmi les clients de ces API.
+            C’est ce qu’on appelle des Breaking Changes.</p>
+
+        <p>Certains changements n’impactent pas le fonctionnement des clients. Par exemple si une mise à jour ajoute un
+            nouveau champ à un Payload, ce n'est pas un breaking change. En revanche, si cette mise à jour change le nom
+            d'un champ ou le type de la réponse, ce changement est un Breaking Change.</p>
+
+        <p>Parce que les API ont aussi le droit d’évoluer, les développeurs ont implémenté des versions de chaque API.
+            Par exemple, la dernière version de Google Analytics est la v4. Ses Endpoints commencent le paramètre v4
+            avant d’avoir la suite de l’endpoint. En revanche, l'API Google Analytics existe toujours en version 3 et sa
+            documentation est toujours accessible.</p>
+
+        <p>Lorsqu'une équipe ne souhaite plus maintenir une version antérieure d'une API, elle annonce en amont sa
+            dépréciation. Les clients ont ainsi le temps de modifier leurs programmes pour s'adapter à la dernière
+            version maintenue de l'API qu'ils consomment.</p>
+
+        <h3>Techniques d'authentification et autorisations</h3>
+
+        <p>Qu'il s'agisse d'une API publique ou privée, le fait d'authentifier un utilisateur et gérer ses droits est
+            toujours important. En tant que développeur backend, il faut dans un premier temps connaître les différentes
+            méthodes qui s'offrent à vous pour y arriver, ainsi que les avantages et inconvénients de chacun.</p>
+
+        <p>Par exemple, une authentification via Basic Auth va transmettre à votre API ses credentials dans un header
+            HTTP. Si la requête n'est pas sécurisée via SSL, l'échange de header, et donc de l'identifiant et mot de
+            passe, se fait de manière non cryptée et est exposée à des attaques de type "Man in the middle". Toutefois,
+            la méthode Basic Auth peut avoir une utilité de par sa rapidité, dans des réseaux fermés. Elle permettra une
+            authentification rapide.</p>
+
+        <p>L'API Key est probablement la méthode d'authentification la plus répandue. Après avoir demandé un accès à une
+            API, celle-ci retourne à son nouveau client une clé qui lui est spécifique. Cette clé est générée
+            aléatoirement uniquement pour l'utilisateur qui en a fait la demande. Elle peut être régénérée pour chaque
+            appel, ou expirer au bout d’un certain temps suivant les choix de sécurité qu’ont fait les développeurs de
+            l’API. Le problème de l'API Key est qu'elle n'est pas suffisante pour gérer les autorisations. À partir du
+            moment où la clé est confiée à un client, la sécurité de l'API dépend de la capacité de ce dernier à garder
+            celle-ci secrète. Il suffit d'un malencontreux push sur Github ou d'une configuration d'un serveur mal faite
+            rendant accessible les variables d'environnement et votre système complet est compromis.</p>
+
+        <p>Le JWT et l’OAuth sont d'autres solutions pour gérer l'authentification et la gestion des rôles des clients
+            de vos API. En tant que développeur backend, vous documenter et pratiquer l'implémentation de ces
+            différentes techniques de sécurisation sur vos API est un bon moyen de renforcer vos compétences et vos
+            profils.</p>
+
+        <h3>Gestion des secrets</h3>
+
+        <p>Comme toute application, une API dispose également de son jardin secret. La plupart des développeurs
+            stockeront le tout en vrac dans le fichier .env du repository.</p>
+
+        <p>Or dans les projets plus conséquents, partager ces données critiques doit être un minimum sécurisé. C’est
+            pourquoi les entreprises vont utiliser des services comme Vault de HashiCorp ou AWS Secret Manager.</p>
+
+        <p>Avoir une première expérience avec ces outils et savoir les intégrer dans votre workflow est une compétence
+            appréciée chez un développeur Backend.</p>
+
+        <h3>Gestion des erreurs</h3>
+
+        <p>Certaines erreurs sont issues d'une mauvaise utilisation de l'API et servent d'information au client, tandis
+            que d'autres sont dues à un dysfonctionnement de votre code ou de l'infrastructure au moment de la requête.
+        </p>
+
+        <p>Dans un premier temps, gérer les différentes erreurs pour pouvoir différencier les erreurs clients, en
+            retournant un code HTTP 400 et un message pertinent, des erreurs serveurs, en retournant un code HTTP 500,
+            est une phase essentielle dans le développement d’une API.</p>
+
+        <p>Ensuite, créer un format de réponse d’erreur standard permettant aux clients de bien créer leurs applications
+            de façon à renouveler leurs tentatives dans certains cas où d’informer leurs utilisateurs de la mauvaise
+            utilisation de l’API est également une bonne pratique appréciée chez les développeurs backend.</p>
+
+        <h3>Logging, Monitoring et Alerting</h3>
+
+        <p>Toujours dans l'optique d'avoir une boucle DevOps, la gestion des logs, mettre en place du monitoring de
+            votre API et de l'Alerting en cas de comportement ou de niveau élevé d'utilisation des ressources est une
+            pratique attendue chez les développeurs backend.</p>
+
+        <p>Avoir des logs pertinents est utile à la fois dans le développement, la maintenance (le run) et la
+            sécurisation d’une API. Grâce à des outils comme Kibana ou Graylog, vous pourrez stocker les logs afin d’en
+            extraire des données utiles aussi bien au métier qu’aux développeurs. Vous pourrez analyser les causes de
+            montées de trafic afin de les anticiper ou détecter des comportements étranges susceptibles d’être
+            malveillants.</p>
+
+        <p>Mais pour y arriver, toujours faut-il savoir quoi logger et comment. Savoir implémenter un middleware de
+            logging et formater ses logs pour qu'ils soient exploitables est un premier pas. Ensuite vous pourrez
+            définir plusieurs niveaux de logs. Ainsi votre Stdout pourra afficher uniquement les logs supérieurs à un
+            certain niveau de criticité, mais vous aurez la possibilité de changer cette configuration si vous avez
+            besoin de debugger. En tant que développeur, vous aurez à définir quels logs afficher, à quel niveau de
+            criticité et à quel moment dans l'exécution de votre code.</p>
+
+        <h3>Gestion du Cache</h3>
+
+        <p>Lorsque vous développez une API et que celle-ci commence à être de plus en plus consommée, votre temps de
+            réponse devient un facteur déterminant dans son succès.</p>
+
+        <p>La mise en cache des appels les plus fréquents est une stratégie souvent employée pour améliorer les
+            performances, notamment les temps de réponse.</p>
+
+        <p>Cependant, la gestion du cache est un vrai challenge dans la mesure où la donnée retournée via le cache a un
+            risque d’être obsolète et, dans le cas où vous disposez de plusieurs instances de votre serveur, les données
+            dans le cache de chaque instance peuvent différer.</p>
+
+        <p>Gérer une stratégie de cache nécessite de la réflexion pour savoir quoi mettre en cache, combien de temps,
+            comment le régénérer et quand l'invalider.</p>
+
+        <p>La complexité peut également augmenter au cas où vous soyez dans une situation où il faut gérer un cache
+            partagé entre les multiples instances de votre serveur. C’est d’ailleurs un des cas les plus fréquents dans
+            l’utilisation de bases de données clé/valeurs type Memcached ou Redis.</p>
+
+        <h3>Et la liste peut encore s'allonger...</h3>
+
+        <p>Entre les brokers de messageries (lien vers middleware de messagerie), les services de Search tels
+            qu'ElasticSearch ou Algolia, l'Infrastructure as Code, les développeurs backend en ont un paquet dans leurs
+            assiettes au point où la liste peut paraître insurmontable.</p>
+
+        <p>Il n'est pas interdit de faire l'impasse sur certaines notions pour en prioriser d'autres. Pour ma part, je
+            n'ai pas eu à beaucoup travailler avec Terraform ou Kubernetes. J'ai volontiers pu déléguer ces briques à
+            des collègues en faisant le choix de monter en compétences sur d'autres sujets, plus urgent dans mon
+            quotidien de développeur backend.</p>
+    </div>
+</body>
+
+</html>

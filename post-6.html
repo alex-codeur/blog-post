@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Vue 3: La mise à jour tant attendue du Framework progressif JavaScript</h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>Améliorations de performances pour Vue 3
+            </li>
+            <li>Qu'est-ce que le tree-shaking?</li>
+            <li>Vue 3 utilise les Proxy JavaScript pour de meilleures performances
+            </li>
+            <li>Prise en charge native de TypeScript</li>
+            <li>Nouvelle API de Composition pour les projets de grande envergure
+            </li>
+            <li>Quel avenir pour Vue ?</li>
+        </ul>
+
+        <p>Depuis sa conception en 2013, Evan You, le créateur de Vue JS, a voulu un Framework "progressif" dans le sens
+            où sa prise en main devait être facile et dont l'apprentissage pouvait se faire de façon incrémentale.</p>
+
+        <p>Vendredi 18 Septembre 2020, Evan You a annoncé la release officielle de Vue 3 lors d'une Keynote Live que
+            vous pourrez revoir ci-dessous.</p>
+
+        <p>Baptisée One Piece, cette mise à jour majeure a nécessité plus de 2600 commits et plus de 600 pull requests
+            provenant d'une centaine de contributeurs. Un effort de plus de deux ans qui apporte aux millions de
+            développeurs JS une version renforcée de ce framework.</p>
+
+        <h3>Améliorations de performances pour Vue 3</h3>
+
+        <p>L'argument numéro un pour l'upgrade de version vers Vue 3 est l'amélioration des performances. Dans une
+            époque où google valorise le temps de chargement des pages, Vue 3 a su réduire la taille de son bundle
+            jusqu'à 41% en utilisant sa nouvelle fonctionnalité de tree-shaking. Le temps de chargement initial est
+            jusqu'à 55% plus rapide et le temps est plus que deux fois plus rapide et l'utilisation de la mémoire est
+            réduite de moitié.</p>
+
+        <h4>Qu'est-ce que le tree-shaking?</h4>
+
+        <p>Le temps de chargement d'un site web est directement lié au volume de fichiers JavaScript que le navigateur
+            va avoir à charger. C'est pourquoi il est souvent préférable d'utiliser du Vanilla JavaScript - autrement
+            dit du JavaScript sans framework - lorsqu'on veut réaliser de simples opérations plutôt que d'importer toute
+            une librairie ou framework.</p>
+
+        <p>Le concept de Tree-Shaking est le fait de n'importer que les modules dont votre code a besoin de la
+            librairie, et non pas son intégralité. De ce fait, vous pouvez réduire la taille des fichiers JavaScript à
+            exécuter par le navigateur et améliorer le temps de chargement.</p>
+
+        <div class="jumbotron">
+            // Code en Vue 2
+            <p> import Vue from 'vue'</p>
+        </div>
+
+        <p>Dans la version 2, il n'y avait pas d'autre choix que d'importer le bundle complet Vue, même si vous n'allez
+            pas utiliser tous ses composants ou directives.</p>
+
+        <p>Grâce à Vue 3, vous pourrez importer que les éléments nécessaires à votre code, même s'il s'agit d'éléments
+            issus de la Global API:</p>
+
+        <div class="jumbotron">// Code en Vue 3
+            <p>import { nextTick } from 'vue'
+            </p>
+            <p> nextTick(() => {})</p>
+        </div>
+
+        <h4>Vue 3 utilise les Proxy JavaScript pour de meilleures performances</h4>
+
+        <p>Dans sa version précédente, VueJS avait du mal a réagir aux changements dans des objets. Il a fallu
+            contourner le problème avec l'utilisation de Vue.set et Vue.delete afin de garder la réactivité de Vue dans
+            son application.</p>
+
+        <p>Grâce à l'utilisation des Proxy Javascript, plus besoin d'utiliser ce contournement et l'impact se reflète
+            sur le temps de chargement et de rechargement des composants.</p>
+
+        <h3>Prise en charge native de TypeScript</h3>
+
+        <p>Après avoir longtemps sous estimé TypeScript, Evan You et la core team de Vue a été contraint de se rendre à
+            l'évidence. TypeScript est essentiel dans l'écosystème JavaScript et ne pas l'adopter n'est pas une option.
+        </p>
+
+        <p>Le code source de Vue 3 a été complètement réécrit en TypeScript et fournit automatiquement des Types
+            Definitions mis à jour avec chaque mise à jour. Vue 3 va permettre aux développeurs d'utiliser TypeScript
+            dans leur code plus facilement qu'avec la version précédente et offre même la possibilité de faire du TSX
+        </p>
+
+        <h3>Nouvelle API de Composition pour les projets de grande envergure</h3>
+
+        <p>Ce nouveau jeu de fonctionnalités a été conçu avec l'intention de réduire les difficultés que peuvent
+            connaître les développeurs travaillant sur des applications ayant plusieurs centaines de composants.</p>
+
+        <p>Similaire au Hooks de React, l'API de Composition permet de réagir au cycle de vie des composants en
+            utilisant des fonctions globales importées dans le composant.</p>
+
+        <h3>Quel avenir pour Vue ?</h3>
+
+        <p>Depuis plusieurs années Vue s'est taillée une part non négligeable dans le cœur des développeurs JavaScript.
+            Étant clairement 2nd dans les préférences parmi les framework Frontend, Vue cherche avec sa version 3 à
+            gagner du terrain dans des projets plus ambitieux où React domine encore.</p>
+
+        <p>Nul doute que l'écosystème va accueillir cette nouvelle version tant attendue avec attention. L'équipe Nuxt,
+            framework SSG lié à Vue a déjà annoncé une évolution de son framework pour capitaliser sur l'arrivée de Vue
+            3.</p>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Boîte à outils Node.js : ce qu’il vous faut pour l’utiliser efficacement</h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>Modules Natifs NodeJS
+            </li>
+            <li>Module HTTP</li>
+            <li>Module FS</li>
+            <li>NPM</li>
+            <li>Modules Essentiels</li>
+            <li>ExpressJS</li>
+            <li>Body-Parser</li>
+            <li>Axios</li>
+            <li>ESLint</li>
+            <li>Postman</li>
+            <li>Modules nodejs pour connecter une base de données</li>
+            <li>Modules pour tests automatisés</li>
+            <li>Mocha, Chai, Sinon, Istanbul</li>
+            <li>Jest</li>
+            <li>Librairies et Frameworks pour un serveur web</li>
+            <li>Nest</li>
+            <li>Adonis</li>
+            <li>Fastify</li>
+            <li>Koa</li>
+            <li>Loopback</li>
+            <li>Services pour déployer son app NodeJS</li>
+            <li>Plateform as a Service (PaaS)</li>
+            <li>Infrastructure as a Service (IaaS)</li>
+            <li>Pour aller plus loin:</li>
+        </ul>
+
+        <p>L’une des forces de Node.js est l’écosystème de modules qui gravite autour afin de pouvoir réaliser à peu
+            près n’importe quel projet. Très souvent utilisé pour des projets web et des outils CLI (Command Line
+            Interface), ces modules, qu’ils soient natifs ou non, vous permettent d’intégrer toute sorte de
+            fonctionnalités à votre application sans avoir à les développer.</p>
+
+        <p>Dans cette page, vous trouverez ci-dessous une liste de modules JavaScript qui méritent d’être connus de tous
+            développeurs NodeJS. Rendez-vous dans notre section Tutoriels pour découvrir comment se servir de ces
+            modules.</p>
+
+        <h3>Modules Natifs NodeJS</h3>
+
+        <h4>Module HTTP</h4>
+
+        <p>Le module HTTP, HTTP/2 ou HTTPS apporte les fonctionnalités de requêtes. Grâce à l’utilisation de ce module
+            natif à NodeJS, vous pourrez développer des fonctions ayant besoin de faire des appels à des API sans avoir
+            recours à un package externe plus lourd.</p>
+
+        <p>Comme montré dans notre page dédiée, le module HTTP permet également de créer un serveur HTTP extra-light
+            capable de recevoir des requêtes de navigateurs, applications mobiles ou d’autres APIs.</p>
+
+        <h4>Module FS</h4>
+
+        <p>Le module node FS, pour FileSystem, est l’outil adapté pour manipuler des fichiers sur la machine. Grâce à
+            lui vous pourrez créer, lire, déplacer, supprimer des fichiers. Dans le cas d’un serveur web, c’est ce
+            module qui est utilisé pour créer des fichiers de logs. Dans le cas d’un outil CLI, vous pourrez développer
+            des scripts de rangement de fichiers ou d’archivage.
+            Pour apprendre comment l’utiliser, découvrez notre page dédiée au module Node File System.</p>
+
+        <h4>NPM</h4>
+
+        <p>NPM est le gestionnaire de paquets pour Node js. Installé en même temps que node, il vous permet de
+            télécharger des modules tiers pour vos applications. Grâce à la communauté, vous avez accès à plusieurs
+            dizaines de millions de modules pour accélérer votre développement JavaScript.
+        </p>
+
+        <p>Découvrez notre page dédiée pour apprendre tout ce qu’il faut savoir sur le NPM de Node.</p>
+
+        <h3>Modules Essentiels</h3>
+
+        <h4>ExpressJS</h4>
+
+        <p>Express est le framework le plus populaire de Node.js pour la conception d’un serveur web. Que ce soit pour
+            un site web ou une API, sa légère sur-couche par rapport à Node permet des performances remarquables. Pour
+            en savoir plus, Practical Programming a consacré une page spéciale dédiée à Express (intérêt, installation,
+            démarrage d’un projet…)</p>
+
+        <h4>Body-Parser</h4>
+
+        <p>Body Parser est un must-have lorsque vous développez une API ou une application web via express. Ce module
+            vous permet d’interpréter, d’où le nom “parser”, le corps JSON d’une réponse HTTP.</p>
+
+        <h4>Axios</h4>
+
+        <p>Axios est un package incontournable dès lors que vous avez besoin de faire des requêtes HTTP autres que des
+            GET. Cette librairie, téléchargée près de 10 millions de fois par semaine, simplifie considérablement la
+            syntaxe de votre code concernant les appels HTTP.</p>
+
+        <h4>ESLint</h4>
+
+        <p>ESLint est une librairie qui vient analyser votre code JavaScript et vous proposer des corrections. Installé
+            comme une dépendance de développement sur votre projet via NPM ou Yarn, vous pourrez configurer votre projet
+            afin de suivre les bonnes pratiques de JavaScript proposées par Airbnb, Google ou ESLint Standard. Vous
+            pourrez surcharger ou imposer vos propres règles.</p>
+
+        <h4>Postman</h4>
+
+        <p>Postman est un outil incontournable pour le développement et le maintient d’une API REST. Il permet
+            d’effectuer des requêtes HTTP via une interface graphique afin de ne plus avoir à attendre un Frontend ou
+            d’avoir une requête curL complexe. Il est également utilisé pour effectuer divers tests automatisés sur
+            votre API.</p>
+
+        <h3>Modules nodejs pour connecter une base de données</h3>
+
+        <p>Le but d’un serveur nodejs est de pouvoir réaliser les opérations de lecture et écriture de données sur une
+            base de données. Node est aussi bien capable de s’interfacer avec une base MySQL qu’une base NoSQL telle que
+            MongoDB, Redis, Cassandra ou Neo4J.</p>
+
+        <p>Ces interactions peuvent aussi bien se faire directement avec la base de données via un module driver tel que
+            MySQL, que via un ORM comme Sequelize, qui va abstraire la syntaxe native de la base de données pour vous
+            simplifier le développement.</p>
+
+        <p>Certains frameworks nodejs tels qu’Adonis ou Sails vont être livrés avec leur ORM recommandé, respectivement
+            Lucid et Waterline. Ces derniers sont conçus pour abstraire au maximum la relation entre l’application et la
+            base de données, vous offrant une simplicité au développement et vous protégeant des failles les plus
+            courantes auxquelles vous pourriez vous exposer si vous deviez écrire vous-même vos requêtes. Ce service
+            vient toutefois à un coût, qui est parfois celui de la performance. Dans certains cas une requête native
+            pourra être mieux conçue et donc plus performante qu’une requête automatiquement construite par un ORM.</p>
+
+        <h3>Modules pour tests automatisés</h3>
+
+        <h4>Mocha, Chai, Sinon, Istanbul</h4>
+
+        <p>Mocha a longtemps été la librairie dominante lorsqu’il s’agit de tests automatisés sur du code JavaScript.
+            D’autres outils se sont construits autour de Mocha pour concevoir une suite complète pour tester une
+            application JavaScript de bout en bout :</p>
+
+        <ul>
+            <li>Chai par exemple est une librairie des librairies d’assertion nécessaire à Mocha. Elle vient offrir
+                d’évaluer ce que son code doit produire via différentes syntaxes comme expect, assert ou should. Par
+                exemple, vous pourrez aussi bien tester qu’une fonction sensée retourne un boolean en écrivant :
+                foo.should.be.a(false), expect(foo).to.be.a(false) ou assert.equal(foo, false) </li>
+            <li>Sinon est une librairie qui est venue apporter une solution pour créer des spies, stubs et mock à nos
+                tests, rendant ainsi possible de rédiger des tests unitaires isolés les uns des autres ;</li>
+            <li>Istanbul vient analyser le code et évaluer la couverture des tests, afin de voir si vos tests couvrent
+                bien l’ensemble de votre code.
+            </li>
+        </ul>
+
+        <h4>Jest</h4>
+
+        <p>Conçue par les équipes de Facebook avant d’être mise open source, Jest a su conquérir le cœur des
+            développeurs JavaScript, aussi bien côté frontend que backend. Son API complète et ses performances
+            d’exécution des suites de tests en ont fait une des librairies de tests les plus populaires dans le monde du
+            JavaScript.</p>
+
+        <h3>Librairies et Frameworks pour un serveur web</h3>
+
+        <h4>Nest</h4>
+
+        <p>NestJS est le framework backend qui connaît la plus grosse croissance à la fois dans son nombre de
+            téléchargements que dans la taille de sa communauté. Ayant une syntaxe similaire au framework front-end
+            Angular, Nest encourage les développeurs à coder avec typescript.</p>
+
+        <h4>Adonis</h4>
+
+        <p>Adonis est un framework complet, similaire à Rails pour Ruby ou Laravel pour PHP. Il va embarquer un ORM pour
+            se connecter et faire ses requêtes à la base de données et un moteur de templating pour servir ses vues.</p>
+
+        <h4>Fastify</h4>
+
+        <p>Fastify est un framework nodejs dit "bas niveau". A l'instar d'ExpressJS, Fastify laisse la main aux
+            développeurs pour choisir les librairies et implémenter les fonctionnalités. En revanche, Fastify brille par
+            ses performances et par sa capacité à encapsuler du code en plugins, permettant d'isoler les modules
+            facilement et d'avoir un code source bien construit</p>
+
+        <h4>Koa</h4>
+
+        <p>Ayant pour but d’être un framework léger (environ 500 lignes de code) et robuste pour des applications webs
+            et API, Koa tire le bénéfice d’une syntaxe Async/Await afin d’éviter les callbacks qu’on peut souvent
+            retrouver dans express, permettant une syntaxe plus claire et rend la gestion des erreurs plus facile.</p>
+
+        <h4>Loopback</h4>
+
+        <p>Conçue comme une sur-couche d’express, Loopback est une librairie qui permet la mise en service d’une API
+            rest en un minimum de temps. Via un simple fichier de configuration, Loopback génère le code de l’API
+            automatiquement, suivant une architecture éprouvée et permettant au développeur de rapidement se concentrer
+            sur les besoins fonctionnels de son application. Loopback simplifie également la connexion à une base de
+            données, qu’elle soit SQL ou MongoDB.</p>
+
+        <h3>Services pour déployer son app NodeJS</h3>
+
+        <h4>Plateform as a Service (PaaS)</h4>
+
+        <p>Les PaaS sont des services qui vous permettent de déployer votre application Node.js (ou autre) depuis votre
+            terminal, sans avoir à gérer toute une machine virtuelle Linux. Leur service vient abstraire tout le travail
+            d’administration système et d’installation de l’environnement pour vous laisser déployer en une ligne de
+            commande.</p>
+
+        <p>Cette solution est souvent la plus simple et la plus adaptée lorsque vous démarrez ou lorsque vous voulez
+            déployer une petite application. Heroku, Google App Engine et AWS Elastic Beanstalk sont les plus gros
+            acteurs du marché. Clever Cloud et Plateform.sh proposent également des solutions similaires made in France.
+        </p>
+
+        <h4>Infrastructure as a Service (IaaS)</h4>
+
+        <p>Les IaaS proposent des instances Linux avec une puissance de calcul et de la RAM dédiée. Elles vous sont
+            facturées à l’heure d’utilisation. Ces solutions sont moins coûteuses que les PaaS mais elles demandent que
+            vous réalisiez vous-même l’installation de votre environnement.</p>
+
+        <p>AWS, GCP et Azure proposent tous les 3 des produits IaaS. Vous trouverez également des fournisseurs IaaS de
+            niveau 2, qui simplifient l’utilisation par rapport aux offres GAFA, tel que Digital Ocean.</p>
+
+        <h3>Pour aller plus loin:</h3>
+
+        <p>Avec plusieurs milliers de nouvelles librairies publiées chaque jour sur npm, il est parfois difficile de
+            suivre toutes les nouvelles librairies qui méritent d’être connues. C’est pourquoi nous vous avons préparé
+            les pages suivantes afin de vous guider:</p>
+    </div>
+</body>
+
+</html>

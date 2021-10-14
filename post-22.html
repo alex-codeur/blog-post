@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>DevOps: qu'est-ce que c'est et pourquoi devrais-je m'y intéresser ?
+        </h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>Qu'est-ce que le DevOps ?
+            </li>
+            <li>Le DevOps accélère l'amélioration</li>
+            <li>L'amélioration Produit</li>
+            <li>L'amélioration Process de déploiement</li>
+            <li>Le DevOps n'est pas un ou des outils</li>
+            <li>Tests Automatisés</li>
+            <li>Pipeline d'intégration continue (CI)</li>
+            <li>Déploiement continu (CD)</li>
+            <li>Versionning</li>
+            <li>Monitoring</li>
+            <li>Alerting</li>
+            <li>Développer ses compétences DevOps quand on est dev
+            </li>
+            <li>Pour aller plus loin</li>
+        </ul>
+
+        <p>Le terme DevOps est apparu en 2014-2015 et a rapidement trouvé l'intérêt de la communauté de développeurs.
+            Entre Docker, Kubernetes, Micro-Services, Kafka, on se perd facilement dans tous ces termes techniques qui
+            nous laissent apparaître uniquement la partie complexe et nous font oublier l'essence même de la discipline.
+        </p>
+
+        <h3>Qu'est-ce que le DevOps ?</h3>
+
+        <p>Une application n'a de valeur qu'au moment où elle est mise en service pour ses utilisateurs. Cela vaut aussi
+            bien pour la première release que pour toutes les mises à jour qui peuvent s'en suivre.</p>
+
+        <p>Afin qu'une application puisse maximiser la valeur qu'elle apporte à ses utilisateurs (et donc rapporter du
+            revenu à ses créateurs), elle doit pouvoir être mise à jour le plus souvent et le plus rapidement possible.
+        </p>
+
+        <p>Le DevOps est une philosophie cherchant à créer une relation saine entre le développement et le déploiement
+            d'une application. Sa raison d'être est de réduire les frictions et créer de la confiance entre ces deux
+            étapes du cycle de vie d'une application.</p>
+
+        <h3>Le DevOps accélère l'amélioration</h3>
+
+        <h4>L'amélioration Produit</h4>
+
+        <p>Cette boucle de feedback qu'apporte le DevOps permet d'implémenter des améliorations à son produit plus
+            rapidement. Suite à l'implémentation d'une fonctionnalité, le retour utilisateur peut se faire rapidement,
+            les éventuels cas d'usages non prévus pourront être intégrés lors du prochain cycle.</p>
+
+        <h4>L'amélioration Process de déploiement
+        </h4>
+
+        <p>Là ou le DevOps apporte le plus de valeur c'est dans l'amélioration du processus. En surveillant chaque étape
+            du développement au déploiement, un développeur est capable de livrer du premier coup un meilleur code.</p>
+
+        <p>Un cycle rapide et un code mieux surveillé permettent au développeur de passer moins de temps à déployer ou à
+            réparer d'éventuels bugs ou régressions pour passer plus de temps à travailler sur des tâches qui apportent
+            de la valeur à l'utilisateur final.</p>
+
+        <h3>Le DevOps n'est pas un ou des outils</h3>
+
+        <p>Comme vous l'avez compris, le DevOps n'est pas Docker, Kubernetes ou MicroServices. Le DevOps est avant tout
+            une philosophie qui vous permet de livrer plus fréquemment. Les outils auxquels on peut penser ne sont que
+            des moyens d'arriver à ce but.</p>
+
+        <p>Toutefois, certaines briques sont essentielles pour pouvoir avoir une approche DevOps et assurer une boucle
+            de feedback la plus courte possible:</p>
+
+        <h4>Tests Automatisés</h4>
+
+        <p>Les tests automatisés devraient être obligatoires au même titre que la ceinture de sécurité en voiture. Sans
+            une couverture de tests, votre boucle de feedback se prive d'un retour immédiat sur d'éventuelles
+            régressions sur votre code.</p>
+
+        <p>Vous ne vous rendrez compte des nouveaux bugs qu'une fois un retour fait par l'analyse QA ou par
+            l'utilisateur lui-même. Corriger ces bugs et redéployer revient à faire un tour entier de la boucle de
+            feedback. Vous perdez donc l'occasion de réagir immédiatement et ajoutez un tour de développement sans
+            apporter de valeur ajoutée.</p>
+
+        <p>Suivant votre langage, il existera différents tests runners pour construire votre suite de tests. En
+            JavaScript, les librairies de tests les plus communes sont Mocha et Jest</p>
+
+        <h4>Pipeline d'intégration continue (CI)</h4>
+
+        <p>Dans une équipe de développement, il est d'usage que les développeurs enregistrent leur travail régulièrement
+            en le commitant sur le repository commun. Attendre que sa fonctionnalité soit terminée pour pousser son
+            travail est une mauvaise pratique qui expose le développeur à un travail pénible de réconciliation de la
+            dernière version de la branche principale avec son code qu'il a construit autour d'une version obsolète.</p>
+
+        <p>L'intégration continue est un système qui permet d'informer le développeur à chaque commit si son code
+            compile et s'il passe la suite de tests. Si ces nouveaux morceaux de code passent toutes les conditions
+            requises par le pipeline d'intégration continue, il informe le développeur qu'il peut faire un merge de sa
+            branche vers la branche commune.</p>
+
+        <p>Dans l'approche DevOps, l'intégration continue permet d'accélérer la boucle de feedback en réduisant le temps
+            passé à résoudre les merge conflicts et en s'assurant que le nouveau code n'introduit pas de régression
+            lorsqu'il est testé sur un serveur simulant le serveur de production.</p>
+
+        <p>Les outils d'intégration continue les plus répandus sont CircleCI, Gitlab et Jenkins</p>
+
+        <h4>Déploiement continu (CD)</h4>
+
+        <p>Dans la philosophie DevOps, le principe du déploiement continue consiste à faire avancer notre code d'étape
+            en étape jusqu'à la production. Le déploiement continu s'intègre dans votre pipeline, va pousser le
+            déploiement à travers les différents environnements et lancer les tests requis à chaque étape.</p>
+
+        <p>Suivant l'ampleur de votre projet, ce déploiement continu peut être géré directement depuis votre PaaS tel
+            que Heroku ou via un process plus complexe impliquant l'envoi d'une image docker sur une registry et son
+            déploiement automatique via un orchestrateur tels que Kubernetes GKE (GCP), EKS(AWS) ou AKS (Azure).</p>
+
+        <h4>Versionning</h4>
+
+        <p>Le versioning du code est une évidence. Tout développeur qui se respecte utilise un système de versioning
+            git. Cependant, dans l'approche DevOps, le versioning s'étend aussi à l'app en elle-même.</p>
+
+        <p>Là encore, suivant le projet, votre versioning peut être géré directement via votre PaaS ou manuellement via
+            des images dockers que vous aurez enregistré dans une registry.</p>
+
+        <h4>Monitoring</h4>
+
+        <p>Une des tâches qui incombait à l'équipe Ops et qui n'était que très peu suivie par les développeurs est le
+            monitoring de l'application. Le monitoring revient à surveiller l'état de santé de son application en
+            gardant un oeil sur certains indicateurs.</p>
+
+        <p>Un indicateur clé pourrait être le taux de réponse erreur par rapport au nombre de requêtes. Si vous avez une
+            requête sur 100 qui retourne une erreur 500, votre code est probablement défectueux quelque part.</p>
+
+        <p>Pour effectuer ce monitoring, une multitude d'outils sont à votre disposition tels que Datadog, New Relic,
+            Amazon Cloudwatch ou ElasticSearch avec sa suite Kibana + Logstash (ELK)</p>
+
+        <p>Le plus tôt vous êtes averti d'un comportement inattendu, le plus rapidement vous pourrez intervenir.
+            Toujours dans l'optique de réduire cette boucle de feedback, un système d'alerting va pouvoir vous informer
+            qu'un comportement inattendu s'est produit avant même que l'utilisateur vous prévienne. Parfois,
+            l'utilisateur ne s'en rendra même pas compte.</p>
+
+        <p>Pour pouvoir mettre en place un système d'alerting efficace, l'outil Sentry est extrêmement performant.
+            Sentry propose un plan gratuit pour que vous puissiez l'implémenter dans vos projets perso (si çà fait du
+            sens).</p>
+
+        <h3>Développer ses compétences DevOps quand on est dev</h3>
+
+        <p>En tant que développeur nous avons déjà de nombreux sujets pour notre veille techno. Il est légitime de se
+            poser la question "Jusqu'où demanderons-nous au développeur de savoir tout faire" ? Après tout, il l'Ops est
+            un métier à part entière.</p>
+
+        <p>En tant que développeur, l'essentiel est d'avoir saisi l'importance de la philosophie et de comprendre les
+            différentes étapes du cycle de feedback.</p>
+
+        <p>Il est intéressant d'identifier chaque outil et son utilité dans la boucle de feedback DevOps. Voici une
+            liste de notions à comprendre et pratiquer:</p>
+
+        <ul>
+            <li>La mise en place de tests automatisés</li>
+            <li>Configurer un pipeline d'intégration continu</li>
+            <li>Mettre en place un pipeline de déploiement continu sur un service IaaS</li>
+            <li>Savoir mettre en place et rechercher des logs</li>
+        </ul>
+
+        <h3>Pour aller plus loin</h3>
+
+        <p>Voici le replay de mon interview live avec Xavier Pestel, ingénieur DevOps et également animateur de la
+            chaîne Xavki, où vous pourrez découvrir plusieurs outils et leurs fonctionnements.</p>
+    </div>
+</body>
+
+</html>
