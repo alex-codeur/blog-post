@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>
+            MongoDB query: les requêtes à connaître
+        </h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>Mongodb query: Create</li>
+            <li>insertOne</li>
+            <li>insertMany</li>
+            <li>Mongodb query: Read</li>
+            <li>Retrouver tous les documents</li>
+            <li>Mongodb query pour récupérer un seul document</li>
+            <li>Mongodb query: Update</li>
+            <li>updateOne</li>
+            <li>updateMany</li>
+            <li>updateOne ou updateMany avec un pipeline d'aggregation</li>
+            <li>replaceOne</li>
+            <li>l'upsert</li>
+            <li>Mongodb query: Delete</li>
+            <li>deleteOne</li>
+            <li>deleteMany</li>
+            <li>Pour aller plus loin:</li>
+        </ul>
+
+        <p>MongoDB étant la base de données NoSQL orientée documents la plus populaire du marché ces dernières années,
+            de plus en plus d'entreprises y ont investi leurs données. En tant que développeur qui souhaite intervenir
+            sur ces projets, tu es sur la bonne page : voici une liste de Mongodb Query essentielles pour démarrer.</p>
+
+        <p>Cet article traite des Mongodb queries pour opérer directement sur la base de données mongo via le shell, un
+            mongodb client ou sur ton app NodeJS avec MongoClient. Avant d'aller plus loin, il faut préalablement avoir
+            installé mongodb (voir guide d'installation Mac, Windows ou Linux) et créé une base de données. Si tu
+            souhaites voir les opérations Mongoose, je t'invite à te rendre sur la page dédiée.</p>
+
+        <h3>Mongodb query: Create</h3>
+
+        <p>Il s'agit opérations de création d'un ou plusieurs documents sur la base mongo.</p>
+
+        <p>Dans un mongo shell, il suffit de faire: use <nom_de_la_db> pour que mongo la crée si elle n'existe pas déjà.
+        </p>
+
+        <p>Pour créer un ou des documents dans une collection, il existe deux méthodes :</p>
+
+        <h4>insertOne</h4>
+
+        <div class="jumbotron">
+            db.posts.insertOne({ subject: "Blog Post", content: "Lorem Ipsum" })
+        </div>
+
+        <h4>insertMany</h4>
+
+        <div class="jumbotron">
+            db.posts.insertMany([
+            { subject: "Blog Post 1", content: "Lorem Ipsum" },
+            { subject: "Blog Post 2", content: "Lorem Ipsum bis" },
+            { subject: "Blog Post 3", content: "Lorem Ipsum ter" },
+            { subject: "Blog Post 4", content: "Lorem Ipsum etc" },
+            ])
+        </div>
+
+        <p>De la même façon que pour la base de données, si la collection n'existe pas en amont de la création, cette
+            mongodb query va la créer pour vous.</p>
+
+        <p>La mongodb query de création de document est atomique au niveau du document. Cela veut dire que dans le cas
+            d'une opération insertMany où pour une raison quelconque l'opération ne serait pas complétée jusqu'au bout,
+            les documents qui ont été créés au début de cette mongodb query sont tout de même sauvegardés dans la base
+            de données. Depuis la version 4.0, mongodb supporte l'atomicité multi-documents dans le cadre des
+            transactions.</p>
+
+        <p>Note : il existe également la mongodb query insert qui peut insérer un ou plusieurs documents dans la
+            collection.</p>
+
+        <h3>Mongodb query: Read</h3>
+
+        <p>Pour retrouver vos documents sur votre base de données mongo, voici la liste de mongodb query :</p>
+
+        <h4>Retrouver tous les documents</h4>
+
+        <div class="jumbotron">
+            db.posts.find({ })
+        </div>
+
+        <p>Cette requête vous retournera tous les posts dans la base. Attention, cette requête n'est utilisable que dans
+            le cas où vous avez peu de documents dans la collection. Dès que celle-ci grandira, il faudra prévoir une
+            limite et une pagination à chaque chargement. En effet, récupérer 30 documents est faisable en une mongodb
+            query, en récupérer 50 000 risque de ne pas être accepté par votre serveur mongo.</p>
+
+        <h4>Mongodb query pour récupérer un seul document</h4>
+
+        <div class="jumbotron">
+            db.posts.findOne({ subject: "Blog Post 1"})
+        </div>
+
+        <p>Cette requête mongodb vous retournera un seul document ; le premier qui matchera les critères entre les
+            accolades. Attention à bien prévoir des mongodb index sur les champs sur lesquels vous voudrez rechercher un
+            document afin de maximiser les performances de vos requêtes.</p>
+
+        <h3>Mongodb query: Update</h3>
+
+        <h4>updateOne</h4>
+
+        <p>Pour mettre à jour un seul document :</p>
+
+        <div class="jumbotron">
+            db.posts.updateOne( { subject: "Blog Post 1" }, [ { $set: { "category": "technology", lastUpdate: "$$NOW"} }
+            ] )
+        </div>
+
+        <p>Dans ce cas, nous allons mettre à jour le post ayant pour titre "Blog Post 1" et lui ajouter category et
+            lastUpdate en utilisant un pipeline d'aggregation.</p>
+
+        <p>Note: il existe également les mongodb queries findOneAndUpdateet findAndModify qui fonctionnent de la même
+            façon.</p>
+
+        <h4>updateMany</h4>
+
+        <p>Dans ce cas, nous voulons mettre à jour tous les posts ayant un champ "subject" en retirant la propriété
+            "category" et en rajoutant la propriété { tags: ['technology'] }.</p>
+
+        <p>Note: il existe également une méthode update qui par défaut se comporte comme la méthode updateOne. Vous
+            pouvez également lui passer l'option { multi:true } pour qu'elle se comporte comme la méthode updateMany.
+        </p>
+
+        <h4>updateOne ou updateMany avec un pipeline d'aggregation
+        </h4>
+
+        <p>Depuis la version 4.2 de mongodb, les queries d'update peuvent être utilisées avec des aggregations :</p>
+
+        <p>
+            $addFields $set
+            $project $unset
+            $replaceRoot $replaceWith
+        </p>
+
+        <div class="jumbotron">
+            db.temperatures.updateMany( { },
+            [
+            { $addFields: { "tempsF": {
+            $map: {
+            input: "$tempsC",
+            as: "celsius",
+            in: { $add: [ { $multiply: ["$$celsius", 9/5 ] }, 32 ]
+            }
+            }
+            } } }
+            ]
+            )
+        </div>
+
+        <h4>replaceOne</h4>
+
+        <p>La mongodb query replaceOne permet de remplacer l'ensemble du document à l'exception de son _id.
+            Contrairement aux méthodes updateOne et updateMany, vous ne pouvez pas passer de pipeline d'aggregation pour
+            modifier votre document. Il faut forcément passer le nouvel objet complet.</p>
+
+        <h4>l'upsert</h4>
+
+        <p>Les trois mongodb queries permettant l'update d'un document disposent également de l'option "upsert".
+            L'upsert permet de créer un document si celui qui est ciblé dans la requête d'update n'existe pas.</p>
+
+        <p>Pour l'activer, il suffit de passer l'option comme suit :</p>
+
+        <div class="jumbotron">
+            db.posts.updateOne(
+            { subject: "Blog Post 1" },
+            { subject: "Blog Post" },
+            { upsert: true }
+            )
+        </div>
+
+        <h3>Mongodb query: Delete</h3>
+
+        <h4>deleteOne</h4>
+
+        <div class="jumbotron">
+            db.posts.deleteOne(
+            { category: "technology", status: "published" }
+            )
+        </div>
+
+        <h4>deleteMany</h4>
+
+        <p>Pour effacer toute une collection :</p>
+
+        <div class="jumbotron">
+            db.posts.deleteMany({})
+        </div>
+
+        <p>Effacer uniquement les documents suivant certains critères :</p>
+
+        <div class="jumbotron">
+            db.posts.deleteMany({ tags : "technology" })
+        </div>
+    </div>
+</body>
+
+</html>

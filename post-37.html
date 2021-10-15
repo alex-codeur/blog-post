@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>
+            npm : Tout comprendre du gestionnaire de paquets Node JS
+        </h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>Qu’est-ce que npm ?</li>
+            <li>Quelle utilité pour npm ?</li>
+            <li>Exemples d’utilisation de npm</li>
+            <li>Tutorial: Comment l’installer et utiliser ses fonctions?</li>
+            <li>Installer npm automatiquement avec Node.js
+            </li>
+            <li>Config npm : démarrer son projet avec npm init</li>
+            <li>comment savoir la version d’npm installée ?</li>
+            <li>Installer un package node avec npm</li>
+            <li>Les alternatives</li>
+            <li>Yarn, le gestionnaire de paquet made in Facebook</li>
+            <li>Comment un développeur a cassé des milliers de projets avec npm
+            </li>
+        </ul>
+
+        <p>npm est le gestionnaire de paquets officiel de Node.js. Sa maîtrise est obligatoire pour tout développeur
+            voulant travailler dans cet environnement car il est présent à toutes les étapes de la création, du
+            développement et de la maintenance des applications Node.js.</p>
+
+        <p>Dans le présent guide, PracticalProgramming vous donne toutes les clés pour tout comprendre de npm :
+            qu’est-ce que c’est exactement, comment l’installer et l’utiliser pour installer des paquets etc.</p>
+
+        <h3>Qu’est-ce que npm ?</h3>
+
+        <p>En programmation, on dit souvent qu’il ne faut pas réinventer la roue sur chaque projet. En effet, la plupart
+            des fonctionnalités que vous voulez intégrer dans votre projet ont sûrement déjà été développées et testées
+            par d’autres avant vous. Grâce à la puissance de la communauté open-source, vous pouvez télécharger le code
+            de ces fonctionnalités et les installer dans votre projet en tant que dépendances pour pouvoir les
+            réutiliser. </p>
+
+        <p>C’est là qu’interviennent les gestionnaires de paquets : tels d’énormes annuaires, ils listent les paquets
+            disponibles et permettent de les télécharger, installer, mettre à jour et désinstaller très facilement.</p>
+
+        <p>Il existe de nombreux gestionnaires de paquets, chacun dédié à un langage ou à un framework particulier :
+            Maven (JAVA), Bundler (Ruby), Composer (PHP)…</p>
+
+        <p>Avec plus d’un million de paquets disponibles gratuitement et plus de 11 millions d’utilisateurs, npm est le
+            gestionnaire de paquets le plus utilisé dans le monde.</p>
+
+        <p>À l’origine, son nom était probablement un acronyme pour “Node Package Manager” mais la société qui gère la
+            bibliothèque (npm, Inc.) a toujours contredit cette affirmation, probablement en raison de possibles litiges
+            juridiques autour du nom “Node”.</p>
+
+        <p>Dédié à tout l’environnement JavaScript et non pas seulement aux paquets Node.js, npm est d’une grande
+            utilité pour les développeurs.</p>
+
+        <h3>Quelle utilité pour npm ?</h3>
+
+        <p>Pour les développeurs et les entreprises, npm est si utile et pratique qu’il est devenu indispensable.</p>
+
+        <h4>Gestion des dépendances et interface en ligne de commandes</h4>
+
+        <p>D’abord, il automatise toute la gestion des dépendances et des paquets des projets JavaScript. Plus besoin de
+            télécharger, installer et mettre à jour régulièrement les codes sources des différents paquets (modules,
+            librairies, frameworks etc.) dont votre projet est dépendant. </p>
+
+        <p>Toutes les dépendances seront listées dans un fichier package.json et toutes leurs sources seront disponibles
+            dans un dossier /node_modules/ présent à la racine de votre projet. Cela donne par la même occasion une
+            structure commune à tous les projets, facilitant le travail collaboratif entre plusieurs développeurs. Il
+            vous suffira alors (à vous ou à n’importe quel collaborateur travaillant sur votre projet) de lancer une
+            commande npm install pour installer toutes les dépendances du projet ou npm update pour les mettre à jour.
+        </p>
+
+        <p>Au-delà de ces installations locales, npm permet aussi d’installer globalement des paquets, c’est-à-dire les
+            rendre disponibles en tant que ligne de commande sur votre système pour être utilisés par d’autres projets.
+        </p>
+
+        <p>Ces fonctionnalités de gestion des dépendances et d’utilitaire en ligne de commandes font de npm le
+            gestionnaire de paquets préféré des frameworks JavaScript, permettant à leurs utilisateurs d’accéder très
+            facilement aux différentes versions des librairies back-end et front-end.</p>
+
+        <h4>Au service des entreprises et de l’open-source</h4>
+
+        <p>npm est également plébiscité par les entreprises qui peuvent y créer des packages privés et ainsi rendre
+            disponibles certains modules réutilisables à leurs équipes uniquement. </p>
+
+        <p>Enfin, npm a une utilité indiscutable pour l’open-source en proposant gratuitement à la communauté une
+            plateforme fiable (le registre disponible sur npmjs.com) pour mettre à disposition du code open-source et un
+            outil ultra-facile pour l’installer, le mettre à jour etc.</p>
+
+        <p>C’est pourquoi des solutions telles que git et npm sont au centre du développement de nombreuses solutions
+            open-source extrêmement populaires.</p>
+
+        <h4>Exemples d’utilisation de npm</h4>
+
+        <p>Si l’écosystème JavaScript s’étend et se démocratise à vitesse grand V, c’est en partie grâce aux
+            possibilités qu’offrent Node.js et npm ; et les exemples ne manquent pas pour le démontrer.</p>
+
+        <h5>Express.js, l’infrastructure web simple et flexible pour Node.js</h5>
+
+        <p>Express est le framework serveur de référence pour les applications web Node.js. Cette infrastructure légère
+            et flexible propose un ensemble de fonctionnalités robustes permettant d’organiser son projet avec une
+            architecture MVC (modèle-vue-contrôleur) en la couplant avec une base de données et un langage de templating
+            ou un framework front-end. Par exemple, Express est le composant back-end du stack MEAN (MongoDB en base de
+            données lien vers MongoDB et AngularJS en front-end). </p>
+
+        <p>Coder un simple serveur d’API REST avec Express.js peut s’avérer 5 à 10 fois plus rapides qu’avec Node.js
+            seul, c’est pourquoi Express.js est l’un des paquets les plus populaires de npm avec plus de 11 millions de
+            téléchargements par semaine et près de 40.000 projets qui en sont dépendants.</p>
+
+        <h5>Airbnb et les packages privés npm</h5>
+
+        <p>Airbnb est l’exemple-type d’entreprise utilisant npm pour partager son code entre ses collaborateurs. Pour
+            leur site web, leur application mobile, l’interface des loueurs ou l’interface d’administration des
+            employés, les applications sont découpées en composants React qui sont ensuite partagés à l’ensemble des
+            équipes front-end de l’entreprise via un package npm privé. Une bonne pratique qui souligne l’importance
+            qu’a pris npm dans les workflows de certaines entreprises leaders.</p>
+
+        <h3>Tutorial: Comment l’installer et utiliser ses fonctions?</h3>
+
+        <p>Pour bénéficier des fonctions de gestion de paquets et d’utilitaire en ligne de commandes de npm, il faut
+            commencer par installer npm sur son système</p>
+
+        <h4>Installer npm automatiquement avec Node.js</h4>
+
+        <p>Depuis la version 0.6.3 de Node.js, npm est livré par défaut avec Node. Pour l’installer, il suffit donc
+            d’installer Node.js sur votre système. </p>
+
+        <p>La procédure pour installer Node.js dépend de votre système d’exploitation. Consultez nos guides pour : </p>
+
+        <ul>
+            <li>Installer npm et Node.js sur Windows</li>
+            <li>Installer npm et Node.js sur Linux</li>
+
+            <li>Installer npm et Node.js sur MacOSX</li>
+        </ul>
+
+        <h4>Config npm : démarrer son projet avec npm init</h4>
+
+        <p>Nous en parlions précédemment, la gestion des dépendances se base sur une liste des dépendances située dans
+            un fichier package.json. Pour créer ce fichier, lancez simplement une invite de commande dans le dossier de
+            votre projet et utilisez la commande :</p>
+
+        <div class="jumbotron">
+            npm init
+        </div>
+
+        <p>Un assistant de configuration sera alors lancé, vous permettant de créer ce fichier package.json initial avec
+            notamment le nom du projet (en minuscules uniquement), son auteur, sa version, une description etc. </p>
+
+        <p>Pour accélérer ce processus en créant un projet avec les paramètres par défaut, vous pouvez utiliser la
+            commande :</p>
+
+        <div class="jumbotron">
+            npm init -y
+        </div>
+
+        <h4>comment savoir la version d’npm installée ?</h4>
+
+        <p>Pour connaître la version npm installée sur votre système, entrez simplement la commande : </p>
+
+        <div class="jumbotron">
+            npm -v
+        </div>
+
+        <h4>Installer un package node avec npm</h4>
+
+        <p>Pour installer un paquet, rien de plus simple : rendez vous dans le dossier de votre projet et entrez la
+            commande :</p>
+
+        <div class="jumbotron">
+            npm install nom_du_paquet
+        </div>
+
+        <p>Vous pouvez également utiliser la forme raccourcie de npm install : </p>
+
+        <div class="jumbotron">
+            npm i nom_du_paquet
+        </div>
+
+        <p>Pour installer un package globalement et s’en servir sur sa machine comme ligne de commande (CLI), rajoutez
+            le paramètre -g :</p>
+
+        <div class="jumbotron">
+            npm i nom_du_paquet -g
+        </div>
+
+        <p>Enfin, vous pouvez installer des paquets en tant que devDependencies. Les devDependencies sont les paquets
+            nécessaires pour votre environnement de développement et de test, par opposition aux dépendances normales
+            qui s’appliquent en production. Utilisez alors le paramètre -d :</p>
+
+        <div class="jumbotron">
+            npm i nom_du_paquet -d
+        </div>
+
+        <h3>Les alternatives</h3>
+
+        <p>Si npm est le gestionnaire de paquets le plus populaire de l’écosystème JavaScript, plusieurs alternatives
+            ont le mérite d’exister.</p>
+
+        <h4>Yarn, le gestionnaire de paquet made in Facebook</h4>
+
+        <p>Fin 2016, Facebook a annoncé la disponibilité de Yarn, un gestionnaire de paquets qui se veut rapide, fiable
+            et sécurisé.</p>
+
+        <p>Lors de l’annonce officielle de son lancement, les ingénieurs de Facebook ont précisé avoir utilisé npm avec
+            succès pendant des années. Cependant, à mesure que le volume de code à partager et le nombre de développeurs
+            avec qui le partager augmentait, des problèmes de fiabilité, sécurité et performance ont été rencontrés.
+            C’est pourquoi Facebook a créé cette alternative open-source avec la collaboration de Exponent, Google et
+            Tilde.</p>
+
+        <p>Si Yarn propose de nouvelles fonctionnalités et un cœur adapté aux très grosses entreprises, il se base tout
+            de même sur le registre de npm. Les paquets disponibles sont donc les mêmes, et Yarn est simplement un autre
+            outil pour installer et gérer les paquets, différent de celui installé nativement avec npm.</p>
+
+        <p>Yarn reste donc dépendant du gestionnaire de paquets le plus populaire, dont la suprématie n’est pas sans
+            inconvénients.</p>
+
+        <h4>Comment un développeur a cassé des milliers de projets avec npm</h4>
+
+        <p>En Mars 2016, un développeur du nom de Azer Koçulu a retiré plus de 250 de ses paquets du registre de npm. La
+            raison : l’un de ses modules s’appelait “Kik”, le même nom que porte une célèbre application de messagerie
+            instantanée, ce qui a retenu l’attention des avocats de cette dernière qui ont demandé à Azer Koçulu de
+            renommer son module. Après son refus, les avocats ont porté une réclamation à l’administration de npm qui
+            ont retiré le module pour atteinte aux droits de la marque. </p>
+
+        <p>Furieux, Koçulu a alors dépublié tous ses paquets dont le module left-pad composé de 11 lignes de code
+            permettant d’ajouter des 0 ou des espaces devant une chaîne de caractères. </p>
+
+        <p>Le problème, c’est que des milliers de projets dépendaient de ce module dont Node.js ou Babel qui se sont
+            retrouvés inutilisables en l’état pour des millions d’utilisateurs.</p>
+
+        <p>La situation a forcé les dirigeants de npm à restaurer une version précédente du module, qui a par la suite
+            été déprécié, mais l’anecdote est représentative des risques liés à une dépendance trop importante à un seul
+            et même registre.</p>
+
+        <p>C’est pourquoi de gros acteurs du marché tels que Google, Amazon ou Microsoft proposent désormais des
+            alternatives pour stocker des paquets privés.</p>
+    </div>
+</body>
+
+</html>

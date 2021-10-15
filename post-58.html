@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>
+            Test API: Comment tester son API avec les tests Postman
+        </h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>Comment écrire un test avec Postman</li>
+            <li>Lancer ses tests API automatiquement</li>
+            <li>Lancer ses tests API via le Collection Runner de Postman</li>
+            <li>Lancer ses tests API régulièrement avec Postman Monitors</li>
+            <li>Des tests API en ligne de commande avec Newman</li>
+            <li>Autres ressources:</li>
+        </ul>
+
+        <p>Lorsque l'on construit un système d'information, le choix de l'API est devenu le choix par défaut. Or pour
+            assurer son bon fonctionnement tout au long de sa vie, il est important de pouvoir régulièrement faire du
+            test API.</p>
+
+        <p>Les tests API au cours du développement sont principalement fait via des tests unitaires et tests
+            fonctionnels dans la codebase. Pour une API NodeJS, les librairies de tests les plus utilisées sont
+            Mocha/Chai et Jest. Toutefois, ces tests ont souvent un scope limité au fonctionnement interne de notre API.
+        </p>
+
+        <p>Le Test API via Postman permet de tester le fonctionnement de son API aussi bien en interne qu'avec des API
+            tierces.</p>
+
+        <h3>Comment écrire un test avec Postman</h3>
+
+        <p>Dans l'interface, Postman propose l'onglet "Tests". On peut s'en servir pour définir des variables Postman à
+            l'issue d'une requête et pour effectuer des assertions dessus.</p>
+
+        <p>Dans cet onglet, vous pourrez écrire votre code de test API. Sur la droite, Postman vous propose des snippets
+            de tests prêts à l'emploi, comme l'évaluation du Status Code, vérifier la valeur de la réponse JSON ou
+            évaluer le temps de réponse de la requête.</p>
+
+        <p>Postman se base sur la librairie d'assertion Chai. Vous êtes également libre d'écrire votre suite de test
+            selon vos besoins en utilisant la syntaxe d'assertion Chai.</p>
+
+        <h3>Lancer ses tests API automatiquement</h3>
+
+        <p>Au fur et à mesure que votre API croît, le nombre de test API à lancer devient de plus en plus grand. Lancer
+            chaque test API manuellement devient chronophage et source d'erreur. Postman propose plusieurs façons
+            d'automatiser le lancement automatique des tests API.</p>
+
+        <h4>Lancer ses tests API via le Collection Runner de Postman</h4>
+
+        <p>La première option pour lancer ses tests API de façon séquentielle est d'utiliser le Collection Runner de
+            Postman. Cette fonctionnalité permet de lancer les requêtes d'une collection les unes après les autres.
+            Postman exécutera les tests dans l'onglet correspondant pour chaque requête.</p>
+
+        <h4>Lancer ses tests API régulièrement avec Postman Monitors</h4>
+
+        <p>La fonctionnalité Postman Monitor est disponible avec la version PRO de Postman. Toutefois, vous pouvez faire
+            jusqu'à 1 000 appels API par mois avec la version gratuite. Postman Monitor est une fonctionnalité qui
+            permet d'exécuter une collection à intervalles réguliers afin de s'assurer qu'elle reste fonctionnelle et
+            passe toujours les tests.</p>
+
+        <h4>Comment ajouter un Postman Monitor:</h4>
+
+        <h4>Le compte rendu Postman Monitor:</h4>
+
+        <p>Postman met à votre disposition un compte rendu de l'ensemble des appels avec le résultat des tests et le
+            temps de réponse.</p>
+
+        <h3>Des tests API en ligne de commande avec Newman</h3>
+
+        <p>Newman est un package npm qui permet d'exécuter des collections Postman via le terminal. L'intérêt est de
+            pouvoir l'installer sur votre pipeline d'intégration continu afin d'y exécuter les collections Postman
+            contenant les tests API.</p>
+
+        <p>Pour installer Newman, tapez la commande suivante dans votre terminal: </p>
+
+        <div class="jumbotron">
+            npm install -g newman
+        </div>
+
+        <h4>Récupérer sa collection depuis Postman</h4>
+
+        <p>Pour pouvoir lancer depuis votre terminal la collection, il faut la récupérer depuis Postman. Deux solutions
+            s'offrent à vous. L'exporter en JSON et charger le fichier en CLI ou utiliser la fonction partager l'URL de
+            Postman</p>
+
+        <p>Pour lancer la collection, saisissez la commande: newman run <url></url>
+        </p>
+
+        <p>Comme vous le voyez, Newman ne récupère pas automatiquement les variables d'environnement Postman. Là encore,
+            vous pouvez récupérer le fichier JSON et l'intégrer en utilisant la commande :</p>
+
+        <div class="jumbotron">
+            newman run <url> -e <fichier_environnement.json>
+        </div>
+
+        <p>ou bien:</p>
+
+        <div class="jumbotron">
+            newman run <url> -e https://api.getpostman.com/environments/<environment_uuid>\?apikey\=<apiKey> >
+        </div>
+    </div>
+</body>
+
+</html>

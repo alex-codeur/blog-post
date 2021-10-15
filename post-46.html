@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>
+            NodeJs : le guide complet pour tout comprendre du javascript serveur
+        </h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>Qu'est-ce que NodeJS ?
+            </li>
+            <li>Node.js, un langage utile et efficace</li>
+            <li>Pourquoi apprendre Node.js ? Trois bonnes raisons de s’y mettre
+            </li>
+            <li>Node est basé sur JavaScript</li>
+            <li>Le marché de l’emploi est en demande</li>
+            <li>La courbe d’apprentissage est abordable</li>
+            <li>Node.js : pour quels types de projets ?</li>
+            <li>Node est très adapté pour les serveurs web</li>
+            <li>NodeJS et les interfaces en ligne de commande (CLI)</li>
+            <li>Node et les architectures microservices</li>
+            <li>Node JS : pour quels projets n’est-il pas adapté ?</li>
+            <li>Quels sont les meilleurs outils pour Node.js ?</li>
+            <li>Les meilleurs IDE pour Node</li>
+            <li>Les meilleurs outils de versioning pour NodeJS</li>
+            <li>Les meilleurs outils de test pour NodeJS</li>
+            <li>Les meilleurs outils de déploiement pour NodeJS
+            </li>
+            <li>Node.js et database : quelle solution choisir ?</li>
+            <li>Les bases de données relationnelles et NodeJS</li>
+            <li>NodeJS et les bases de données NoSQL</li>
+            <li>Express.js : le meilleur framework Node ?</li>
+        </ul>
+
+        <h3>Qu'est-ce que NodeJS ?</h3>
+
+        <p>NodeJS est un environnement d'exécution permettant d’utiliser le JavaScript côté serveur. Grâce à son
+            fonctionnement non bloquant, il permet de concevoir des applications en réseau performantes, telles qu'un
+            serveur web, une API ou un job CRON.</p>
+
+        <p>Créé en 2009 par Ryan Dahl, ce runtime JavaScript open source et cross-platform avait pour but premier de
+            remédier aux limites de la programmation séquentielle et des serveurs web (tels qu'Apache HTTP Server). Ces
+            technologies atteignaient effectivement leurs limites lorsqu’elles devaient gérer de très nombreuses
+            connexions simultanées.</p>
+
+        <h3>Node.js, un langage utile et efficace</h3>
+
+        <p>La solution apportée par Node.js repose sur trois bases fondamentales : </p>
+
+        <ul>
+            <li>Le moteur JavaScript V8 développé par Google, qui permet d’exécuter du code JavaScript à l’intérieur de
+                Google Chrome et, grâce à Node, directement sur le serveur.</li>
+            <li>Une boucle d’événements, appelée aussi event loop NodeJS, permettant d’exécuter plusieurs opérations
+                simultanées de façon asynchrone et non bloquante en tirant profit des multiples fils d’exécution
+                (multithreading) des noyaux des processeurs modernes.</li>
+            <li>Une API de bas niveau basée sur la structure entrées-sorties (I/O) dénommée libuv, qui permet d’adopter
+                une approche de programmation événementielle.</li>
+        </ul>
+
+        <p>Si l’adoption de Node JS s’est progressivement démocratisée avec le temps, l’arrivée de la syntaxe ES6
+            (normes ECMAScript publiées en 2015) a considérablement boosté sa popularité notamment grâce aux Promises
+            qui ont pu mettre fin au “callback hell” dans le code.</p>
+
+        <div class="jumbotron">
+            const verifyUser = function (username, password, callback) {
+            database.verifyUser(username,password, (error, userInfo)=> {
+            if (error) {
+            callback(error)
+            } else {
+            database.getRoles(username,(error,roles)=> {
+            if (error) {
+            callback(error)
+            } else {
+            database.logAccess(username,(error)=> {
+            if (error) {
+            callback (error)
+            }
+            callback (null,userInfo,roles)
+            })
+            }
+            })
+            }
+            })
+            }
+        </div>
+
+        <p>Un exemple de callback hell où la gestion de l’asynchrone est imbriquée dans chaque fonction, rendant la
+            lecture et la compréhension du code compliqué.</p>
+
+        <div class="jumbotron">
+            const verifyUser = function (username,password) {
+            database.verifyUser(username,password)
+            .then(userInfo=> database.getRoles(userInfo))
+            .then(rolesInfo => database.logAccess(rolesInfo))
+            .then(finalResult => {
+            // Logique métier à implémenter avec l'utilisateur vérifié
+            })
+            .catch(err) => {
+            // Gérer le cas d'erreur
+            }
+            }
+        </div>
+
+        <p>Ce même code utilisant les promises est bien plus agréable à lire et à comprendre.</p>
+
+        <p>En 2018, Node.js dépassait le milliard de téléchargements et est aujourd’hui l’une des technologies les plus
+            utilisées pour développer des applications modernes, notamment par de nombreux leaders technologiques tels
+            que Amazon, Ebay, Paypal ou Reddit.</p>
+
+        <p>Dans ce guide complet Node JS, vous apprendrez tout de ce langage serveur : quelle est son utilité, pourquoi
+            apprendre à le maîtriser, comment l’utiliser, vers quels frameworks et systèmes de bases de données se
+            tourner etc.</p>
+
+        <h3>Pourquoi apprendre Node.js ? Trois bonnes raisons de s’y mettre</h3>
+
+        <p>L’univers du développement web est en constante évolution et les nouvelles solutions peuvent devenir
+            obsolètes aussi vite qu’elles sont devenues tendances. Après plus de dix ans de mise à l’épreuve, Node.js
+            fait figure d’exception et a dépassé le statut d’alternative solide aux stacks plus traditionnels tels
+            qu’Apache/PHP.</p>
+
+        <p>Pour un développeur qui se pose la question “pourquoi apprendre Node.js ?”, trois raisons principales peuvent
+            être évoquées : l’utilisation de JavaScript, l’état du marché de l’emploi et la courbe d’apprentissage.</p>
+
+        <h4>Node est basé sur JavaScript</h4>
+
+        <p>Créé en 1995 par Netscape et longtemps cantonné à réaliser de petites animations sur les sites web,
+            JavaScript est aujourd’hui le langage de développement web le plus populaire au monde. Cela peut s’illustrer
+            par plusieurs statistiques dont les suivantes :</p>
+
+        <ul>
+            <li>JavaScript est le langage le plus utilisé par les répondants au Stack Overflow Developers Survey de 2019
+                (source)</li>
+            <li>C’est également le langage le plus présent dans les contributions GitHub depuis au moins cinq ans
+                (source)</li>
+            <li>Enfin, Javascript est le langage utilisé par une écrasante majorité de sites web pour le front-end mais
+                est également de plus en plus populaire pour le back-end (source)</li>
+        </ul>
+
+        <p>Ces raisons font de JavaScript un langage incontournable et son utilisation à la base de Node.js est un
+            avantage certain car tous les développeurs web en connaissent déjà au moins les bases. Il existe ainsi une
+            grande communauté de développeurs JavaScript animée par une mentalité open source favorisant les échanges de
+            connaissances et la montée en compétences.</p>
+
+        <h4>Le marché de l’emploi est en demande</h4>
+
+        <p>Les avantages apportés par Node.js (accélération du développement, scalabilité, flexibilité, facilité pour
+            créer des équipes fullstack, etc.) en font une solution de plus en plus présente dans les projets des
+            entreprises à travers le monde. </p>
+
+        <p>À mesure que l’adoption de Node JS en entreprise progresse, la demande en développeurs maîtrisant cette
+            technologie sur le marché du travail augmente également.</p>
+
+        <p>À titre d’exemple, la plateforme de recrutement spécialisée en IT Hired a annoncé qu’en France, les
+            développeurs Node inscrits sur sa plateforme ont reçu en moyenne 6,5 offres d’entretien par mois en 2019
+            contre 4.2 pour les développeurs Android, par exemple. </p>
+
+        <p>En 2020 et toujours dans l’Hexagone, le marché des développeurs NodeJS est même qualifié de “hautement
+            pénurique”, faisant des développeurs fullstack JS les développeurs les mieux payés.</p>
+
+        <h4>La courbe d’apprentissage est abordable</h4>
+
+        <p>Node JS est une technologie assez facile à prendre en main, notamment grâce aux nombreux frameworks
+            disponibles qui simplifient le développement. S’il présente aussi certaines faiblesses (surtout pour
+            l’exécution côté client), JavaScript reste un langage polyvalent permettant de répondre à de nombreux
+            besoins. Il est également facile à apprendre, surtout depuis l’arrivée de la syntaxe ES6.</p>
+
+        <p>La communauté grandissante de développeurs Node et JavaScript facilite également l’apprentissage en mettant
+            constamment à disposition de nouvelles ressources (cours, tutoriels, vidéos etc.)</p>
+
+        <p>L’utilisation de JavaScript, la forte demande sur le marché du travail et la facilité d’apprentissage sont
+            les raisons principales qui poussent les développeurs à apprendre ce langage serveur. Pour apprendre Node
+            JS, retrouvez tous les tutos Node.js proposés par Practical Programming. </p>
+
+        <p>Pour accélérer votre apprentissage de NodeJS et adopter dès le début les bonnes pratiques de JavaScript, de
+            tests et de déploiement, vous pouvez suivre la formation Practical Node.</p>
+
+        <h3>Node.js : pour quels types de projets ?</h3>
+
+        <p>Si Node JS est aussi populaire aujourd’hui, c’est parce qu’il présente de nombreux avantages par rapport aux
+            langages et technologies plus traditionnels. En proposant des fonctionnalités de base à compléter par des
+            modules via npm, Node.js est extrêmement flexible et polyvalent. En effet, comme nous allons le voir
+            ci-dessous, il convient à de nombreuses typologies de projets.</p>
+
+        <h4>Node est très adapté pour les serveurs web</h4>
+
+        <p>Node JS est single-threaded : il ne s’exécute que sur une seule instance (un thread ou fil d’exécution) du
+            système d’exploitation, à l’inverse d’un serveur fonctionnant en PHP (avec Apache HTTP Server par exemple)
+            qui est, lui, multi-threaded.</p>
+
+        <p>Cette caractéristique de Node lui permet de gérer les requêtes de façon non bloquantes. Là où un serveur PHP
+            mobilise un thread pour réceptionner une requête et attendre qu’elle passe à travers tout le code pour
+            retourner une réponse au client, le serveur Node va gérer chaque requête de manière asynchrone au sein d’un
+            seul et unique thread. La requête est ainsi réceptionnée puis envoyée dans la callback queue où le thread de
+            Node sert les réponses une par une.</p>
+
+        <p>Certaines librairies Node sont multi-threaded : la librairie libuv servant de base à Node.js permet de mettre
+            en place un thread pool contenant plusieurs threads, chacun assigné à un coeur du processeur. Cette
+            démultiplication des fils d’exécution permet d’optimiser le temps d’exécution de chaque thread. Node est
+            toujours single-threaded mais utilise plusieurs threads en arrière-plan pour exécuter le code de façon
+            asynchrone grâce à la librairie libuv.</p>
+
+        <p>Cette gestion asynchrone des requêtes rend NodeJS très adapté pour des opérations input/output, c’est-à-dire
+            la grande majorité des requêtes sur le web (chercher, afficher, insérer, modifier, supprimer une information
+            sur une base de données etc.).</p>
+
+        <p>L’utilisation de JavaScript comme langage de programmation côté serveur permet également d’abolir les
+            barrières entre front-end et back-end, permettant de monter une équipe fullstack plus facilement. Cette
+            possibilité de construire des applications complètes en un seul et même langage est également l’une des
+            raisons de l’adoption grandissante de Node en entreprise. </p>
+
+        <h4>NodeJS et les interfaces en ligne de commande (CLI)</h4>
+
+        <p>Tout comme PHP, Python et C sont également soumis à la concurrence de Node.js, cette fois sur le terrain des
+            interfaces en ligne de commande (CLI). Node permet en effet de construire de tels outils en tirant bénéfice
+            des centaines de milliers de modules disponibles sur npm.</p>
+
+        <p>Une pléiade de paquets très populaires y est effectivement dédiée aux CLI pour, entre autres, créer des
+            inputs complexes (par exemple inquirer, prompts ou email-prompt) ou encore améliorer graphiquement le
+            terminal (boxen, ora, listr). À partir de 2018, des frameworks à part entière tels que oclif ou gluegun sont
+            apparus et permettent de créer un outil en ligne de commande de A à Z. Les frameworks front-end populaires
+            disposent également de paquets populaires dédiés aux outils CLI, tels que angular/cli, vue/cli ou
+            create-react-app.</p>
+
+        <h4>Node et les architectures microservices</h4>
+
+        <p>Node.js tire pleinement bénéfice de la modularité de JavaScript en donnant la possibilité aux développeurs de
+            créer plusieurs petits services sous forme de modules. Un moyen d’accélérer considérablement le
+            développement tout en veillant à la scalabilité du projet grâce à l’aspect single-threaded de Node. </p>
+
+        <p>De plus en plus tendance ces dernières années, les architectures microservices en NodeJS sont facilitées par
+            la présence d’une multitude de paquets sur npm. Reflets d’une communauté open source solide et grandissante,
+            ces modules permettent notamment d’interfacer les microservices entre eux via des APIs HTTP ou le Messaging.
+            Chaque microservice pouvant être déployé, mis à jour, scalé ou redémarré indépendamment des autres, la
+            maintenance du projet est grandement facilitée et des mises à jour peuvent ainsi être déployées fréquemment
+            sans affecter l’expérience des utilisateurs finaux. </p>
+
+        <h4>Node JS : pour quels projets n’est-il pas adapté ?</h4>
+
+        <p>Si Node présente de nombreux avantages face aux méthodes et langages de développement web plus traditionnels
+            côté serveur, il est néanmoins moins adapté pour certaines typologies de projets.</p>
+
+        <p>Node.js s’avère en effet moins performant que d’autres langages tels que Python pour les process ou les
+            services très gourmands en CPU. Une application Node surchargeant le processeur aura pour effet de bloquer
+            l’exécution de toutes les autres tâches et ralentir conséquemment l’ensemble de l’application. De bons
+            exemples sont les projets de data science ou de machine learning impliquant l’analyse d’un grand volume de
+            données. </p>
+
+        <p>D’une manière plus générale, NodeJS est moins adapté pour les projets ne nécessitant pas la création d’un
+            serveur web. Pour tous les autres, il est une solution de choix qui convainc de plus en plus de
+            développeurs.</p>
+
+        <h3>Quels sont les meilleurs outils pour Node.js ?</h3>
+
+        <p>Les fonctionnalités proposées nativement par Node sont puissantes mais basiques : elles ne suffisent pas à
+            créer une application complète. Pour cela, le développeur peut compter sur les milliers de modules
+            disponibles mais également sur de nombreux outils indispensables.</p>
+
+        <p>Pour plus d’informations sur les solutions à utiliser, référez-vous à notre boîte à outils Node JS.</p>
+
+        <h4>Les meilleurs IDE pour Node</h4>
+
+        <p>Un environnement de développement intégré (IDE) compatible avec Node et bien configuré est une condition
+            obligatoire pour coder confortablement. Si de nombreuses solutions sont disponibles, trois logiciels se
+            démarquent comment les meilleurs IDE pour NodeJS : </p>
+
+        <ul>
+            <li>Visual Studio Code domine le marché des développeurs JavaScript avec plus de 70% de parts de marché.
+                Depuis la sortie de l’édition gratuite par son éditeur Microsoft, cet IDE a séduit de nombreux adeptes
+                grâce à sa simplicité, ses nombreux plugins et ses performances optimales.</li>
+            <li>Webstorm est un IDE très complet, proposant toutes les fonctionnalités nécessaires pour développer en
+                Node. Il est cependant plus lourd et nécessite un temps d’apprentissage et de prise en main plus long.
+                Il est développé par le plus gros développeur d’IDE au monde, JetBrains, surtout connu pour ses
+                solutions IntelliJ et PHPStorm.</li>
+            <li>Atom est l’IDE développé par l’équipe de Github avant le rachat par Microsoft. Disponible gratuitement,
+                cet IDE a su se faire une place à l’époque où les seuls concurrents étaient Sublime Text et Notepad++.
+                Avec le temps, il a su intégrer de nombreux plugins permettant d’ajouter toutes les fonctionnalités
+                nécessaires mais au prix d’une performance moindre.</li>
+        </ul>
+
+        <h4>Les meilleurs outils de versioning pour NodeJS</h4>
+
+        <p>La gestion des versions (ou versioning) est un élément fondamental du développement informatique puisqu’elle
+            permet de garder un historique des différentes versions du projet, de comparer les versions entre elles ou
+            encore de faciliter le travail collaboratif entre développeurs sur le même projet. </p>
+
+        <p>Git est le logiciel de gestion de versions le plus utilisé au monde. Logiciel libre créé par Linus Torvald
+            (le créateur du noyau Linux), Git fonctionne de façon décentralisée en mode P2P (peer to peer) : le code des
+            projets est stocké sur l’ordinateur de chaque contributeur et peut aussi l’être sur un serveur distant. Git
+            permet également de fractionner le code en plusieurs branches (par exemple développement, test et
+            production) et de suivre l’arborescence des fichiers (dossiers et sous-dossiers)</p>
+
+        <p>Pour utiliser git avec NodeJS, plusieurs outils existent :</p>
+
+        <ul>
+            <li>GitHub est une solution d’hébergement du versioning avec Git. Elle permet aux développeurs de stocker
+                leur code dans des dépôts (ou référentiels, “repository” en anglais) en ligne, de gérer leurs
+                différentes versions, d’y ajouter facilement des contributeurs avec différentes autorisations et
+                d’autres fonctionnalités gratuites et payantes. Racheté en 2018 par Microsoft, Github est un véritable
+                hub de l’open source et l’acteur dominant dans l’hébergement de Git. Ses principaux concurrents sont
+                GitLab et BitBucket.</li>
+            <li>Alors que Git fonctionne par l’utilisation de commandes sur le terminal, telles que git init pour
+                initialiser un nouveau dépôt, git clone pour copier un dépôt existant ou git commit pour ajouter des
+                changements à un dépôt, GitKraken offre une interface graphique pour visualiser et réaliser toutes ces
+                opérations. L’utilisation d’une telle solution peut faire gagner du temps et un confort considérable aux
+                développeurs qui ne sont pas habitués aux commandes Git, et même aux autres.</li>
+        </ul>
+
+        <h4>Les meilleurs outils de test pour NodeJS</h4>
+
+        <p>La compétence essentielle pour progresser dans une carrière de développeur c’est de savoir tester son code.
+            Les tests automatisés assurent que votre code reste fonctionnel au fur et à mesure qu’il grandit. Avec les
+            tests unitaires et tests fonctionnels, vous vous assurez qu’une fonctionnalité nouvellement ajoutée ne casse
+            pas un autre élément de votre application.</p>
+
+        <p>Pour réaliser ces tests il faut ajouter à votre code un ou plusieurs modules capables de parcourir votre code
+            et évaluer ce qui en ressort. Chaque langage dispose de ses librairies de tests, et pour Node ou plus
+            généralement JavaScript, Jest et Mocha sont les deux frameworks les plus populaires.</p>
+
+        <h4>Les meilleurs outils de déploiement pour NodeJS</h4>
+
+        <p>Parmi les technologies ayant révolutionné Internet ces dernières années, le cloud computing est certainement
+            l’une de celles qui ont le plus impacté le monde du développement web. Elle consiste en la mise à
+            disposition de ressources informatiques (le plus souvent de l’espace de stockage ou de la puissance de
+            calcul) à travers des machines virtuelles distantes louées à la demande.</p>
+
+        <p>En matière de déploiement d’applications NodeJS, les solutions cloud toujours plus nombreuses permettent en
+            général de déployer plus rapidement et de réduire les coûts d’infrastructure par rapport à l’utilisation,
+            par exemple, d’un serveur dédié. </p>
+
+        <p>Les trois services principaux proposés par ces solutions cloud sont : </p>
+
+        <ul>
+            <li>IaaS (Infrastructure as a Service) : met à disposition des développeurs une infrastructure prête à
+                l’emploi et évolutive selon les besoins (espace de stockage, bande passante, puissance de calcul…). Les
+                développeurs n’ont plus qu’à gérer le côté logiciel (installation d’un système d’exploitation, de
+                différentes applications etc…).</li>
+            <li>PaaS (Platform as a Service) : inclut les fonctionnalités de l’IaaS mais fournit également les
+                ressources logicielles (système d’exploitation, de gestion de bases de données, logiciels d’aide à la
+                décision etc…)
+            </li>
+            <li>FaaS (Functions as a Service) ou Serverless (ou architecture “sans serveur” en français) : le
+                fournisseur du service est uniquement responsable de l’exécution d’un code en lui allouant les
+                ressources nécessaires automatiquement. En général, ce code est exécuté au sein de conteneurs pouvant
+                être déclenchés par des évènements.</li>
+        </ul>
+
+        <p>Pour les applications Node, le déploiement en cloud est largement préféré aux options plus traditionnelles
+            car de nombreuses solutions existent pour déployer rapidement et facilement tout en contrôlant les coûts
+            liés au scaling. Parmi les fournisseurs principaux de solutions cloud adaptées aux projets Node.js : Amazon
+            Web Services, Google Cloud, Microsoft Azure, Vultr, Linode…</p>
+
+        <h3>Node.js et database : quelle solution choisir ?</h3>
+
+        <p>Les bases de données sont un élément fondamental pour la grande majorité des projets de développement
+            d’applications et les projets NodeJS ne font pas figure d’exception. Le choix d’un système de gestion de
+            base de données est une décision cruciale qui va impacter toutes les étapes du projet, de l’étude
+            préliminaire à la maintenance en passant par le développement et la mise en production. </p>
+
+        <p>Qu'elles soient installées on premise ou via un service de DBaaS, NodeJS est compatible avec tous les
+            systèmes de gestion de bases de données les plus importants. On peut les distinguer selon leur capacité à
+            gérer les relations.</p>
+
+        <h4>Les bases de données relationnelles et NodeJS</h4>
+
+        <p>Un système de gestion de bases de données relationnelles permet de gérer des bases de données au sein
+            desquelles les informations stockées peuvent être liées entre elles. Les bases de données sont séparées en
+            différentes tables que l’on peut assimiler à des tableaux : elles contiennent des colonnes (qui définissent
+            quelles données sont présentes, par exemple nom, prénom, date de naissance) et des lignes (qui sont des
+            entrées dans la base de données, par exemple BONAPARTE, Napoléon, 15/08/1769).</p>
+
+        <p>Le langage SQL pour Structured Query Language est le standard pour effectuer des requêtes sur une base de
+            données relationnelle. Il permet de reconstituer un ensemble d’informations contenues dans plusieurs tables
+            différentes en une seule requête, sans avoir à les restructurer. </p>
+
+        <p>L’un des systèmes de gestion de bases de données relationnelles les plus utilisés dans le monde est MySQL.
+            Pour plus d’informations, vous pouvez consulter notre guide complet NodeJS et MySQL.</p>
+
+        <p>Il se trouve que la majorité des projets Node ne nécessitent pas de relations strictes entre les données,
+            mais simplement de stocker des données pour les utiliser au moment voulu. Dans ce cas, les solutions NoSQL,
+            plus flexibles sont à privilégier.</p>
+
+        <h4>NodeJS et les bases de données NoSQL</h4>
+
+        <p>Comme leur nom l’indique, les bases de données NoSQL fonctionnent sans le langage SQL. Débutant dans les
+            années 2000, le mouvement NoSQL a surtout été popularisé grâce aux technologies développées par les GAFA.
+            (Google, Apple, Facebook, Amazon) Il s’agissait alors de répondre aux problématiques du big data.</p>
+
+        <p>À l’inverse des solutions SQL, la plupart des solutions NoSQL ne nécessitent pas de schéma prédéfini de
+            données (ces fameuses “colonnes” qui définissent quelles données peuvent être insérées mais aussi leur type
+            : chaîne de caractères, date, nombre entier ou décimal etc.) et sont donc plus rapides à mettre en place,
+            plus légères et plus flexibles. Logiquement, elles ne gèrent pas les relations entre les données stockées.
+        </p>
+
+        <p>Il existe quatre modèles principaux de bases de données NoSQL. </p>
+
+        <h5>Le modèle clé-valeur</h5>
+
+        <p>Le stockage en clé-valeur (key-value stores en anglais) ou tables de hachage (hashmaps en anglais) permet
+            d’associer une valeur à une clé sous la forme d’un tableau associatif.</p>
+
+        <p>Les systèmes de bases de données NoSQL en clé-valeur principaux pour NodeJS sont Redis qui propose un peu
+            plus de fonctionnalités que le simple stockage en clé-valeur, et Memcached qui se concentre uniquement sur
+            le clé-valeur mais qui est un peu plus performant. </p>
+
+        <h5>Le modèle orienté document</h5>
+
+        <p><strong>Les systèmes orientés document associent également une information à une clé, mais cette information
+                peut être d’autres documents ce qui implique une gestion hiérarchique des données.</strong></p>
+
+        <p>Le système NoSQL orienté document le plus utilisé avec NodeJS est MongoDB. Il peut être utilisé nativement
+            avec la librairie mongo ou avec Mongoose pour faciliter la modélisation des documents. </p>
+
+        <h5>Le modèle orienté colonne</h5>
+
+        <p>Les systèmes orientés colonne stockent les données par colonne et non par ligne : le système sérialise
+            d’abord toutes les valeurs d’une même colonne, puis celles de la colonne suivante etc. Ce système est basé
+            sur le principe selon lequel nous n’avons habituellement pas besoin de toutes les colonnes en une requête,
+            mais seulement certaines d’entre elles. Il permet d’héberger les colonnes sur différents serveurs et de
+            paralléliser les requêtes pour des performances optimales, surtout pour les volumes de données importants.
+        </p>
+
+        <p>Le représentant emblématique des systèmes orientés colonne pour NodeJS est Cassandra, développé par Facebook.
+        </p>
+
+        <h5>Le modèle orienté graphe</h5>
+
+        <p>Les systèmes orientés graphe (graph databases en anglais) représentent les données sous forme de graphe, avec
+            des noeuds, des arcs et des propriétés. Cette structure permet de retrouver facilement et rapidement des
+            informations hiérarchisées de façon complexe (en parcourant les liens entre chaque élément) et dont la
+            modélisation selon les autres modèles aurait été bien plus difficile.</p>
+
+        <p>Avec son driver pour Node neo4J-driver, Neo4J est sûrement la solution la plus adaptée pour utiliser une
+            Graph Database avec NodeJS.</p>
+
+        <h3>Express.js : le meilleur framework Node ?</h3>
+
+        <p>Si Node.js permet d’accélérer le développement d’applications, c’est en grande partie parce qu’il existe de
+            nombreux modules compatibles. Parmi ceux-ci, Express.js est le framework le plus populaire pour Node JS.
+        </p>
+
+        <p>Écrit en JavaScript, Express est un framework léger, flexible et simpliste qui se veut être une collection de
+            fonctionnalités de base. Ne proposant nativement qu’un nombre de paquets réduit au maximum, Express ne
+            propose ni interface en ligne de commandes, ni architecture suggérée, ni ORM dans le but de garder des
+            performances optimales tout en simplifiant la conception d’un serveur Node.</p>
+
+        <p>Express est prévu pour laisser beaucoup de libertés aux développeurs, notamment dans le choix des modules à
+            intégrer dans le projet. Par exemple, là où d’autres frameworks plus rigides tels que Rails (Ruby) ou Django
+            (Python) imposent l’utilisation d’un système de bases de données (que l’on peut contourner en remplaçant les
+            modules fournis par défaut), il suffit au développeur Node d’importer la librairie correspondant à son choix
+            personnel : MongoDB, MySQL, Cassandra, Neo4J…</p>
+
+        <p>Cette liberté apporte également son lot d’inconvénients en augmentant les risques liés à un manque de
+            cohérence dans l’architecture et les modules choisis. Cela peut impacter négativement la maintenance et le
+            debugging d’une application Express compliquée quand elle a été conçue avec des défauts et un manque de
+            documentation.</p>
+
+        <p>Pour plus d’informations sur la création d’un serveur Node avec Express.js, vous pouvez consulter notre guide
+            complet Express : tout savoir du framework Node.</p>
+    </div>
+
+</body>
+
+</html>

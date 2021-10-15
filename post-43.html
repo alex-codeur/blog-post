@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>
+            Faut-il apprendre TypeScript quand on est développeur JS ?
+        </h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>TypeScript: Qu’est-ce que c’est et pourquoi devrais-je m’y intéresser ?
+            </li>
+            <li>Quels sont les avantages à apprendre TypeScript ?</li>
+            <li>TypeScript facilite le développement et améliore l’expérience du développeur</li>
+            <li>TypeScript fera de vous un meilleur développeur</li>
+            <li>TypeScript est facile à apprendre et mobilise une communauté active</li>
+            <li>TypeScript ne règle pas tous les problèmes</li>
+            <li>Est-ce pertinent d’apprendre TypeScript pour avoir un meilleur CV ?
+            </li>
+        </ul>
+
+        <p>Dans un univers du développement web en constante évolution, les tendances se suivent et ne se ressemblent
+            pas toujours. Lorsque les lacunes d’un standard bien établi deviennent trop incommodantes, des alternatives
+            apparaissent et passent parfois du statut de nouveauté à celui de tendance incontournable, avant d’être
+            inexorablement remplacées à leur tour.</p>
+
+        <p>Ce phénomène qui s’accélère toujours plus est particulièrement visible au sein de l’écosystème JavaScript,
+            certainement le plus prolifique du secteur. Une bonne illustration est l’apparition successive de frameworks
+            front-end : jQuery (2006), Backbone.js (2010), React (2013), Vue.js (2014), PolymerJS (2015), Angular
+            (2016)... Alors que certaines de ces technologies sont (presque) tombées dans l’oubli, d’autres sont
+            devenues aujourd’hui des standards du développement web.</p>
+
+        <p>Pas facile alors pour les développeurs JavaScript de choisir quelles tendances suivre et quelles nouvelles
+            technologies apprendre dans cet univers en permanente réinvention, même avec une veille efficace. Parmi ces
+            tendances, TypeScript est sûrement l’une des technologies qui interroge le plus.</p>
+
+        <p>Pour faire court : OUI, il faut apprendre TypeScript quand on est développeur JS en 2020 ! Passons maintenant
+            aux explications…</p>
+
+        <h3>TypeScript: Qu’est-ce que c’est et pourquoi devrais-je m’y intéresser ?</h3>
+
+        <p>TypeScript est un langage de programmation dont la première version publique (0.8) est publiée en Octobre
+            2012 après deux ans de développement interne chez Microsoft.</p>
+
+        <p>Plus précisément, TypeScript est un sur-ensemble syntaxique strict de JavaScript : tout code JS valide peut
+            être utilisé avec TypeScript et tout code TypeScript peut être interprété par n’importe quel navigateur web
+            ou moteur JavaScript après avoir été transcompilé en JS. Il peut être utilisé à la fois du côté client et du
+            côté serveur avec NodeJS.</p>
+
+        <p>L’origine de la création de TypeScript est la confrontation de Microsoft aux lacunes de JavaScript pour le
+            développement d’applications complexes à grande échelle, à la fois chez Microsoft mais également chez leurs
+            clients externes. La solution a pour fonction de faciliter le développement de composants JS en ajoutant de
+            nouvelles fonctionnalités à JavaScript : typage statique optionnel des variables et des fonctions, classes
+            et interfaces, import de modules…</p>
+
+        <p>Par défaut, TypeScript compile en ECMAScript 5 (version JS de 2009, le standard actuel supporté par les
+            navigateurs modernes) mais peut également cibler ECMAScript 3 (version de 1999 supportée par tous les
+            navigateurs) ou ECMAScript 2015 (version 6, non supportée par Internet Explorer).</p>
+
+        <p>Utilisé par défaut dans de nombreux frameworks tels que Angular et NestJS, TypeScript est de plus en plus
+            présent au sein de l’écosystème JS si bien qu’il concerne plus de 7% des pull requests sur Github en 2020
+            (contre 18.84% pour JavaScript et au-dessus de PHP ou C) selon GitHut 2.0 :</p>
+
+        <h3>Quels sont les avantages à apprendre TypeScript ?</h3>
+
+        <p>TypeScript est un langage dont la maîtrise est de plus en plus recherchée par les entreprises. Cette
+            popularité grandissante s’explique aisément par les avantages considérables que TypeScript apporte.</p>
+
+        <h4>TypeScript facilite le développement et améliore l’expérience du développeur</h4>
+
+        <p>La principale fonctionnalité qu’apporte TypeScript à JavaScript est le support du typage statique des
+            variables et des fonctions. Si vous êtes un développeur JS qui n’a jamais touché à d’autres langages, vous
+            n’êtes peut-être pas familier avec cette notion importante en programmation.</p>
+
+        <p>Le typage est un procédé par lequel on signale à un programme quels types de valeur une variable ou une
+            fonction peut accepter. Certains langages comme JavaScript ou Python ont un typage dynamique : le type de
+            chaque variable n’est connu qu’au moment de l’exécution du programme. À l’inverse, certains langages comme
+            Java ou C++ ont un typage statique : le type de chaque variable est défini dans le code et est donc connu au
+            moment de la compilation du code. Si une valeur d’un certain type est assignée à une variable (ou en
+            argument d’une fonction) définie comme étant d’un autre type, une erreur sera générée pendant la compilation
+            et le programme ne pourra pas être exécuté.</p>
+
+        <p>Il existe de nombreux types différents dont les plus communs en programmation sont : Nombre (integer pour
+            entier, float pour décimal), Chaîne de caractères (string), Tableau (array), Booléen (boolean)... Certains
+            n’existent pas en TypeScript, mais ce langage propose d’autres types avancés tels que Any & Unknown, Void ou
+            Never. Vous pouvez en savoir plus sur ces types dans la documentation TypeScript.</p>
+
+        <p>Alors que JavaScript ne supporte que le typage dynamique, TypeScript vous permet d’utiliser optionnellement
+            le typage statique. Votre programme sait alors, avant qu’il ne soit exécuté, quels types de valeurs sont
+            acceptés pour quelles variables. Plus besoin dès lors de perdre un certain temps à fouiller dans de nombreux
+            fichiers ou dans la doc d’une librairie pour savoir quels paramètres telle fonction accepte ou quels champs
+            sont présents dans tel objet : votre IDE compatible TypeScript (Visual Studio, WebStorm, Eclipse, Atom…)
+            vous le signale pendant que vous écrivez votre code. Cette sorte de documentation auto-intégrée et toujours
+            à jour des derniers changements accélère et facilite le développement d’applications complexes où de
+            nombreux développeurs sont amenés à collaborer et leur débogage. Une étude montre par ailleurs que 15% de
+            tous les bugs JavaScript peuvent être détectés par TypeScript.</p>
+
+        <h4>TypeScript fera de vous un meilleur développeur</h4>
+
+        <p>Bien qu’optionnel, le typage statique des variables et des fonctions supportées par TypeScript vous permet de
+            définir des structures de données spécifiques dès le commencement du développement de votre app. Cela impose
+            un cadre et des règles qui devront être respectés et pousse ainsi une conception plus cohérente de
+            l’application dans son ensemble tout en limitant les risques de la casser en faisant des changements
+            importants dans le code.</p>
+
+        <p>Apprendre TypeScript est également un excellent moyen de vous favoriser avec des concepts de programmation
+            que vous ne connaissiez peut-être pas auparavant. Au-delà des types, TypeScript utilise également d’autres
+            notions :</p>
+
+        <ul>
+            <li>Les génériques ou generics;</li>
+            <li>Les interfaces ;</li>
+            <li>Les énumérations ou enums;</li>
+            <li>Les classes ;</li>
+            <li>Les unions et intersections;</li>
+            <li>Les espaces de nomsou namespaces.</li>
+        </ul>
+
+        <p>Déjà présents dans d’autres langages de programmation à typage statique tels que C++ ou Java, vous
+            familiariser avec ces concepts vous permettra d’aborder plus facilement d’autres langages à l’avenir si vous
+            le souhaitez.</p>
+
+        <h4>TypeScript est facile à apprendre et mobilise une communauté active</h4>
+
+        <p>TypeScript est utilisé et soutenu par les sociétés tech les plus avancées telles que Microsoft, Google,
+            Airbnb, Shopify, Adobe ou Mozilla. Ces entreprises étant évidemment habituées à déployer d’énormes
+            applications extrêmement complexes à très large échelle, on ne peut qu’être convaincu de la capacité de
+            TypeScript à garantir une scalabilité, une fiabilité et une performance optimales. L’adoption de TypeScript
+            par ces leaders technologiques a contribué à populariser ce langage et a fédéré une importante communauté
+            open source très active qui publie un grand nombre de ressources pédagogiques et d’outils. GitHub Octoverse
+            place d’ailleurs TypeScript en 5ème position des langages avec la croissance la plus rapide entre 2018 et
+            2019 (161%) devant Python (151%) et Go (147%).</p>
+
+        <p>TypeScript étant un sur-ensemble syntaxique strict de JavaScript capable de compiler tout code JavaScript
+            valide, vous pouvez l’inclure facilement et progressivement à vos projets JS actuels sans avoir à réécrire
+            tout votre code. Vous pouvez trouver un guide sur la migration de JavaScript vers TypeScript à cette
+            adresse. Pour les projets d’entreprise, Microsoft a même publié un guide pour passer à TypeScript
+            discrètement sans que personne ne s’en rende compte, et donc sans avoir à convaincre vos collègues.</p>
+
+        <h3>TypeScript ne règle pas tous les problèmes</h3>
+
+        <p>Vous l’avez compris, TypeScript est une formidable solution de facilitation du développement et de la
+            communication entre développeurs — mais ce n’est pas une solution miracle ! Si TypeScript ajoute de
+            nombreuses fonctionnalités à JavaScript tout en gardant sa comptabilité cross-platform, ses créateurs et
+            contributeurs ont mis un point d’honneur à respecter l’aspect non-contraignant de JS. Sa puissance et
+            surtout sa fiabilité sont ainsi proportionnelles à la rigueur avec laquelle les développeurs vont
+            l’utiliser. Son utilisation ne dispense surtout pas non plus de mettre en place des procédures de tests
+            unitaires et de tests fonctionnels. Enfin, TypeScript n’est pas un langage à part entière et nécessite une
+            bonne connaissance de JavaScript pour en exploiter le plein potentiel.</p>
+
+        <h3>Est-ce pertinent d’apprendre TypeScript pour avoir un meilleur CV ?</h3>
+
+        <p>Nous l’avons vu : de nombreuses entreprises sont passées à TypeScript, parmi lesquelles les plus grands
+            leaders technologiques. Cette compétence est de plus en plus demandée par les offres d’emploi. À titre
+            d’exemple, environ 1100 offres d’emploi sur Indeed France font référence à TypeScript en septembre 2020,
+            soit presque autant que celles évoquant Node.js (environ 1200). Apprendre dès aujourd’hui TypeScript est
+            également une opportunité à ne pas rater pour un développeur : il est encore suffisamment tôt pour être dans
+            la “early majority” et acquérir une compétence sur son CV qui va continuer à être valorisée.</p>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>
+            Paradigme de programmation: la POO et la programmation fonctionnelle
+        </h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>Qu’est-ce qu’un paradigme de programmation ?
+            </li>
+            <li>Qu’est-ce que la programmation orientée objet ?
+            </li>
+            <li>Les principes de la programmation orientée objet</li>
+            <li>Les design-patterns</li>
+            <li>S.O.L.I.D</li>
+            <li>Qu’est-ce que la programmation fonctionnelle ?</li>
+            <li>Fonctions pures</li>
+            <li>Composition et les High Order functions</li>
+            <li>Immuabilité</li>
+            <li>Programmation Orientée Objet vs Programmation Fonctionnelle
+            </li>
+        </ul>
+
+        <p>Quel que soit votre niveau d’expérience en tant que développeur, votre façon de coder suit un paradigme de
+            programmation. Certains langages imposent un paradigme, comme C++ impose la programmation orientée objet ou
+            Clojure impose la programmation fonctionnelle, tandis que d’autres comme le PHP ou JavaScript sont plus
+            permissifs et vous laissent dérouler votre code comme bon vous semble.</p>
+
+        <p>Cependant, les débats font rage à chaque conférence sur quel paradigme est le plus adapté à la conception
+            d’applications et de nombreux développeurs talentueux y vont de leurs meilleurs arguments pour défendre leur
+            côté du terrain. </p>
+
+        <h3>Qu’est-ce qu’un paradigme de programmation ?</h3>
+
+        <p>Un paradigme de programmation est une approche logique qu’un développeur va adopter pour résoudre son
+            problème. Le paradigme le plus courant est la programmation impérative. Les étapes d’instructions se suivent
+            jusqu’à arriver au résultat escompté.</p>
+
+        <p>Par exemple, dans le cas d’une fonction qui voudrait produire une omelette, les instructions seraient :</p>
+
+        <ol>
+            <li>Prendre 3 œufs</li>
+            <li>Casser les œufs dans un bol</li>
+            <li>Battre les œufs</li>
+            <li>Faire chauffer une poêle</li>
+            <li>Mettre de la matière grasse dans sa poêle</li>
+            <li>Verser le mélange un dans la poêle chaude</li>
+            <li>Attendre 5 minutes</li>
+            <li>Servir.</li>
+        </ol>
+
+        <p>Cette approche consistant à donner des instructions les unes à la suite des autres suit un paradigme de
+            programmation impératif. Si ce paradigme marche très bien pour les petits scripts, il devient inapproprié
+            pour des codebases plus conséquentes. Le code impératif (ou procédural) n’est pas réutilisable sans rendre
+            le code source tel un plat de spaghetti indémêlable.</p>
+
+        <p>C’est pourquoi il existe de nombreux autres paradigmes pour nous aider dans la conception de nos codes
+            sources.</p>
+
+        <p>Les paradigmes les plus courants sont la programmation réactive, popularisée dans l’écosystème JavaScript par
+            la librairie RxJS et par défaut inclus dans les framework Angular et Nestjs, la programmation orientée objet
+            et la programmation fonctionnelle.</p>
+
+        <h3>Qu’est-ce que la programmation orientée objet ?</h3>
+
+        <p>La programmation orientée objet est un paradigme de programmation qui permet de modéliser son code sous forme
+            d’objets ayant des propriétés et de méthodes et qui interagissent entre eux plutôt qu’une séquence
+            d’instructions.</p>
+
+        <h4>Les principes de la programmation orientée objet</h4>
+
+        <p><strong>L’abstraction</strong> est le principe le plus fondamental de la programmation orientée objet. Il
+            consiste à afficher ou masquer les détails d’un objet à l’utilisateur (ou aux autres objets avec lequel il
+            interagit) pour n’exposer que les éléments qui leur seront utiles.</p>
+
+        <p><strong>L’encapsulation</strong> est un des principes de la programmation orientée objet qui permet de lier
+            de la donnée au code qui la manipule tout en la protégeant des actions pouvant altérer cette donnée.</p>
+
+        <p><strong>L’héritage</strong> (ou inheritance en anglais) est le principe de la POO qui permet à un objet
+            d’acquérir les propriétés d’un autre objet. Souvent on parle d’héritage de classes pour faire référence à
+            cette notion.</p>
+
+        <p><strong>Le Polymorphisme en programmation orienté objet</strong> est la capacité de créer une méthode qui
+            aurait plusieurs façons d’être exécutée suivant la nature des paramètres qu’elle reçoit.</p>
+
+        <h4>Les design-patterns</h4>
+
+        <p>Pour faire face aux problèmes récurrents que les développeurs ont à résoudre, l’intelligence collective de
+            ces derniers a mis en évidence les design patterns, ou patrons de conceptions.</p>
+
+        <p>Les design patterns sont des descriptions ou des modèles de solutions répétables à un problème récurrent dans
+            la conception logicielle. Ils ne sont pas présentés sous forme de code mais sous forme de concepts à
+            implémenter dans votre code source.</p>
+
+        <p>La programmation orientée objet ayant pour but d’apporter une solution à la modélisation d’un problème, elle
+            peut rapidement induire une grande complexité. Les design patterns ont pour but d’accélérer votre
+            développement en proposant des solutions testées et éprouvés à vos problèmes de conceptions de façon à avoir
+            un code source clair répondant à vos besoins métier.</p>
+
+        <p>Les design patterns agissent comme un standard dans la programmation orientée objet, permettant à tout
+            développeur ayant ces notions de comprendre l’implémentation d’une solution.</p>
+
+        <p>Plus d’une vingtaine de design patterns ont émergé, se catégorisant en 3 grandes familles.</p>
+
+        <p>Les patterns de création, comme les patterns Factory, le Singleton, le Prototype (dont JavaScript suit le
+            pattern) ou le Builder, qui traitent de l’instanciation des objets.</p>
+
+        <p>Et enfin les Patterns de comportement, qui portent sur la communication des objets.</p>
+
+        <p>Les Design patterns sont des solutions évolutives et cumulables. Leurs façons d’être implémentés ne sont pas
+            gravées dans le marbre mais justement ont pour vocation d’être adapté à votre situation.</p>
+
+        <h3>S.O.L.I.D</h3>
+
+        <p>Mis en évidence par Robert C Martin dans son article "Design Principles and Design Patterns", les principes
+            SOLID sont des bonnes pratiques de programmation. Ces principes ont pour but de réduire la complexité du
+            code, le couplage entre les classes, prône la séparation des responsabilités et défini les relations entre
+            ces dernières.</p>
+
+        <p>L’acronyme S.O.L.I.D représente les principes suivant :</p>
+
+        <p><strong>Single Responsibility :</strong></p>
+
+        <p><strong>A class should have one and only one reason to change</strong></p>
+
+        <p>Ce principe est qu’une classe ne devrait contenir que des méthodes et propriétés qui lui sont directement
+            liées. Elle ne doit faire agir que sur la représentation de l’objet qu’elle représente.</p>
+
+        <p><strong>Open/Closed :</strong></p>
+
+        <p><strong>You should be able to extend a classes behavior, without modifying it.</strong></p>
+
+        <p>Les entités logicielles, qu’ils soient des classes, des modules ou des fonctions, doivent être capables
+            d’être étendus sans toutefois être eux-mêmes modifiés.</p>
+
+        <p><strong>Liskov Substitution :</strong></p>
+
+        <p><strong>Derived classes must be substitutable for their base classes.</strong></p>
+
+        <p>Ce principe porte le nom de Barbara Liskov qui a expliqué qu’avant de faire hériter une classe, il est
+            important de penser aux conséquences en amont et en aval sur cette classe. Ce principe a pour but de
+            maintenir un système d’héritage de classes fonctionnel en forçant le développeur à concevoir ses classes et
+            méthodes de telle sorte à ce qu’elles puissent toutes fonctionner quelle que soient les paramètres qui
+            seront passés à ses objets.</p>
+
+        <p><strong>Interface Segregation :</strong></p>
+
+        <p><strong>Make fine grained interfaces that are client specific.</strong></p>
+
+        <p>Le principe de ségrégation par les interfaces stipule qu’il est préférable d’avoir une multitude d’interfaces
+            spécifiques que vos classes implémenteront plutôt que de faire hériter des classes qui ont plusieurs
+            méthodes en trop. </p>
+
+        <p><strong>Dependency Inversion :</strong></p>
+
+        <p><strong>Depend on abstractions, not on concretions.</strong></p>
+
+        <p>Le principe d’inversion de dépendances est conçu pour faciliter les changements de comportements et
+            l’évolution du code à l’avenir.</p>
+
+        <p>En effet, notre approche naïve de modélisation d’une solution nous pousse à empiler des briques qui vont
+            dépendre de celles d’en dessous pour leur bon fonctionnement. L’inversion de dépendance suggère d’utiliser
+            des abstractions de ces classes afin d’inverser la dépendance, gardant les briques fonctionnelles au cœur de
+            votre système et laissant les briques utilitaires en surface.</p>
+
+        <h3>Qu’est-ce que la programmation fonctionnelle ?</h3>
+
+        <p>La programmation fonctionnelle est un paradigme de programmation déclaratif, traitant des opérations
+            successivement en évitant les mutations de données et les changements d’état.</p>
+
+        <p>Un code source conçu en programmation fonctionnelle va être plus concis, plus prédictible et plus facile à
+            tester qu’un code source programmé avec la programmation orientée objet. En revanche, il va paraître plus
+            dense et plus compliqué à comprendre pour les développeurs plus juniors.</p>
+
+        <p>Par opposition à la programmation orientée objet, l’approche fonctionnelle de la programmation consiste à
+            éviter les changements d’états et les effets de bords dans un code source en se basant sur les principes
+            d’immuabilité et de composition de fonctions.</p>
+
+        <p>Imaginons un programme orienté objet comportant l’objet Commande. Cet objet a pour propriétés items,
+            dateDeLivraison, adresseDeLivraison, etc. Il a également différentes méthodes dont save, permettant
+            d’enregistrer son état actuel en base de données. C’est ce qu’on appelle un état partagé. Un objet Commande
+            peut être accessible à plusieurs endroits.</p>
+
+        <P>Si l’utilisateur vient modifier la date de livraison, le serveur va envoyer une requête pour modifier la
+            commande en base de données et retourner l’objet complet de la commande pour remplacer l’objet commande avec
+            cette nouvelle donnée en mémoire.</P>
+
+        <p>Sauf que simultanément, sa femme modifie l’adresse de livraison avant que le serveur ait pu sauvegarder et
+            lui retourner la nouvelle date de livraison. Sur son interface à elle, elle accède à l’ancienne version de
+            l’objet, avec l’ancienne date de livraison, puis elle sauvegarde à son tour. </p>
+
+        <p>La requête initiale va être écrasée avec une donnée obsolète. Il s’agit d’une race condition. Ce genre de bug
+            est très difficile à identifier, débugger et tester.</p>
+
+        <p>Une autre erreur peut être lorsque les fonctions sont temporellement liées. Par exemple, on ne peut pas
+            définir de date de livraison avant d’avoir défini une adresse de livraison. Or si l’adresse de livraison
+            n’est pas validée par votre service La Poste qui vérifie les adresses, vous vous retrouvez avec des erreurs
+            en cascades.</p>
+
+        <p>Ces erreurs sont issues de l’état partagé d’un objet, ce contre quoi la programmation fonctionnelle essaye de
+            lutter. Pour cela, elle se base sur les principes suivants :</p>
+
+        <h4>Fonctions pures</h4>
+
+        <p>Une fonction pure est une fonction qui retournera systématiquement le même résultat tant qu’on lui passe les
+            mêmes paramètres. On l’appelle aussi idempotent. </p>
+
+        <p>Par exemple, une fonction qui vient incrémenter un compteur :</p>
+
+        <div class="jumbotron">
+            let counter = 0
+            function increment(incrementBy = 1) {
+            counter += incrementBy
+            }
+
+            increment(1) // 1
+            increment(1) // 2
+            increment(1) // 3
+        </div>
+
+        <p>Cette fonction est impure car si je l'appelle 3 fois de suite avec le même paramètre, elle me retournera
+            toujours quelque chose de différent. En suivant la règle de privilégier les fonctions pures, cette fonction
+            donnerait plutôt:</p>
+
+        <div class="jumbotron">
+            function increment(counter, incrementBy = 1) {
+            counter += incrementBy
+            }
+
+            increment(0,1) // 1
+            increment(0,1) // 1
+            increment(0,1) // 1
+        </div>
+
+        <p>Cette fonction en revanche retournera toujours la même donnée tant que les paramètres restent inchangés.
+            Étant donné qu'en programmation fonctionnelle nous souhaitons éviter les états partagés, nous déléguons la
+            responsabilité de transmettre le compteur initial à une autre fonction. Ainsi, nous pouvons garder une
+            fonction pure.</p>
+
+        <p>Toutes les fonctions ne pourront pas être pures. Les appels HTTP, les requêtes en base de données, la
+            génération de dates ou de nombres…</p>
+
+        <p>Dans le cadre du développement d’une application suivant le paradigme de programmation fonctionnelle, il faut
+            viser à garder sa logique métier pure, et déléguer les fonctions impures en dehors, en utilisant des
+            méthodes comme l’injection de dépendance ou des lazy functions.</p>
+
+        <h4>Composition et les High Order functions</h4>
+
+        <p>Les High Order functions, ou fonctions de premier ordre, sont des fonctions qui prennent une ou plusieurs
+            fonctions en paramètre pour en retourner une autre. La fonction. map () en JavaScript est un exemple de
+            fonction de premier ordre car elle prend en paramètre une fonction.</p>
+
+        <p>La composition de fonction quant à elle consiste à combiner plusieurs fonctions de façon à produire un
+            résultat, via notamment l’utilisation de fonctions de premier ordre.</p>
+
+        <p>Exemple de composition de fonction:</p>
+
+        <div class="jumbotron">
+            const numbers = [1,2,3,4,5,6,7,8,9,10]
+            const isEven = x => x % 2 === 0
+
+            const filterOutOddNumbers = numbers.filter(isEven)
+            // [2,4,6,8,10]
+        </div>
+
+        <p>L'idée derrière la composition est de pouvoir respecter le Single Responsibility Principle, comme quoi chaque
+            fonction n'a qu'un seul job, et de faire passer notre logique à travers un flux de fonctions pures.</p>
+
+        <h4>Immuabilité</h4>
+
+        <p>L’immuabilité de la donnée est un concept essentiel à la programmation fonctionnel dans son but d’éviter les
+            états partagés et les effets de bords.</p>
+
+        <p>Il ne faut pas penser que l’utilisation de const suffit à rendre vos variables immuables. Par exemple :</p>
+
+        <div class="jumbotron">
+            const obj = {}
+            obj.a = 'foo'
+
+            console.log(obj)// {a:'foo'}
+
+            const array = []
+            array.push(1)
+
+            console.log(array) //[1]
+        </div>
+
+        <p>La programmation fonctionnelle propose de faire naviguer vos données à travers un flux de fonctions. En
+            passant une donnée immuable en entrée d’une fonction, cette dernière retournera une nouvelle donnée,
+            elle-même immuable, issue de l’exécution de cette fonction.</p>
+
+        <p>Par exemple, les fonctions filter, map et reduce parcourent un tableau en entrée, appliquent la fonction
+            passée en paramètre et retournent un nouveau tableau. Elles ne modifient pas le tableau original
+            contrairement à si vous utilisiez un forEach ou une boucle for.</p>
+
+        <h3>Programmation Orientée Objet vs Programmation Fonctionnelle</h3>
+
+        <p>Ces dernières années, la programmation fonctionnelle a connu une popularité grandissante au sein de
+            différents écosystèmes. Ceci dit, ce n’est pas pour autant une Silver Bullet.</p>
+
+        <p>Certains langages vont imposer un paradigme de programmation, tandis que d’autres, comme JavaScript, vont
+            vous laisser libre choix de celui que vous préférez.</p>
+
+        <p>Suivant la complexité du système que vous cherchez à modéliser, vous opterez pour de la programmation
+            fonctionnelle, de la programmation orientée objet ou parfois même de la programmation impérative.</p>
+
+        <p>Par exemple si vous développez un simple script de scraping ou de data processing qui va tenir dans un petit
+            nombre de fichiers et ne pas être amené à grandir, la programmation impérative, aussi simple soit-elle, va
+            répondre à votre besoin le plus simplement.</p>
+
+        <p>Si en revanche vous avez un système plus complexe à modéliser, le fait de représenter vos éléments en objets
+            avec des propriétés et des méthodes peut vous simplifier la conception.</p>
+
+        <p>Enfin, parfois il vous paraîtra plus naturel d’imaginer un flux par lequel votre programme va passer et dans
+            ces cas-là, la programmation fonctionnelle fait du sens.</p>
+
+        <p>Attention toutefois à la loi de l’instrument de Marslow. Lorsque vous avez un marteau, tout ressemble à un
+            clou. C’est ce qui se passe lorsque vous vous familiarisez avec un paradigme sans sortir de votre zone de
+            confort. Vous pourrez probablement concevoir tous vos programmes en programmation orientée objet si c’est le
+            paradigme avec lequel vous êtes le plus à l’aise. Mais ce n’est pas toujours la meilleure solution.</p>
+
+        <p>Alors prenez le temps de vous documenter sur les différents paradigmes et exercez-vous sur de simples
+            applications. Vous pouvez répliquer un même programme avec les deux paradigmes pour les comparer.</p>
+    </div>
+</body>
+
+</html>

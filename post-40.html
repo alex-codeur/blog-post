@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>
+            NestJS : tout savoir du framework NodeJS
+        </h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>Pourquoi Nest JS est-il un framework Node.js si populaire ?
+            </li>
+            <li>NestJS a fait le choix de TypeScript</li>
+            <li>La forte utilisation des decorators</li>
+            <li>Le typage des saisies (</li>
+            <li>NestJS encourage la modularité</li>
+            <li>Une architecture suggérée optimale</li>
+            <li>Tests inclus
+            </li>
+            <li>Quels sont les inconvénients de NestJS ?</li>
+            <li>Notre conclusion sur NestJS</li>
+            <li>Pour aller plus loin</li>
+        </ul>
+
+        <p>Alors que JavaScript s’est imposé comme le langage roi indiscutable du front-end, sa popularité a également
+            grimpé en flèche pour le back-end ces dernières années. On doit cela au développement de NodeJS. Les
+            développeurs peuvent ainsi désormais écrire leur application en un seul et même langage, que ce soit pour le
+            côté client ou le côté serveur. Ce qui a pour conséquence d'accélérer leur production, pour une mise sur le
+            marché plus rapide.</p>
+
+        <p>Cette volonté de cycles de développement toujours plus courts a poussé la communauté des développeurs à
+            concevoir et adopter de nombreux frameworks très utiles pour accélérer le développement du front-end tels
+            que React, Angular ou Vue. Parmi la myriade de modules, plugins et outils disponibles pour NodeJS, un
+            framework est en train de s’imposer comme un incontournable pour créer des applications solides côté serveur
+            : Nest.js.</p>
+
+        <p>Dans cet article, vous saurez tout sur le framework Nest.js pour Node JS : ses avantages tels que sa
+            compatibilité avec TypeScript ou son aspect modulable, mais également ses inconvénients.</p>
+
+        <div class="jumbotron">
+            Nest.js : le framework Node pour créer des applications scalables et optimisées
+        </div>
+
+        <h3>Pourquoi Nest JS est-il un framework Node.js si populaire ?</h3>
+
+        <p>NestJS est un framework permettant de créer des applications Node.js hautement scalables, testables et
+            facilement maintenables. La principale problématique résolue par Nest est celle de l’architecture. Il est en
+            effet facile de se laisser tenter par la possibilité d’importer de nombreux modules externes pour accélérer
+            toujours plus le développement d’une application Node. Il sera cependant difficile de garder une structure
+            optimale à mesure que le code de l’application va grandir. C’est pourquoi Nest JS propose une architecture
+            MVC prête à l’emploi, profondément inspirée de Angular. Ce framework Nodejs supporte totalement TypeScript
+            et son cœur est basé sur Express mais peut être remplacé par Fastify.</p>
+
+        <p>Nest est le framework Node.js le plus populaire de 2019 en termes d’étoiles GitHub. Il a également détrôné en
+            2020 le très populaire Hapi en nombre de téléchargements sur npm:</p>
+
+        <h3>NestJS a fait le choix de TypeScript</h3>
+
+        <p>Développé par Microsoft et co-créé par Anders Hejlsberg (le principal inventeur du C#), TypeScript est un
+            sur-ensemble du JavaScript rendu public en octobre 2012. Ce langage à part entière est transcompilé en
+            JavaScript (c’est-à-dire traduit d’un langage vers un autre langage) pour être interprétable par les
+            navigateurs web et les moteurs JavaScript tels que Node. Multi-paradigme, TypeScript permet autant la
+            programmation fonctionnelle que la programmation orientée objet. Il fournit un environnement de
+            développement sécurisé et toutes les fonctionnalités avancées du JavaScript et plus : typage statique
+            optionnel, création de classes et interfaces, import de modules...</p>
+
+        <p>NestJS est un framework TypeScript avant tout mais il laisse également la possibilité d’utiliser du pur
+            JavaScript.</p>
+
+        <h4>La forte utilisation des decorators</h4>
+
+        <p>Les décorateurs (ou decorators en anglais) sont des éléments de syntaxe fortement utilisés dans Angular et
+            présentes dans TypeScript. Pour JavaScript, elles sont une fonctionnalité proposée mais pas encore intégrée.
+        </p>
+
+        <p>Les décorateurs permettent de faciliter l’accès à certaines fonctions. Par exemple, dans l’exemple suivant,
+            les @Get ou @Post dans un contrôleur permettent de définir la route ou la méthode :</p>
+
+        <div class="jumbotron">
+            import { Controller, Get, Post, Body } from '@nestjs/common';
+            import { StudentsService } from './students.service'
+            import { Student } from './students.interface';
+
+            @Controller('students')
+            export class StudentsController {
+            constructor (private studentService: StudentsService) {}
+            @Get()
+            findAll(): Record<string, any> {
+                return this.studentService.findAll()
+                }
+
+                @Post()
+                create(@Body() student: Student) {
+                this.studentService.create(student)
+                return this.studentService.findAll()
+                }
+                }
+        </div>
+
+        <h4>Le typage des saisies (inputs) et des variables</h4>
+
+        <p>Grâce à l’utilisation de TypeScript, NestJS encourage le typage et la vérification des saisies depuis
+            l’entrée des requêtes jusqu’à la réponse du serveur.</p>
+
+        <h3>NestJS encourage la modularité</h3>
+
+        <p>La rapidité de développement des applications Node s’explique en partie par la possibilité d’importer du code
+            tiers, proposé et testé par la communauté. Les frameworks et autres outils sont donc flexibles et modulables
+            par nature pour permettre aux développeurs de choisir les modules qui composent leur application et imposer
+            un minimum de contraintes.</p>
+
+        <p>NestJS ne déroge pas à la règle et encourage la modularité :</p>
+
+        <ul>
+            <li>Via l’interface en ligne de commande Nest CLI, vous pouvez diviser votre application en modules
+                indépendants dans lesquels vous allez injecter des services, des contrôleurs et/ou d’autres modules.
+            </li>
+            <li>Nest propose également une injection de dépendances native prête à l’emploi ainsi qu’un conteneur de
+                dépendance intégré pour faciliter la liaison de modules.</li>
+        </ul>
+
+        <p>Si Nest JS peut se permettre de faciliter la modularité à ce point, c’est parce qu’elle suggère une
+            architecture standard qui limite les risques de produire du “code spaghetti”.</p>
+
+        <h4>Une architecture suggérée optimale</h4>
+
+        <p>NestJS dispose d’une interface en ligne de commande (CLI) complète, similaire à ce que l’on peut retrouver
+            sur Symfony, Laravel (PHP) ou Ruby on Rails. Au travers de celle-ci, Nest JS suggère une architecture MVC
+            (Modèle-Vue-Contrôleur) organisée autour de vos modules.</p>
+
+        <p>Cette architecture et l’emplacement de chaque fichier sont très fortement inspirés d’Angular, ce qui facilite
+            le développement back-end pour les développeurs habitués à ce framework front-end. L’architecture suggérée
+            par NestJS est prévue pour garder une structure optimale à mesure que l’application évolue et que la liste
+            des modules qu’elle utilise s’allonge : un vrai avantage de scalabilité.</p>
+
+        <h4>Tests inclus</h4>
+
+        <p>Qui dit application qui grandit dit des procédures de test qui suivent le pas. Nest JS propose une
+            configuration complète de tests avec la librairie Jest. Cette configuration est, elle aussi, prête à
+            l’emploi mais permet également aux développeurs d’utiliser d’autres outils de tests si besoin.</p>
+
+        <p>Vous l’avez compris, NestJS ne manque pas d’arguments pour séduire les développeurs NodeJS et/ou les
+            développeurs Angular souhaitant se lancer en back-end. Le framework présente néanmoins un certain nombre
+            d’inconvénients.</p>
+
+        <h3>Quels sont les inconvénients de NestJS ?</h3>
+
+        <p>Créé en 2017, Nest JS est un framework récent qui a, comme toutes les solutions nouvelles, un certain nombre
+            d’inconvénients et de limites :
+        </p>
+
+        <ul>
+            <li>De par sa volonté de fournir une architecture suggérée solide, le framework multiplie les fichiers et se
+                révèle être très verbeux. De quoi rebuter les développeurs les plus minimalistes.</li>
+            <li>La forte utilisation des décorateurs, presque abusive, nuit à la lisibilité du code. De plus, certains
+                décorateurs changent la façon d’accéder à certaines données. Par exemple request.body est remplacé par
+                @Body().</li>
+            <li>NestJS encourage implicitement le monolith : bien qu’un package microservices soit proposé, le framework
+                est très orienté vers les applications monolithiques par ses choix et fonctionnalités. Ce parti pris est
+                notamment caractérisé par l’importance accordée aux modules et à l’injection de dépendances. Cet
+                inconvénient pourrait ne pas en être un car trop d’applications se lancent dans une architecture de
+                microservices trop tôt.</li>
+        </ul>
+
+        <h3>Notre conclusion sur NestJS</h3>
+
+        <p>C’est indéniable, NestJS est un framework très complet, à l’image de ce que l’on peut appeler son équivalent
+            front-end, Angular. Si sa nette orientation pour TypeScript peut plaire à de nombreux développeurs, son
+            architecture suggérée et l’utilisation massive des décorateurs peuvent décourager. Une certaine courbe
+            d’apprentissage sera en effet à appréhender pour les développeurs Node n’ayant pas d’expérience sur Angular.
+        </p>
+
+        <p>NestJS reste un bon choix pour démarrer une application Node.js. Sa popularité grandissante vous garantit un
+            grand nombre de ressources en ligne pour monter en compétences sur ce framework.</p>
+    </div>
+</body>
+
+</html>

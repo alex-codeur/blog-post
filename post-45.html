@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="success">
+            <a href="https://practicalprogramming.fr/postman#integrer-postman-dans-un-pipeline-cicd">Il est conseille de
+                lire l'article directement sur le blog car beaucoup d'images illustratives.</a>
+        </div>
+
+        <h1>
+            Postman: le guide complet de l’outil indispensable au développement web
+        </h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>Débuter avec Postman
+            </li>
+            <li>Comment fonctionne Postman ?</li>
+            <li>Utiliser des variables</li>
+            <li>Accélérer son développement grâce à Postman</li>
+            <li>Rédiger des tests automatisés</li>
+            <li>Intégrer Postman dans un pipeline CI/CD</li>
+            <li>Construisez votre API dans Postman</li>
+            <li>Mocker un serveur pour faire son développement</li>
+            <li>Aller plus loin avec Postman</li>
+        </ul>
+
+        <p>Postman est l’instrument le plus incontournable du développement web. Que ce soit pour du développement PHP,
+            Node.js, Ruby on Rails ou Python, dès lors que vous interagissez avec une API, Postman est l’outil de
+            référence que vous allez être amenés à utiliser.</p>
+
+        <h3>Débuter avec Postman</h3>
+
+        <p>Postman sert à exécuter des appels HTTP directement depuis une interface graphique. Vous pourrez simplement
+            choisir l’URL, la méthode HTTP (le plus souvent GET, POST, PUT, PATCH et DELETE), les headers, les query
+            params et dans certains cas le body de la requête.</p>
+
+        <h4>Comment fonctionne Postman ?</h4>
+
+        <h5>Les requêtes HTTP</h5>
+
+        <p>C’est la fonctionnalité la plus triviale à laquelle répond cet outil, pouvoir faire des requêtes HTTP
+            simplement. L’interface graphique rend l’exercice aussi facile que surfer internet sur un navigateur
+            moderne. Il suffit de renseigner l’URL et la méthode HTTP.</p>
+
+        <p>Les méthodes HTTP diffèrent suivant l’opération souhaité et l’API sur laquelle vous faites votre opération.
+            Voici
+            les méthodes HTTP les plus utilisées et leurs fonctions:</p>
+
+        <ul>
+            <li>GET: les requêtes GET sont celles effectuées par un navigateur lorsque vous entrez une URL dans la barre
+                de
+                navigation. Elles ont pour but d’aller chercher une page ou de la donnée.</li>
+            <li>POST: les requêtes POST ont pour but d’envoyer de l’information, contenue dans le body de la requête,
+                vers
+                le serveur.</li>
+            <li>PUT: les requêtes PUT vont écraser une ressource avec de la nouvelle donnée, là aussi présente dans le
+                body
+                de la requête. Elle est utilisée pour mettre à jour de la donnée à condition qu’on soit capable de
+                fournir
+                la ressource mise à jour dans son intégralité.</li>
+            <li>PATCH: les requêtes PATCH servent également à mettre à jour une ressource mais en ne modifiant que
+                l’élément
+                envoyé en body de la requête.</li>
+            <li>DELETE: comme son nom l’indique, la requête DELETE sert à effacer une ressource
+            </li>
+        </ul>
+
+        <p>Ces usages des requêtes HTTP varient suivant le serveur et la façon dont il a été développé, mais ces
+            méthodes
+            sont les plus communes pour les API REST.</p>
+
+        <p>Les requêtes HTTP comportent parfois des query params. Ce sont les données envoyées au serveur via l’URL, le
+            plus
+            souvent dans des requêtes GET, en passant ces données au format clé=valeur après un ?.</p>
+
+        <p>leboncoin.fr/recherche/?category=9&locations=r_12
+            les champs category et location sont des query params.</p>
+
+        <p>Postman permet de facilement définir et modifier ces query params directement dans son interface</p>
+
+        <p>Les requêtes HTTP peuvent également comporter des Request headers. Il s’agit de données transmises en en-tête
+            de
+            chaque requête ayant différentes utilités. Dans certains cas, il faut spécifier certains headers, comme un
+            Token
+            d’autorisation ou d’authentification.</p>
+
+        <p>Postman permet de modifier les headers avec la même simplicité que pour les query params via son interface
+            graphique.
+        </p>
+
+        <p>Certaines requêtes HTTP ont de l’intérêt que parce qu’ils envoient de la donnée au serveur via le request
+            body de
+            la requête. C’est le cas des requêtes POST, PUT et PATCH. Les données du body à envoyer au serveur via
+            Postman
+            peuvent être de différent formats mais le plus utilisé est le format JSON, suivi du format XML pour les API
+            SOAP.</p>
+
+        <p>Postman vous permet de copier et coller un body dans une boite de texte et de choisir le bon format. </p>
+
+        <p>Certains appels HTTP requièrent une authentification de l’appelant. Dans l’onglet Authorization de Postman,
+            vous
+            pourrez paramétrer les autorisations nécessaires à vos appels. Postman propose diverses formes
+            d’authentification, comme la simple API key, le Basic Auth ou l’OAuth. </p>
+
+        <h4>Les collections</h4>
+
+        <p>Tout au long de votre développement, votre API croit et les URLs à tester via Postman deviennent de plus en
+            plus
+            nombreuses. Pour vous aider à organiser et conserver les requêtes afin de les rejouer plus tard, Postman
+            propose
+            d’utiliser les collections.</p>
+
+        <p>Il s’agit d’un répertoire dans lequel vous pourrez enregistrer et classer une série de requêtes HTTP.</p>
+
+        <p>La façon dont il faut ordonner ces appels dans votre collection est complètement à votre guise. Postman vous
+            permet également d’exécuter automatiquement tous les appels d’une collections les un après les autres, d’où
+            l’importance de définir l’ordre.</p>
+
+        <h4>Utiliser des variables</h4>
+
+        <p>Rapidement au cours de votre développement, vous allez avoir certains appels qui dépendent de variables
+            provenant
+            d’autres requêtes. Par exemple, vous aurez probablement besoin de récupérer un id ou un token provenant d’un
+            premier appel pour pouvoir effectuer le second.</p>
+
+        <p>Pour ne pas avoir à copier/coller à chaque fois que vous voulez lancer vos appels, vous avez à votre
+            disposition
+            des variables Postman. Elles vont vous permettre de stocker une donnée reçue d’une requête pour pouvoir la
+            réutiliser dans d’autres appels qui suivent.</p>
+
+        <h5>Scope des variables</h5>
+
+        <p>Les variables Postman sont rangées dans différents scopes. Les scopes principaux sont:</p>
+
+        <ul>
+            <li>Variable Globale</li>
+            <li>Variable d’Environnement</li>
+            <li>Variable de collection</li>
+            <li>Variable Locale</li>
+            <li>Donnée</li>
+        </ul>
+
+        <p>L’avantage des scopes de variables est de pouvoir les utiliser dans différentes collections, de créer des
+            environnements ayant des variables spécifiques, comme une URL de production différente d’une de
+            pré-production
+            ou de développement, et de pouvoir les partager via un mécanisme d’export et d’import de fichier JSON.</p>
+
+        <h4>Définir des variables</h4>
+
+        <p>Pour définir une variable, Postman propose l’objet pm contenant les fonctions set et get. Suivant le scope de
+            la
+            variable que vous voudrez définir ou récupérer, vous utiliserez:</p>
+
+        <div class="jumbotron">
+            pm.global.set(nom_de_la_variable,'valeur')
+        </div>
+
+        <p>pour une variable globale, ou</p>
+
+        <div class="jumbotron">
+            pm.environment.set(nom_de_la_variable,'valeur')
+        </div>
+
+        <p>Pour récupérer la valeur de la variable dans votre URL ou dans votre body, vous pourrez simplement inclure
+            son
+            nom entre double accolades comme ceci:</p>
+
+        <div class="jumbotron">
+            https://{{url}}/ressource/{{currentId}}
+        </div>
+
+        <h5>Pré-requête ou Post-requête</h5>
+
+        <p>Dans votre utilisation de Postman, il y a 2 moments clés où vous pourrez définir des variables et, plus
+            globalement, exécuter du code. Avant que la requête HTTP soit envoyé au serveur ou après. </p>
+
+        <p>Définir une variable avant la requête se fait dans l’onglet Pre-request Script de l’interface Postman. Vous
+            pourrez utiliser cette variable dans l’url, header ou le body de la requête.</p>
+
+        <p>Si en revanche vous avez besoin de récupérer une donnée de la réponse d’un appel HTTP précédent pour votre
+            requête suivante, vous utiliserez l’onglet Tests dans la requête précédente pour définir la variable.</p>
+
+        <p><strong>Par exemple:</strong></p>
+
+        <p>Vous souhaitez faire appel à une API sécurisé pour effacer les éléments datant de plus de trois jours. Votre
+            séquence d’appels HTTP se déroule comme ceci:</p>
+
+        <ol>
+            <li>Appel POST à l’URL /login avec votre identifiant et mot de passe, celui-ci vous retourne votre
+                JsonWebToken
+                pour faire les appels aux routes suivantes qui sont sécurisées.</li>
+            <li>Appel GET avec le JWT dans le header API-KEY sur la route /items avec en query filter la date
+                d’aujourd’hui
+                moins 3 jours</li>
+            <li>Appel DELETE avec le JWT en header sur la route /items/:id pour chaque élément à effacer</li>
+        </ol>
+
+        <p>Dans ce cas, vous aurez besoin d’utiliser à la fois le Pre-request Script et l’onglet Tests pour définir vos
+            variables et vous en servir en Query Params, en Headers et dans l’URL.</p>
+
+        <h3>Accélérer son développement grâce à Postman</h3>
+
+        <p>La raison d’être de Postman est de nous aider développeurs à travailler plus rapidement et plus efficacement.
+            Dès
+            lors que votre application passe une certaine taille critique, Postman va également croitre et être bien
+            plus
+            qu’un outil pour faire simplement des requêtes HTTP dans une interface graphique sympathique.</p>
+
+        <h4>Rédiger des tests automatisés</h4>
+
+        <p>Dans tout développement d’une API, les tests unitaires et fonctionnels sont essentiels pour assurer son bon
+            fonctionnement et sa non régression lorsque les développeurs codent dessus.</p>
+
+        <p>Postman propose également une fonction de tests. L’intérêt des tests via Postman en plus des tests
+            fonctionnels,
+            aussi appelés tests d’intégrations, qui sont inclus dans votre codebase, est que ces derniers devraient
+            “mocker”
+            tout appel à une API extérieur.</p>
+
+        <p>En effet, lorsque vous développez votre Backend, vos tests doivent couvrir votre logique. Si vous faites
+            appel à
+            l’API de Twitter dans votre, vous ne ferez pas réellement des appels à ce service à chaque fois que vous
+            ferez
+            des tests d’intégration, vous allez “mocker” ces appels.</p>
+
+        <p>Si pour une raison quelconque l’API de Twitter est indisponible, vous ne voulez pas casser votre pipeline
+            d’intégration continu et travailler sur une résolution de bug qui n’est pas de votre ressort. C’est pourquoi
+            il
+            faut “mocker” les appels aux API externes dans vos tests automatisés.</p>
+
+        <p>En revanche, vous pourriez avoir une suite de tests dans Postman qui eux feraient vraiment appel à tous les
+            services externes. Cette couche viendrait en complément des tests d’intégrations et pourrait être lancée
+            régulièrement afin de s’assurer que même en connectant les vrais services, tout se passe toujours
+            correctement.
+        </p>
+
+        <h4>Tester les retours d’un appel HTTP</h4>
+
+        <p>Postman utilise la librairie d’assertion Chai pour évaluer le retour de la requête HTTP avec le code de test
+            que
+            vous avez écrit. Lorsque vous exécutez votre requête, Postman vous envoi la réponse et exécute les tests.
+        </p>
+
+        <p>Dans l’onglet Test Results, Postman vous retourne le résultat des tests avec le détail de ceux qui sont
+            passés ou
+            ont échoué.</p>
+
+        <p>Vous pourrez évaluer le contenu de la réponse http en utilisant la syntaxe Expect de Chai.js. Postman propose
+            des
+            snippets de tests prêts à l’emploi qui s’insèrent dans l’onglet Tests de votre requête en un clic. Bien
+            qu’ils
+            soient pratique pour démarrer, je vous conseille de refactoriser votre code de tests dès lors qu’il y en a
+            plus
+            d’un. En effet, les snippets de code proposés par Postman sont indépendants et vont dupliquer beaucoup de
+            code.
+        </p>
+
+        <p>Par exemple, en utilisant Postman pour tester que la réponse du serveur contient variables spécifiques via
+            les
+            snippets postman, votre code ressemblerait à çà:</p>
+
+        <div class="jumbotron">
+            pm.test("Response contains foo", function () {
+            var jsonData = pm.response.json();
+            pm.expect(jsonData.a).to.eql("foo");
+            });
+
+            pm.test("Response contains bar", function () {
+            var jsonData = pm.response.json();
+            pm.expect(jsonData.b).to.eql("bar");
+            });</div>
+
+        <p>Or dans ce cas on duplique inutilement la variable jsonData. Vous pourriez avoir un seul bloc de code comme
+            le
+            suivant:</p>
+
+        <div class="jumbotron">
+            const jsonData = pm.response.json();
+
+            pm.test("Response contains foo and bar", function () {
+            pm.expect(jsonData.fizz).to.eql("foo");
+            pm.expect(jsonData.fizz).to.eql("bar");
+            });
+        </div>
+
+        <p>Ce bloc de code est plus facile à maintenir que le premier. D’autant plus que vous n’aurez pas l’aide d’un
+            Hook Git pour vous assurer que vos tests couvrent bien votre code, donc il faudra se contenter de votre
+            compétence de développeur pour maintenir vos tests.</p>
+
+        <h4>Tester une collection</h4>
+
+        <p>Tout l’intérêt de Postman vient dans son automatisation. Postman vous permet de lancer une série de requêtes
+            HTTP les unes après les autres en les enregistrant dans une collection puis en exécutant cette collection.
+        </p>
+
+        <p>Grâce à l’utilisations de variables, vous pouvez créer une séquence de requête qui vont reprendre les données
+            des réponses pour les requêtes suivantes. Chaque requête sera examiné par les tests qu’elle contient et en
+            fin de process Postman retourne un rapport de l’ensemble des succès et échecs des tests.</p>
+
+        <h4>Workflow d’appels HTTP dans une collection</h4>
+
+        <p>Lorsque vous concevez une collection, vous êtes libre de définir l’ordre des appels. Par défaut, Postman va
+            lancer les appels dans l’ordre dans lequel les appels ont été enregistrés.</p>
+
+        <p>Dans certains cas, vous pourriez souhaiter maîtriser l’ordre des requêtes en fonction du résultat d’une
+            requête précédente. Pour çà, Postman vous offre la possibilité de contrôler votre workflow via la méthode
+            setNextRequest().</p>
+
+        <p>Dans l’onglet Tests, vous pourrez utiliser cette fonction en utilisant du code JavaScript pour déterminer les
+            conditions et la requête à appeler en conséquence.</p>
+
+        <h4>Intégrer Postman dans un pipeline CI/CD</h4>
+
+        <h5>Newman: Postman en ligne de commande</h5>
+
+        <p>Newman est un outil CLI qui permet de lancer une collection dans un terminal. Cette fonctionnalité est très
+            utile lorsqu’on souhaite intégrer des tests Postman dans un pipeline d’intégration continu.</p>
+
+        <h5>Postman Monitor: Surveillez les performances de votre API</h5>
+
+        <p>Proposé dans la version payante de Postman mais disponible dans une certaine limite à tous les utilisateurs,
+            Postman Monitor est un service qui permet d’exécuter les tests périodiquement sur votre API.</p>
+
+        <h3>Construisez votre API dans Postman</h3>
+
+        <p>Au delà de pouvoir manipuler et tester une API, Postman vous permet également d’en construire une en
+            utilisant son API Builder.</p>
+
+        <p>L’onglet API proposé à partir de la version 7.1 de Postman va servir de point central de votre API,
+            regroupant les collections, les tests et potentiellement le mock server. Cet onglet sert à centraliser
+            toutes les ressources liées à votre API telles que les d’environnements et la documentation. En définissant
+            le schéma de chaque ressource, par exemple ci-dessus les users, Postman va être capable de générer
+            automatiquement les collections.</p>
+
+        <h3>Mocker un serveur pour faire son développement</h3>
+
+        <p>Les Mock Servers de Postman proposent de simuler votre API en enregistrant des réponses d’une vraie API et en
+            les resortant lorsque vous appelez ce mock server.</p>
+
+        <p>Cette fonctionnalité est particulièrement utile pour des développeurs Frontend qui n’ont pas encore accès à
+            un backend fonctionnel (celui ci pouvant être également en cours de développement) ou alors lorsque vous
+            voulez faire appel à des API tierces qui facturent ou limitent suivant le nombre d’appels effectué.</p>
+
+        <p>Par exemple, j’ai expérimenté l’API de Google Maps qui facture 17$ les 1000 appels. Etant en cours de
+            développement, je n’ai pas envie d’être facturé pour les appels que je peux faire en guise de tests. Dans
+            ces cas là, je peux créer un mock server qui le retournera la ou les réponses que je souhaite comme si elles
+            venaient de Google Maps.</p>
+    </div>
+</body>
+
+</html>

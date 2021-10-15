@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>
+            MVC: le pattern populaire pour une application web ?
+        </h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>Le MVC en bref
+            </li>
+            <li>L'Histoire du MVC</li>
+            <li>Quel était son but ?</li>
+            <li>Dans quel cas l'utiliser</li>
+            <li>MVVM et N-Tier: les spin-off du MVC
+            </li>
+            <li>MVVM: Model View ViewModel</li>
+            <li>L'architecture N-Tier ou 3 tiers</li>
+            <li>Pour aller plus loin:</li>
+        </ul>
+
+        <p>Depuis 60 ans d'histoire informatique, les problèmes qu'ont à résoudre les développeurs se répètent. Les
+            technologies changent, le contexte n'est plus le même mais au fond, la façon d'aborder le problème reste la
+            même. C'est pourquoi les Design Patterns ont été créés, notamment le MVC.</p>
+
+        <p>Très plébiscité dans la conception d'applications contenant une interface graphique, de nombreux frameworks
+            modernes, tels que Laravel, Angular, Django, Rails ou, des framework Node JS telles qu'AdonisJS ou NestJS se
+            basent sur une architecture basée sur le pattern MVC.</p>
+
+        <h3>Le MVC en bref</h3>
+
+        <p>Le pattern MVC est une façon d'organiser un code source autour de trois piliers:</p>
+
+        <ul>
+            <li>Le Model qui représente la structure des données. Leur définition ainsi que les fonctions qui leur sont
+                propres et qu'elles peuvent avoir. Ce module est complètement décoléré du code métier ou de l'affichage
+                de telle sorte à ce que la modification de la logique ou de l'interface n'affecte pas la structure des
+                données.</li>
+            <li>La View (ou les vues) représente l'interface graphique à livrer au client qui en fait la requête. Avoir
+                le code lié à l'interface isolé de la logique métier ou des données permet de faire des modifications à
+                l'interface graphique sans avoir à se soucier de casser du code métier ou la structure des données.</li>
+            <li>Le(s) Controller(s) sont au cœur de la logique métier de votre application. Ils se situent entre les
+                vues et le model. Les requêtes qu'un client va faire depuis l'interface graphique, la view, va être
+                dirigée vers un controller qui sera en charge de manipuler les données dont il a besoin avec la brique
+                Model, la traiter suivant le besoin métier, puis ordonner à la view de répondre au client avec les bons
+                éléments.</li>
+        </ul>
+
+        <h3>L'Histoire du MVC</h3>
+
+        <p>Mis en évidence dans les années 70 par Trygve Reenskaug, le MVC a été implémenté dans le programme
+            Smalltalk-79, un langage basé sur LISP disposant d'une interface graphique de programmation.</p>
+
+        <p>Conçu avec le principe de base de Single Repsonsibility Principle (SRP), dictant que chaque module, classe ou
+            fonction d'un programme ne doit avoir qu'une seule responsabilité, le MVC avait pour but de créer une
+            organisation du code standardisée dans la création d'application ayant pour but d'afficher une interface
+            graphique.</p>
+
+        <h3>Quel était son but ?</h3>
+
+        <p>Au commencement du développement d'une application, tout part d'un fichier central. Très rapidement, votre
+            application grossit et vous devez incorporer plusieurs éléments à votre codebase. Vos multiples interfaces
+            vont devoir s'adapter aux actions des utilisateurs, les fonctionnalités vont se multiplier ainsi que les
+            requêtes pour faire évoluer les données stockées en base.</p>
+
+        <p>Votre code source qui était simple et dans lequel vous vous retrouviez facilement devient un plat de
+            spaghetti 🍝 ! Plus celui-ci grandit, plus il deviendra difficile d'ajouter une fonctionnalité sans créer un
+            dysfonctionnement dans une autre déjà existante. C'est ce qu'on appelle une régression. Sans une
+            organisation standard de votre codebase, débugger deviendra une tâche longue et pénible. Collaborer avec un
+            autre développeur sur votre projet demandera une assistance constante de votre part.</p>
+
+        <p>C'est pour éviter ces handicaps que le MVC a été mis en évidence et proposé comme un pattern d'architecture.
+        </p>
+
+        <p>En structurant une codebase avec l'architecture MVC vous lui apportez:</p>
+
+        <ul>
+            <li>Une facilité pour retrouver les différents modules ou fonctions de votre code</li>
+            <li>Un débuggage plus rapide</li>
+            <li>Un gain de temps à la modification ou ajout de nouvelles fonctionnalités</li>
+            <li>Un confort pour le développement, par vous-même ou un futur collaborateur</li>
+            <li>Une séparation entre la logique métier, les interfaces graphiques et la modélisation des données de
+                telle sorte à ce que la modification de l'un ne casse pas l'autre</li>
+        </ul>
+
+        <h3>Dans quel cas l'utiliser</h3>
+
+        <p>Le MVC était initialement mis en évidence pour les clients lourds disposant d'une interface graphique
+            utilisateur. Seulement avec le développement du web depuis les années 2000, le pattern MVC a été de plus en
+            plus mis en application dans les frameworks de développement web.</p>
+
+        <p>Les frameworks visant à faire du Server Side Rendering, c’est-à-dire que le serveur génère les vues, tels que
+            Django, Ruby on Rails, Laravel ou Symfony l'ont adopté et le proposent aux développeurs dès le démarrage du
+            projet. Côté framework Frontend, Angular a également fait le choix du MVC.</p>
+
+        <p>En revanche, les librairies React, puis Vue, ont fait le choix d'opter pour le pattern flux, un autre pattern
+            de conception pour interface qui vient lui résoudre un problème lorsque les données sont interdépendantes
+            dans plusieurs vues au point où MVC ne répond plus assez bien au besoin.</p>
+
+        <h3>MVVM et N-Tier: les spin-off du MVC</h3>
+
+        <h4>MVVM: Model View ViewModel</h4>
+
+        <p>Créé par deux architectes chez Microsoft et incorporé dans le système graphique WPF du framework .NET, le
+            MVVM - acronyme pour Model View ViewModel - est une variation du pattern MVC.</p>
+
+        <p>À l’instar du MVC, le Model View ViewModel vise à séparer le code concernant l'interface du code logique de
+            l'application.</p>
+
+        <p>Cependant, la différence se trouve au niveau du ViewModel. Contrairement au Controller du MVC, le ViewModel
+            sert de lien bidirectionnel entre l'interface. C'est ce qu'on appel le data binding.
+        </p>
+
+        <p>L'action menée par un utilisateur sur l'interface va aller modifier une donnée présente dans le ViewModel.
+            Cette action peut provoquer un appel au code métier dans le Model, qui va peut être à son tour renvoyer une
+            nouvelle donnée au ViewModel. La View ne sera pas changée, c'est simplement la donnée qui lui sera passée
+            dynamiquement par le ViewModel et l'interface s'adaptera pour afficher la nouvelle donnée.
+        </p>
+
+        <p>Par exemple sur une application web type calculatrice, l'action d'appuyer sur "2", puis sur "+" et enfin "2",
+            ne provoque pas encore de changement visuel sur l'interface. Cependant, le ViewModel a gardé les données.
+            Lorsque vous cliquerez sur la touche "=", le code sera envoyé au Model pour faire le calcul, le résultat
+            sera renvoyé au ViewModel et la View, qui reste le même code, va s'adapter pour afficher "4" parce que le
+            ViewModel aura bindé cette donnée.</p>
+
+        <h4>L'architecture N-Tier ou 3 tiers</h4>
+
+        <p>Le pattern d'architecture n tiers (appelé aussi architecture 3 tiers) est à priori fortement similaire au
+            MVC.</p>
+
+        <p>La différence réside dans le fait que l'application layer - l'équivalent du Controller - est la tour de
+            contrôle de l'application. Là où dans certaines implémentations du MVC, le Model pouvait directement
+            communiquer avec la View, l'architecture 3 tiers impose de repasser par la couche applicative.</p>
+    </div>
+</body>
+
+</html>

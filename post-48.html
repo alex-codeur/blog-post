@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>
+            Tuto NodeJS : Comment utiliser Socket.io
+        </h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>Installer Socket.io dans un projet NodeJS
+            </li>
+            <li>Établir une connexion WebSocket avec Socket.io</li>
+            <li>Émettre un évènement client via WebSocket</li>
+            <li>Les alternatives à Socket.io pour NodeJS
+            </li>
+        </ul>
+
+        <p>L’utilisation des technologies plus “traditionnelles” (et plus populaires) que NodeJS, telles que le stack
+            LAMP (Linux, Apache HTTP Server, MySQL et PHP) ont longtemps rendue plus difficiles certains types de
+            projets nécessitant un grand nombre de requêtes au serveur. Exemple typique : le développement d’une
+            application de messagerie instantanée, qui nécessite d’interroger le serveur très souvent et de garder un
+            historique des dates et heures de chaque message.</p>
+
+        <p>Pour combler ces lacunes, le standard WebSocket a été développé et implémenté dans la plupart des navigateurs
+            à partir de fin 2011. WebSocket est un protocole réseau et une API permettant de créer un canal de
+            communication à double-sens (full-duplex) entre un serveur et un navigateur. Les données sont échangées sous
+            forme de paquets via une interface de connexion (socket) TCP. </p>
+
+        <p>Grâce à cette technologie, il n’est plus nécessaire pour le client d’interroger très souvent le serveur pour
+            rester à jour. En effet, le serveur peut lui-même envoyer des messages au client tant que le canal est
+            ouvert. WebSocket est particulièrement adapté pour les applications nécessitant un échange continu de
+            données (jeux en ligne, trading en temps réel, etc.). Il facilite également la mise en place de
+            fonctionnalités modernes nécessaires à l’interactivité croissante des apps (notifications, édition de
+            contenu synchronisée, messagerie instantanée, etc.).</p>
+
+        <p>Socket.io se veut compatible avec toutes les plateformes, les navigateurs et les devices et met un point
+            d’honneur à la fiabilité et la rapidité.</p>
+
+        <p>Dans ce tuto NodeJS, vous découvrirez la bibliothèque Socket.io qui utilise WebSocket pour établir une
+            communication en temps réel, bidirectionnelle et événementielle entre serveur et clients.</p>
+
+        <p>Vous apprendrez également à installer et utiliser facilement Socket.io dans votre projet NodeJS, à créer une
+            connexion entre votre serveur et vos clients ainsi qu’à émettre des évènements.</p>
+
+        <h3>Installer Socket.io dans un projet NodeJS</h3>
+
+        <p>Dans ce tuto Socket.io, nous utiliserons le framework Express.js pour créer un serveur Node facilement. Si
+            vous ne connaissez pas ce framework, nous vous recommandons de suivre le guide complet Express.js.</p>
+
+        <p>Commençons par installer Express.js et Socket.io via npm avec :</p>
+
+        <div class="jumbotron">
+            npm install express
+        </div>
+
+        <div class="jumbotron">
+            npm install socket.io
+        </div>
+
+        <p>Express et Socketio sont désormais installés dans votre projet et prêts à être utilisés.</p>
+
+        <h3>Établir une connexion WebSocket avec Socket.io</h3>
+
+        <p>Commençons ensuite notre projet NodeJS par un "hello world" classique :</p>
+
+        <div class="jumbotron">
+            const express = require('express')
+            const bodyParser = require('body-parser')
+            const app = express()
+
+            app.use(bodyParser.json())
+            app.use(bodyParser.urlencoded({extended:true}))
+            app.use(express.static('public'))
+            app.get('/', function (req, res) {
+            res.sendFile('index.html', { root: __dirname })
+            })
+
+            app.get('/json', function (req, res) {
+            res.status(200).json({"message":"ok"})
+            })
+
+            app.listen(3000, function () {
+            console.log('Votre app est disponible sur localhost:3000 !')
+            })
+        </div>
+
+        <p>Intégrons maintenant Socket.io et le code pour établir la connexion WebSocket :</p>
+
+        <div class="jumbotron">
+            const express = require('express')
+            const bodyParser = require('body-parser')
+            const app = express()
+
+            // ajout de socket.io
+            const server = require('http').Server(app)
+            const io = require('socket.io')(server)
+
+            app.use(bodyParser.json())
+            app.use(bodyParser.urlencoded({extended:true}))
+            app.use(express.static('public'))
+            app.get('/', function (req, res) {
+            res.sendFile('index.html', { root: __dirname })
+            })
+
+            app.get('/json', function (req, res) {
+            res.status(200).json({"message":"ok"})
+            })
+
+            // établissement de la connexion
+            io.on('connection', (socket) =>{
+            console.log(`Connecté au client ${socket.id}`)
+            })
+
+            // on change app par server
+            server.listen(3000, function () {
+            console.log('Votre app est disponible sur localhost:3000 !')
+            })
+        </div>
+
+        <p>Chaque client se connectant à l’adresse localhost:3000/ déclenchera une connexion via WebSocket avec votre
+            app Node.JS qui s'affichera dans les logs de la console serveur : “Connecté au client” avec son identifiant
+            de socket.</p>
+
+        <p>Mais avant cela, il faut créer notre fichier index.html qui va contenir notre code de création de socket.</p>
+
+        <p>Créez le fichier avec :</p>
+
+        <div class="jumbotron">
+            mkdir public && touch index.html
+        </div>
+
+        <p>Insérez le code HTML suivant :</p>
+
+        <div class="jumbotron">
+            Il y a icic du code html
+        </div>
+
+        <p>Notre navigateur a désormais la capacité d’utiliser socket.io pour communiquer avec notre serveur.</p>
+
+        <p>Lancez maintenant votre serveur avec la commande node index.js et rendez-vous sur l’adresse localhost:3000.
+            Vous devriez avoir confirmation du bon établissement de la connexion entre le navigateur et le serveur dans
+            votre console serveur :
+        </p>
+
+        <p>Émettre un événement WebSocket depuis un serveur NodeJS avec Socket.io</p>
+
+        <p>Maintenant que nous avons établi la connexion, nous allons pouvoir émettre des évènements WebSocket depuis
+            votre serveur NodeJS.</p>
+
+        <p>Faisons évoluer notre fonction io.on(‘connection’) :</p>
+
+        <div class="jumbotron">
+            // établissement de la connexion
+
+            io.on('connection', (socket) =>{
+            console.log(`Connecté au client ${socket.id}`)
+            // émission d'un évènement
+            io.emit('news','Voici un nouvel élément envoyé par le serveur')
+            })
+        </div>
+
+        <p>Désormais, le serveur va émettre une chaîne de caractères (“Voici un nouvel élément envoyé par le serveur”)
+            sur le socket nommé “news”.</p>
+
+        <p>Il faut désormais donner au navigateur la capacité d’interpréter ce socket en ajoutant une fonction à notre
+            fichier index.js :</p>
+
+        <div class="jumbotron">
+            const socket = io();
+
+            // écoute du socket news
+            socket.on('news', function(msg){
+            console.log(msg)
+            });
+        </div>
+
+        <p>La fonction socket.on() va écouter le socket ayant pour nom “news” et va exécuter la fonction callback, ici
+            simplement logger le message reçu.</p>
+
+        <p>Améliorons enfin notre script en affichant un message toutes les secondes et en les ajoutant à la liste :</p>
+
+        <div class="jumbotron">
+            // Création de la connexion
+
+            io.on('connection', (socket) =>{
+            console.log(`Connecté au client ${socket.id}`)
+            // émission d'un évènement
+            io.emit('news','Voici un nouvel élément envoyé par le serveur')
+            })
+        </div>
+
+        <div class="jumbotron">
+            const socket = io();
+
+            // écoute du socket news
+            socket.on('news', function(msg){
+            console.log(msg)
+            });
+        </div>
+
+        <p>Vérifions les modifications sur le navigateur :</p>
+
+        <p>Et voilà ! Vous connaissez maintenant les rudiments de la création d’une connexion WebSocket et d’évènements
+            serveur en NodeJS avec Socket.io !</p>
+
+        <h3>Émettre un évènement client via WebSocket</h3>
+
+        <p>L’intérêt de WebSocket est que la communication instantanée est à double-sens. Le client, au même titre que
+            le serveur, peut émettre des évènements.</p>
+
+        <p>Imaginez une page de jeu d’échecs en ligne. Celle-ci dispose d’une liste de tables où il existe entre une et
+            deux places libres pour accueillir des joueurs. Pour une expérience agréable, l’utilisateur doit pouvoir
+            voir en temps réel la liste des tables ainsi que le nombre de places qui y sont disponibles.</p>
+
+        <p>Si un joueur rejoint une table, le serveur doit informer les autres clients immédiatement qu’une place est
+            prise sur cette table.</p>
+
+        <h3>Les alternatives à Socket.io pour NodeJS</h3>
+
+        <p>Si Socket.io est une bibliothèque simple et performante, elle est loin d’être le seul ou même le plus
+            téléchargé des modules dédiés au WebSocket sur npm. De nombreuses alternatives existent, des plus basiques
+            au plus complètes.</p>
+
+        <p>
+            Bibliothèque Étoiles GitHub Description
+            Socket.io 49k Complet et simple d’utilisation, adapté dans la plupart des cas et soutenu par une communauté
+            très active.
+            ws 14k La plus populaire et la plus rapide des bibliothèques. Propose moins de fonctionnalités que
+            socket.io, nécessite python.
+            sockjs 2k Permet de créer une connexion client – serveur à double-sens avec ou sans standard WebSocket.
+            Fournis un support pour les entreprises</p>
+    </div>
+</body>
+
+</html>

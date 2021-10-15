@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>
+            AWS MemoryDB: La base de données Redis persistée et multizones
+        </h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>Qu'est-ce que Redis et ElastiCache ?</li>
+            <li>Conçu pour la vitesse</li>
+            <li>Plébiscité par la communauté</li>
+            <li>Les limites de Redis</li>
+            <li>Pourquoi AWS a créé MemoryDB ?</li>
+            <li>Qu'est-ce que MemoryDB ?</li>
+            <li>Les caractéristiques de MemoryDB</li>
+            <li>Zones de disponibilité</li>
+            <li>Combien coûte un Cluster MemoryDB pour Redis ?</li>
+            <li>Un pied dans le plat de Redis Entreprise</li>
+            <li>En savoir plus</li>
+        </ul>
+
+        <p>Le dernier né dans la gamme des technologies de bases de données chez Amazon Web Services vient combler un
+            manque à la populaire technologie Redis en proposant de sauvegarder la donnée sur disque sur plusieurs zones
+            de disponibilité.</p>
+
+        <p>Avec MemoryDB, AWS va plus loin que son offre ElastiCache en misant sur une technologie qui plat déjà aux
+            développeurs, tout en venant empiéter sur les platebandes de Redis Labs qui jusque-là était la seule
+            plateforme à proposer la persistance à un cluster Redis.</p>
+
+
+        <h3>Qu'est-ce que Redis et ElastiCache ?</h3>
+
+        <p>Redis ou Memecached sont deux technologies de base de données NoSQL qui stockent la donnée au format
+            clé-valeur dans la mémoire vive (RAM) du serveur qui les héberge dans le but d'offrir un temps de réponse le
+            plus bas.</p>
+
+        <p>ElastiCache est l'offre de DBaaS d'Amazon Web Services, permettant de démarrer un serveur Redis ou Memcached
+            dans l'infrastructure d'AWS sans avoir à gérer l'infrastructure de cette base de données.</p>
+
+        <h4>Conçu pour la vitesse</h4>
+
+        <p>Développée en C++ par Salvatore Sanfilippo, la vocation de Redis était de pouvoir lire et écrire de la donnée
+            en offrant les meilleurs temps de réponse possible. Redis est capable d'offrir des temps de réponse
+            inférieurs à une milliseconde, permettant de traiter des millions de requêtes chaque seconde.</p>
+
+        <p>Plébiscité pour des cas d'usage où le facteur temps réel est critique, tels que le gaming, les services
+            financiers ou l'industrie de la publicité en ligne pour les enchères en temps réel, Redis a su se faire une
+            place confortable dans le cœur des développeurs par sa simplicité et son efficacité.</p>
+
+        <p>On le retrouve très souvent dans les stack techniques des entreprises pour de la mise en place de cache
+            partagé, la gestion de session, l'analyse en temps réel et parfois utilisé comme middleware de messagerie
+            dans des applications distribuées ou en microservices</p>
+
+        <h4>Plébiscité par la communauté</h4>
+
+        <p>Entre sa création et aujourd'hui, Redis est devenu un des favoris de la communauté des développeurs et
+            continue à gagner leurs faveurs. Redis se positionne actuellement aux portes du TOP5 des bases de données
+            préférées des développeurs, derrière les indétrônables acteurs SQL et MongoDB.</p>
+
+        <p>De quoi susciter l'intérêt d'AWS puisque, non seulement Redis est listé comme la base de données préférée des
+            développeurs depuis les 5 derrières années selon Stack Overflow, mais c'est également la base de données la
+            plus déployée sur l'infrastructure d'Amazon Web Services.</p>
+
+        <h4>Les limites de Redis
+        </h4>
+
+        <p>La force principale de Redis est de pouvoir rapidement ingérer et rendre disponible la donnée. Pour ce faire,
+            le choix a été fait de ne stocker ces données dans la RAM.</p>
+
+        <p>Le problème du stockage sur RAM est que lorsque le serveur fait défaut, et il arrive toujours un moment où il
+            fait défaut, les données stockées en RAM sont perdues au redémarrage.</p>
+
+        <p>C'est pourquoi, Redis est le plus souvent utilisé comme base de données secondaire, permettant de stocker des
+            données non critiques et sur un laps de temps déterminé.</p>
+
+        <p>Les applications vont utiliser une base SQL ou NoSQL qui va persister les données importantes sur disque de
+            telle sorte à ce qu'elles résistent à un redémarrage.</p>
+
+        <p>Redis, quant à lui, servira de point d'accès où on va stocker temporairement les données dont on a besoin
+            d'accès rapide ou le temps de les traiter de manière asynchrone et éventuellement de les stocker sur une
+            base principale.</p>
+
+        <h3>Pourquoi AWS a créé MemoryDB ?</h3>
+
+        <h4>Qu'est-ce que MemoryDB ?</h4>
+
+        <p>AWS MemoryDB veut reprendre le flambeau là où Redis, dans son édition communautaire open-source, s'arrête.
+        </p>
+
+        <p>Amazon MemoryDB pour Redis est une base de données compatible Redis, alliant la rapidité des temps de
+            réponses via le stockage en mémoire vive et la persistance des données sur de multiples régions.</p>
+
+        <p>AWS vient compléter son offre ElastiCache avec MemoryDB pour les développeurs souhaitant bénéficier de Redis
+            en tant que base de données principale.</p>
+
+        <p>Grâce à sa stratégie multi-AZ, déjà appliquée sur les autres produits de base de données AWS, les écritures
+            sur MemoryDB pour Redis sont répliquées de manière synchrone sur une autre instance dans une zone de
+            disponibilité différente de celle du serveur principal.</p>
+
+        <p>Ainsi, à chaque fois qu'une écriture est validée, on peut être certain que la donnée est stockée et qu'une
+            copie va être appliquée dans une autre zone.</p>
+
+        <p>Cette stratégie multi-zone va permettre une haute disponibilité pour MemoryDB. Ainsi, si le nœud principal
+            (master) ne répond plus, le nœud secondaire peut prendre le relais.</p>
+
+        <h4>Les caractéristiques de MemoryDB</h4>
+
+        <p>Amazon MemoryDB va être compatible avec toutes les méthodes core disponible sur l'API de la version open
+            source de Redis. Elle pourra stocker la donnée sous forme de strings, lists, sets, sorted sets, hashes,
+            streams, geospatial, bitmaps, et hyperloglogs. I
+        </p>
+
+        <p>Chaque cluster MemoryDB pourra stocker jusqu'à 128To et disposera d'un nœud secondaire par shard.</p>
+
+        <h4>Zones de disponibilité</h4>
+
+        <p>A l'heure où j'écris cet aricle, MemoryDB est disponible dans les régions suivantes:</p>
+
+        <ul>
+            <li>Asie Pacifique (Mumbai)</li>
+            <li>Europe (Irlande)</li>
+            <li>Amérique du Sud (São Paulo)</li>
+            <li>USA Est (Virginie du Nord)</li>
+        </ul>
+
+        <h4>Combien coûte un Cluster MemoryDB pour Redis ?</h4>
+
+        <p>Le prix de MemoryDB pour Redis dépend de trois facteurs:</p>
+
+        <ul>
+            <li>Temps de disponibilité du nœud suivant la taille</li>
+            <li>Le volume de données écrites dans le cluster (par Go)</li>
+            <li>Les captures d'état de stockage (Snapshot Storage) pour un éventuel backup</li>
+        </ul>
+
+        <p>Voici les tarifs annoncés au lancement pour un déploiement en Europe:</p>
+
+        <p>Le tarif pour le temps de disponibilité:</p>
+
+        <p>Nom vCPU RAM Bande Passane Prix/h (Europe)
+            db.r6g.large 2 13.07 Jusqu'à 10 Go/s $0.344
+            db.r6g.xlarge 4 26.32 Jusqu'à 10 Go/s $0.687
+            db.r6g.2xlarge 8 52.82 Jusqu'à 10 Go/s $1.374
+            db.r6g.4xlarge 16 105.81 Jusqu'à 10 Go/s $2.748
+            db.r6g.8xlarge 32 209.55 12 $5.496
+            db.r6g.12xlarge 48 317.77 20 $8.243
+            db.r6g.16xlarge 64 419.09 24 $10.991
+        </p>
+
+        <p>Le tarif pour l'écriture de données: $0.20/Go</p>
+
+        <p>Le tarif pour les backups: $0.021/Go par mois</p>
+
+        <h3>Un pied dans le plat de Redis Entreprise</h3>
+
+        <p>Avant MemoryDB, la version Entreprise de Redis était la seule option pour avoir une persistance des données
+            d'un cluster Redis.</p>
+
+        <p>Redis Entreprise proposait une fonction d'Intelligent tiered access to memory. Dans sa solution Entreprise,
+            Redis a conçu un tunnel de sauvegarde permettant de "refroidir" la donnée au fur et à mesure en fonction de
+            son utilisation ou son inactivité. Une écriture arrivait en RAM puis était progressivement répliquée sur un
+            SSD puis sur un disque dur. Cela permettait de garder d'excellents temps de réponse tout en offrant une
+            résiliance aux données.</p>
+
+        <p>Ce tunnel de refroidissement n'existe pas encore chez MemoryDB mais le fait qu'ils mettent un pied dans la
+            persistance des données d'un cluster redis prouve qu'Amazon veut une part du gâteau qu'a créé Redis Labs.
+        </p>
+
+        <p>En plus du tunnel de refroidissement via un stockage Flash (SSD), Redis Enrteprise garde l'exclusivité de
+            certaines fonctionnalités telles que les types de données étendus et la réplication active-active sur
+            plusieurs régions. De plus, Redis travaille toujours sur son Datastore Redis Raft.</p>
+
+        <h3>En savoir plus</h3>
+
+        <p>Redis est une technologie qui mérite l'attention des développeurs, du moins ceux qui ne la connaissent pas
+            déjà.</p>
+    </div>
+</body>
+
+</html>

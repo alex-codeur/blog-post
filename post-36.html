@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>
+            Devenir dev: 7 conseils pour réussir sa reconversion en 2021 ?
+        </h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>Les tests unitaires : intérêt et bonnes pratiques
+            </li>
+            <li>À quoi servent les tests unitaires ?</li>
+            <li>Que sont les tests unitaires ?</li>
+            <li>Unité</li>
+            <li>Boîte blanche</li>
+            <li>Isolation</li>
+            <li>Rapidité</li>
+            <li>Rejouabilité</li>
+            <li>Automatisés</li>
+            <li>L’intérêt des tests unitaires</li>
+            <li>Les bonnes pratiques pour coder de bons tests unitaires ?</li>
+            <li>Adopter un outil ou un framework de test</li>
+            <li>Élaborer un plan de test</li>
+            <li>Le choix de l’unité</li>
+            <li>L’indépendance</li>
+            <li>Autres conseils et bonnes pratiques</li>
+        </ul>
+
+        <p>Savoir coder des tests unitaires est une compétence essentielle pour tout développeur souhaitant progresser
+            dans son métier. Non seulement c'est un élément essentiel à tout code source pour s'assurer que
+            l'application fonctionne toujours comme prévu malgré des évolutions dans le code, mais les tests unitaires
+            sont également à la base de bonnes pratiques de l'ingénierie logicielle telles que le Test Driven
+            Development (TDD) ou l'intégration continue dans une boucle DevOps.</p>
+
+        <p>Parfois négligée par manque de temps ou par ignorance, une bonne couverture de code par des tests unitaires
+            fait la différence entre une codebase évolutive et un château de cartes où l'ajout de chaque nouvel élément
+            est de plus en plus difficile.</p>
+
+        <h3>Les tests unitaires : intérêt et bonnes pratiques</h3>
+
+        <h4>À quoi servent les tests unitaires ?</h4>
+
+        <p>Les tests unitaires permettent de vérifier le bon fonctionnement d’une petite partie bien précise (unité ou
+            module) d’une application. Ils s'assurent qu'une méthode exposée à la manipulation par un utilisateur
+            fonctionne bien de la façon dont elle a été conçue.</p>
+
+        <p>Ils sont la base sur laquelle les autres processus de tests (tests fonctionnels, d’intégration, de
+            régression, de performance…) doivent être construits pour assurer des fondations solides dans le cadre du
+            développement d'une application.</p>
+
+        <p>Mike Cohn, l’un des théoriciens pionniers de la méthodologie agile Scrum, met d’ailleurs les tests unitaires
+            à la base de sa Pyramide des tests (test pyramid) qui rappelle aux développeurs de construire leurs tests
+            sur différents niveaux de granularité :</p>
+
+        <p>Par exemple, prenons le cas d'une API Node JS qui permettrait à un gestionnaire de Parkings de gérer les
+            réservations des clients. Une fonction essentielle à son API est de s'assurer qu'il y a des places
+            disponibles aux dates souhaitées par l'automobiliste:</p>
+
+        <div class="jumbotron">
+            const bookParkingSpace = (vehicule, checkin, checkout) => {
+            if (!isEligibleVehicule(vehicule)) {
+            throw new Error("This vehicule is not eligible for our parking
+            }
+            if (!availableSpot(entree,sortie) {
+            throw new Error("No spaces available at your desired dates")
+            }
+            return true
+            }
+
+            const isEligibleVehicule = vehicule => {
+            if (vehicule.height > 275 || vehicule.length > 500 || vehicule.type !== "Car") {
+            return false
+            }
+            return true
+            }
+
+            const availableSpot = (checkin, checkout) => {
+            // Pour simplifier mon exemple, je fais comme si mon appel à la base de donnée était synchrone
+            const availableParkingSpot = db.parking.findOne({status:"available", entry: checkin, exit: checkout})
+            return availableParkingSpot
+            }
+        </div>
+
+        <p>Dans cet exemple, seule la fonction bookParkingSpace est exposée à une interaction avec l'utilisateur. Les
+            fonctions isEligibleVehicule et availableSpot sont des fonctions privées dans le sens où elles ne sont
+            manipulées que par bookParkingSpace. En écrivant un test unitaire sur bookParkingSpace, nous couvrons
+            indirectement les deux fonctions suivantes.</p>
+
+        <p>En écrivant des tests unitaires sur la fonction bookParkingSpace, je m'assure du bon fonctionnement des
+            différents cas de figures de requêtes avant de déployer ma fonctionnalité. Je m'assure qu'un poids lourd,
+            qu'une moto, qu'un véhicule trop grand ou trop large ne puisse pas réserver de place. Je m'assure également
+            que j'ai bien une place disponible à ces dates-là.</p>
+
+        <p>Grâce à ces tests unitaires, je me protège également des futures évolutions de mon code, lorsque j'aurai
+            besoin d'adapter une fonctionnalité, qu'elle ne vienne pas casser involontairement ces contrôles qui sont
+            essentiels au bon fonctionnement de mon service de place de parking.</p>
+
+        <p>L’importance de la mise en place de tests unitaires est souvent sous-estimée par les entreprises et les
+            programmes de formation, si bien qu’un bon nombre de développeurs en début de carrière n’en ont jamais
+            pratiqué voire entendu parler. Pourtant, la capacité à comprendre, écrire et automatiser des tests unitaires
+            est une compétence de base exigée par toutes les entreprises technologiques de pointe.</p>
+
+        <h3>Que sont les tests unitaires ?</h3>
+
+        <p>Comme on l'a vu dans le schéma de pyramide de tests, il existe de nombreux types de tests automatisés.</p>
+
+        <p><strong>Un test unitaire est une suite d’opérations permettant de vérifier la validité d’unités individuelles
+                d’une application, indépendamment les unes des autres.</strong></p>
+
+        <p>Le scope d'un test unitaire est limité à une fonction "publique", pouvant toutefois englober les fonctions
+            enfants dont elle a besoin pour fonctionner. L'intérêt d'isoler chaque unité pour un test est d'assurer son
+            bon fonctionnement dans le temps. Si jamais un test venait à échouer suite à une mise à jour du code source,
+            le développeur sera en capacité d'identifier directement le module affecté par son nouveau code.</p>
+
+        <p>Plusieurs critères réunis permettent d’établir un test unitaire:</p>
+
+        <h4>Unité</h4>
+
+        <p>Un test unitaire se concentre sur une seule unité, qui est le plus petit élément identifiable de notre
+            application. Selon les contextes et les langages de programmation, plusieurs éléments du code peuvent
+            constituer une unité. Il peut s’agir d’une fonction, d’une méthode de classe, d’un module, d’un objet… Parce
+            qu’ils se concentrent sur les plus petites parties de notre application, les tests unitaires sont des tests
+            de bas niveau (comme dans la Pyramide). À l’inverse, les tests de haut niveau contrôlent la validité d’une
+            ou plusieurs fonctionnalités complètes.</p>
+
+        <h4>Boîte blanche</h4>
+
+        <p>Bien qu’ils soient parfois écrits par des ingénieurs qualité, les tests unitaires sont la plupart du temps
+            codés par les développeurs eux-mêmes, pendant le développement et non après. Ils nécessitent d’invoquer une
+            partie du code (l’unité testée) qui doit donc être connu et font ainsi partie des tests en boîte blanche
+            (white-box testing). À l’inverse, les tests en boîte noire (black-box testing) dérivent de l’interface et ne
+            nécessitent pas de connaître le code.</p>
+
+        <h4>Isolation</h4>
+
+        <p>Les tests unitaires visant à tester chaque unité en isolation totale par rapport aux autres, ils doivent
+            pouvoir être indépendants des tests lui précédents. Votre suite de tests unitaires doit pouvoir être lancé
+            dans n'importe quel ordre sans affecter le résultat des tests suivants. C'est pourquoi l'utilisation de
+            Mocks et Stubs est indispensable aux tests unitaires.</p>
+
+        <h4>Rapidité</h4>
+
+        <p>La petite échelle des tests unitaires et le fait qu’ils soient écrits par les développeurs pendant le
+            développement font que les tests unitaires sont souvent très rapides. Ils peuvent ainsi être lancés très
+            fréquemment, idéalement à chaque modification dans le code ou à chaque compilation. Cette façon de procéder
+            permet de repérer les bugs bien plus rapidement : si vous avez accidentellement cassé une fonctionnalité
+            pendant votre dernier changement, vous le saurez immédiatement et n’aurez pas à chercher bien loin pour le
+            réparer. Vous n’êtes bien sûr pas obligés de lancer tous les tests unitaires à chaque fois.</p>
+
+        <h4>Rejouabilité</h4>
+
+        <p>L'intérêt de bons tests unitaires réside dans le fait qu'ils soient idempotents, c’est-à-dire que pour un
+            test donné, quel que soit l'environnement ou le nombre de fois qu'il soit joué, il produise toujours le même
+            résultat. C'est pourquoi il est indispensable de faire abstraction des appels en base de données ou des
+            requêtes HTTP pour avoir un test unitaire robuste.</p>
+
+        <h4>Automatisés</h4>
+
+        <p>Les tests unitaires doivent produire un résultat Pass ou Fail automatiquement. Ils doivent pouvoir être
+            interprétés par un test runner et ne pas demander au développeur de lire ou d'observer manuellement que le
+            test a réussi ou échoué. C'est pourquoi les tests automatisés, qu'ils soient unitaires ou non, sont exécutés
+            par un test runner et évalués par une librairie d'assertion.</p>
+
+        <p>Pour reprendre l'exemple de l'API de parkings illustré plus haut, voici à quoi ressembleraient ses tests
+            unitaires:</p>
+
+        <div class="jumbotron">
+            describe('Book a parking spot', () => {
+            it('should not allow an uneligible vehicule to book a parking spot', async () => {
+            // Arrange
+            const motorcycle = {
+            type: "motorcycle"
+            };
+            const largeVehicule = {
+            length: 550
+            }
+            const highVehicule = {
+            height: 550
+            }
+
+            // Act
+            try {
+            const motorCycleBooking = bookParkingSpace(motorcycle, "2020-10-01", "2020-10-10");
+
+            } catch (err) {
+            // Assert
+            expect(err.message).toEqual("This vehicule is not eligible for our parking")
+            }
+            try {
+            const longVehiculeBooking = bookParkingSpace(motorcycle, "2020-10-01", "2020-10-10");
+
+            } catch (err) {
+            // Assert
+            expect(err.message).toEqual("This vehicule is not eligible for our parking")
+            }
+            try {
+            const highVehiculeBooking = bookParkingSpace(motorcycle, "2020-10-01", "2020-10-10");
+
+            } catch (err) {
+            // Assert
+            expect(err.message).toEqual("This vehicule is not eligible for our parking")
+            }
+
+
+            });
+            it('should not allow a booking if no spot is available', async () => {
+            // Arrange
+            jest.mock(db,'findOne').mockReturnedValue(null)
+            const car = {
+            type: "Car",
+            height: 175,
+            length: 330
+            }
+
+            // Act
+            try {
+            const carBooking = bookParkingSpace(car, "2020-10-01", "2020-10-10");
+
+            } catch (error) {
+            // Assert
+            expect(error).toBeDefined()
+            expect(error.message).toEqual("No spaces available at your desired dates")
+            }
+            });
+            it('should allow a booking if all is ok', async () => {
+            // Arrange
+            jest.mock(db,'findOne').mockReturnedValue({spot:231})
+            const car = {
+            type: "Car",
+            height: 175,
+            length: 330
+            }
+            // Act
+            const carBooking = bookParkingSpace(car, "2020-10-01", "2020-10-10");
+            // Assert
+            expect(carBooking.spot).toBeDefined()
+            });
+            })
+        </div>
+
+        <p>Nos tests unitaires se sont contentés d'évaluer bookParkingSpace et ses différentes issues. J'ai planifié les
+            cas de figures qui me permettent de passer dans les différentes branches de mon code afin de couvrir tous
+            les cas d'usage.</p>
+
+        <h3>L’intérêt des tests unitaires</h3>
+
+        <p>Les tests unitaires ne sont pas seulement un pilier de la méthodologie Scrum, ils sont aussi et surtout à
+            l’origine même d’autres méthodes agiles de développement de logiciels telles que XP (Extreme Programming) et
+            TDD (Test-driven development).</p>
+
+        <p>Basées sur des cycles de développement très courts, ces méthodes encouragent les développeurs à écrire le
+            test unitaire pendant, voire avant qu’ils écrivent la fonctionnalité qu’il teste. Cette méthode permet au
+            développeur d’écrire une spécification avant de produire le code qui la satisfait d’une manière vérifiable.
+            Dès lors, l’intérêt principal du test unitaire n’est plus de trouver des bugs mais de permettre de
+            développer des composants qui se conforment à une spécification.</p>
+
+        <p>L’utilisation du test unitaire en tant que spécification permet de produire du code d’une bien meilleure
+            qualité initiale. C’est également un excellent moyen de faciliter la collaboration entre plusieurs
+            développeurs : le code ainsi produit est plus facilement compréhensible, maintenable, debuggable et moins
+            prompt à casser à la première modification. Des avantages qui font que cette méthode est utilisée par des
+            leaders de la technologie tels que Google.</p>
+
+        <h3>Les bonnes pratiques pour coder de bons tests unitaires ?</h3>
+
+        <p>Si les tests unitaires accélèrent le développement, améliorent la qualité du code et facilitent la
+            collaboration, encore faut-il respecter quelques bonnes pratiques pendant leur élaboration.</p>
+
+        <h4>Adopter un outil ou un framework de test</h4>
+
+        <p>Parce qu’ils existent pour accélérer et faciliter le développement, vous avez tout intérêt à automatiser vos
+            tests unitaires. Plusieurs solutions prévues à cet effet existent sur le marché telles que le framework de
+            test Jest pour Node.js. Jest est un framework ultra-rapide, performant et simple d’utilisation utilisée par
+            des sociétés telles que Airbnb, Amazon, et Facebook.</p>
+
+        <h4>Élaborer un plan de test</h4>
+
+        <p>Dans la vie comme dans le code, l’organisation et la planification sont très souvent de bonnes pratiques et
+            permettent d’éviter de perdre du temps sur des erreurs. Élaborez toujours un plan de test pour structurer
+            vos tests unitaires, même si c’est uniquement dans votre tête et que vous ne le documentez pas. Un plan de
+            test peut être plus ou moins détaillé et peut inclure : la définition de l’unité choisie, une description
+            des fonctionnalités testées, les inputs testés et les outputs attendus, les outils utilisés, la fréquence de
+            test etc.</p>
+
+        <h4>Le choix de l’unité</h4>
+
+        <p>Quand on élabore un plan de test, le choix de l’unité testée est fondamental. Pour les optimiser au maximum,
+            il est important que les tests unitaires ne testent que les éléments les plus petits possibles dans votre
+            application. On veillera donc par exemple à ne pas tester toutes les méthodes d’une classe mais plutôt des
+            parties de fonctionnalités. Si un bug survient dans celle-ci, il sera alors plus facile de savoir quelle
+            partie du code est à réparer en se basant sur le test unitaire qui a échoué, faisant gagner un temps
+            considérable.</p>
+
+        <h4>L’indépendance</h4>
+
+        <p>L’écriture de tests unitaires est peut-être l’un des seuls domaines où être un indépendantiste est
+            socialement acceptable. Veillez à isoler vos tests unitaires au maximum et à les rendre totalement
+            indépendants les uns des autres. Ne faites jamais appel à une base de données ou à une API externe même si
+            votre classe en dépend : utilisez toujours des données de test les plus proches possibles des données
+            réelles. De la même façon, on utilise des mocks et des stubs pour simuler le fonctionnement des autres
+            modules qui ne sont pas dans le scope de notre unité, ceux-ci seront testés unitairement de leurs côtés. La
+            raison est toujours la même : plus le périmètre testé est restreint, plus facile et rapide il sera de
+            remonter jusqu’au bug qui a causé l’échec du test unitaire.</p>
+
+        <h3>Autres conseils et bonnes pratiques</h3>
+
+        <p>Voici pêle-mêle d’autres conseils et bonnes pratiques pour écrire des tests unitaires optimaux :</p>
+
+        <ul>
+            <li>Séparez votre environnement de test de votre environnement de développement</li>
+            <li>Gardez vos tests unitaires très rapides, jusqu’à une dizaine de secondes au maximum</li>
+            <li>Avant de réparer un bug, écrivez ou modifiez un test unitaire pour exposer ce bug</li>
+            <li>Choisissez la bonne unité pour que votre plan de test couvre un maximum de fonctionnalités</li>
+            <li>Utilisez un logiciel de gestion des versions pour garder une trace de tous vos tests unitaires</li>
+            <li>Veillez au nommage de vos variables : suivez à la lettre les conventions de nommage pour faciliter la
+                collaboration</li>
+            <li>Utilisez le template AAA pour améliorer la lisibilité de votre test : Arrange (création des objets, des
+                données de test et définition des attentes), Act (invocation de la méthode testée), Assert (résultat du
+                test unitaire)</li>
+            <li>Testez toujours et tout le temps !</li>
+        </ul>
+    </div>
+</body>
+
+</html>

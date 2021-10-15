@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>
+            Node fs : comment utiliser File System de NodeJS?
+        </h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>Node fs : comment fonctionne le gestionnaire de fichiers Node ?</li>
+            <li>Create file Node Js : la création de fichier</li>
+            <li>Créer un fichier avec fs.appendFile()</li>
+            <li>Créer un fichier vide avec fs.open()</li>
+            <li>Créer un fichier avec fs.writeFile()</li>
+            <li>Node Read File : lire vos fichiers</li>
+            <li>Node FS Write : écrire dans vos fichiers</li>
+            <li>Mettre à jour un fichier avec fs.appendFile()</li>
+            <li>Remplacer le contenu d’un fichier avec fs.writeFile()
+            </li>
+            <li>Mettre à jour un fichier avec fs.write()</li>
+            <li>Écrire dans un fichier via un flux avec fs.createWriteStream()
+            </li>
+            <li>Node FS pour copier vos fichiers</li>
+            <li>Copier un fichier avec fs.createReadStream() et fs.createWriteStream()</li>
+            <li>Copier un fichier avec fs.copyFile()</li>
+            <li>Rename file Node Js : pour renommer vos fichiers</li>
+            <li>Node FS pour supprimer vos fichiers</li>
+            <li>ReadFileSync : les fonctions synchrones du module Node fs
+            </li>
+        </ul>
+
+        <p>Créer et gérer des fichiers pour y stocker ou lire des informations font partie des tâches les plus communes
+            d’un serveur. Environnement d’exécution JavaScript côté serveur pensé pour faire gagner du temps aux
+            développeurs, Node.js propose une façon intuitive de travailler avec le système de fichiers à travers son
+            module fs pour “File System”.</p>
+
+        <p>Dans ce tutoriel, découvrez comment fonctionnent le module Node FS et ses fonctions principales dans ce guide
+            complet.</p>
+
+        <h3>Node fs : comment fonctionne le gestionnaire de fichiers Node ?</h3>
+
+        <p>Le module fs est livré nativement avec Node js. Pour l’inclure dans votre projet, utilisez simplement la
+            fonction require :</p>
+
+        <div class="jumbotron">
+            const fs = require('fs');
+        </div>
+
+        <p>Vous avez désormais accès à un certain nombre de fonctions dont les principales sont :</p>
+
+        <ul>
+            <li>Créer des fichiers</li>
+            <li>Lire des fichiers</li>
+            <li>Écrire dans des fichiers</li>
+            <li>Copier des fichiers</li>
+            <li>Renommer des fichiers</li>
+            <li>Supprimer des fichiers</li>
+        </ul>
+
+        <p>D’autres fonctions sont disponibles : créer, supprimer ou renommer un dossier ; gérer les permissions
+            relatives à un fichier ; créer des liens symboliques ou tronquer un fichier, etc.</p>
+
+        <p>Une chose singulière est à noter sur le module node fs : toutes les fonctions sont asynchrones par défaut
+            (elles ne bloquent pas le code et fonctionnent en arrière-plan) mais peuvent aussi fonctionner
+            synchroniquement. Il suffit alors d’ajouter Sync au nom de la fonction. Par exemple : la fonction pour
+            renommer un fichier fs.readFile() devient fs.readFileSync(). Vous trouverez plus d’informations sur les
+            fonctions fs synchrones plus bas dans le guide.</p>
+
+        <h3>Create file Node Js : la création de fichier</h3>
+
+        <p>Le module fs Node propose trois fonctions pour créer un nouveau fichier</p>
+
+        <ul>
+            <li>fs.appendFile()</li>
+            <li>fs.open()</li>
+            <li>fs.writeFile()</li>
+        </ul>
+
+        <h4>Créer un fichier avec fs.appendFile()</h4>
+
+        <p>La fonction fs.appendFile() permet d’ajouter du contenu à un fichier. Si le fichier n’existe pas, il est
+            créé.</p>
+
+        <div class="jumbotron">
+            const fs = require('fs');
+            fs.appendFile('nouveauFichier.txt', 'Mon contenu', function (err) {
+            if (err) throw err;
+            console.log('Fichier créé !');
+            });
+        </div>
+
+        <h4>Créer un fichier vide avec fs.open()</h4>
+
+        <p>La fonction fs.open() permet d’ouvrir un fichier avec une certaine autorisation. Si l’argument “w” (pour
+            “writing”) est spécifié en deuxième paramètre, le fichier sera ouvert pour écriture. S’il n’existe pas, un
+            fichier vide est créé.</p>
+
+        <div class="jumbotron">
+            const fs = require('fs');
+            fs.open('nouveauFichier.txt', 'w', function (err, file) {
+            if (err) throw err;
+            console.log('Fichier créé !');
+            });
+        </div>
+
+        <h4>Créer un fichier avec fs.writeFile()</h4>
+
+        <p>La fonction fs.writeFile() permet de remplacer le contenu d’un fichier avec node fs. Si le fichier n’existe
+            pas, un fichier est créé avec le contenu spécifié.</p>
+
+        <div class="jumbotron">
+            const fs = require('fs');
+            fs.writeFile('nouveauFichier.txt', 'Mon contenu', function (err) {
+            if (err) throw err;
+            console.log('Fichier créé !');
+            });
+        </div>
+
+        <h3>Node Read File : lire vos fichiers</h3>
+
+        <p>La fonction fs.readFile() permet de lire un fichier. N’oubliez pas de préciser l’encodage nécessaire à la
+            lecture ! En effet, si vous avez inséré du contenu nécessitant l’encodage utf8 (qui gère tous les caractères
+            spéciaux de tous les alphabets du monde), spécifiez cet encodage en deuxième paramètre de la fonction.
+            Sinon, le contenu de votre fichier ne sera pas interprété comme étant écrit en utf8 et provoquera des
+            erreurs d’interprétation par le module fs.</p>
+        <div class="jumbotron">
+            const fs = require('fs');
+
+            fs.readFile('nouveauFichier.txt', 'utf8', function(err, data) {
+            const content = data;
+            console.log(content);
+            });
+        </div>
+
+        <h3>Node FS Write : écrire dans vos fichiers</h3>
+
+        <p>Le fs module Node propose plusieurs fonctions pour écrire dans vos fichiers, dont celles que l’on a déjà vues
+            dans la création de fichier :</p>
+
+        <ul>
+            <li>fs.appendFile() </li>
+            <li>fs.writeFile()</li>
+            <li>fs.write()</li>
+            <li>fs.createWriteStream</li>
+        </ul>
+
+        <h4>Mettre à jour un fichier avec fs.appendFile()</h4>
+
+        <p>La fonction fs.appendFile() permet d’ajouter du contenu à la fin d’un fichier avec node fs.</p>
+
+        <div class="jumbotron">
+            const fs = require('fs');
+
+            fs.appendFile('nouveauFichier.txt', ' - Mon nouveau contenu', function (err) {
+            if (err) throw err;
+            console.log('Fichier mis à jour !');
+            });
+        </div>
+
+        <h4>Remplacer le contenu d’un fichier avec fs.writeFile()</h4>
+
+        <p>La fonction fs.writeFile() permet de remplacer le contenu d’un fichier avec un autre contenu.</p>
+
+        <div class="jumbotron">
+            const fs = require('fs');
+
+            fs.writeFile('nouveauFichier.txt', 'Mon nouveau contenu', function (err) {
+            if (err) throw err;
+            console.log('Fichier mis à jour !');
+            });
+        </div>
+
+        <h4>Mettre à jour un fichier avec fs.write()</h4>
+
+        <p>La fonction fs.write() de node fs permet un contrôle plus étendu sur votre édition de fichier. Elle est à
+            utiliser lorsque vous savez précisément à quel octet précis de votre fichier vous souhaitez insérer du
+            contenu.</p>
+
+        <div class="jumbotron">
+            const fs = require('fs');
+
+            fs.open('nouveauFichier.txt', 'w+', (err, fd) => {
+            let buf = Buffer.from('Mon nouveau contenu'),
+            pos = 0,offset = 0,
+            len = buf.length;
+            fs.write(fd, buf, offset, len, pos, (err,bytes,buff) => {
+            let buf2 = Buffer.alloc(len);
+            fs.read(fd,buf2,offset, len, pos,(err,bytes,buff2) => {
+            console.log('Fichier mis à jour !');
+            });
+            });
+            });
+        </div>
+
+        <h4>Écrire dans un fichier via un flux avec fs.createWriteStream()</h4>
+
+        <p>La fonction fs.createWriteStream() permet de créer un flux et de l’écrire dans un fichier. Utiliser un flux
+            permet d’écrire dans un fichier en plusieurs fois à intervalles réguliers, ce qui économise l’usage de RAM
+            car le fichier n’est pas chargé complètement en mémoire. Cette méthode est à préférer pour la gestion de
+            fichiers particulièrement lourds.</p>
+
+        <div class="jumbotron">
+            const fs = require('fs');
+
+            let writeStream = fs.createWriteStream('nouveauFichier.txt');
+            writeStream.write('Mon contenu de flux', 'utf-8');
+            writeStream.on('finish', () => {
+            console.log('Fichier mis à jour !');
+            });
+
+            writeStream.end();
+        </div>
+
+        <h3>Node FS pour copier vos fichiers</h3>
+
+        <p>Selon la version de Node que vous utilisez, deux options s’offrent à vous pour copier un fichier :</p>
+
+        <ul>
+            <li>fs.createReadStream() et fs.createWriteStream() - avant node v8.5.0</li>
+            <li>fs.copyFile() - depuis node v8.5.0</li>
+        </ul>
+
+        <h4>Copier un fichier avec fs.createReadStream() et fs.createWriteStream()</h4>
+
+        <p>Combiner fs.createReadStream() et fs.createWriteStream() permet de copier un fichier en une seule ligne de
+            code.</p>
+
+        <div class="jumbotron">
+            const fs = require('fs');
+
+            fs.createReadStream('nouveauFichier.txt').pipe(fs.createWriteStream('nouveauFichier_copie.txt'));
+        </div>
+
+        <p>JavaScript</p>
+
+        <h4>Copier un fichier avec fs.copyFile()</h4>
+
+        <p>Depuis node v.8.5.0, la fonction fs.copyFile() a été introduite et permet de copier un fichier.</p>
+
+        <div class="jumbotron">
+            const fs = require('fs');
+
+            fs.copyFile('nouveauFichier.txt', 'nouveauFichier_copie.txt', (err) => {
+            if (err) throw err;
+            console.log('Fichier copié !');
+            });
+        </div>
+
+        <h3>Rename file Node Js : pour renommer vos fichiers</h3>
+
+        <p>La fonction fs.rename() permet de renommer un fichier.</p>
+
+        <div class="jumbotron">
+            const fs = require('fs');
+
+            fs.rename('nouveauFichier.txt', 'fichier.txt', function (err) {
+            if (err) throw err;
+            console.log('Fichier renommé !');
+            });
+        </div>
+
+        <h3>Node FS pour supprimer vos fichiers</h3>
+
+        <p>La fonction fs.unlink() permet de supprimer un fichier.</p>
+
+        <div class="jumbotron">
+            const fs = require('fs');
+
+            fs.unlink('fichier.txt',(err) => {
+            if (err) throw err;
+            console.log('Fichier supprimé !');
+            });
+        </div>
+
+        <h3>ReadFileSync : les fonctions synchrones du module Node fs </h3>
+
+        <p>Les fonctions du module fs de NodeJS s’exécutent de façon asynchrone par défaut, c’est-à-dire qu’elles ne
+            bloquent pas l’exécution du code avant d’être terminées : elles fonctionnent à l’arrière-plan.</p>
+
+        <p>Ces fonctions node fs peuvent également s'exécuter de façon synchrone ou bloquante. L’exécution du reste du
+            code est alors suspendue le temps que la fonction se termine et retourne son résultat.</p>
+
+        <p>Pour exécuter une fonction fs synchroniquement, il suffit de rajouter Sync à la fin de la fonction. Par
+            exemple, fs.readFile() devient fs.readFileSync().</p>
+
+        <p>Cela peut avoir une énorme incidence sur votre façon de travailler. Par exemple, la fonction fs.rename()
+            s’utilise avec un callback qui signifie la fin de l’exécution de la fonction node fs :</p>
+
+        <div class="jumbotron">
+            const fs = require('fs')
+
+            fs.rename('fichier.txt', 'fichierRenommé.txt', err => {
+            if (err) return console.error('Erreur : le fichier n\'a pu être renommé');
+            console.log('Fonction rename terminée');
+            })
+        </div>
+
+        <p>À l’inverse, la fonction fs.renameSync() s’utilise plutôt avec un block try/catch :</p>
+
+        <div class="jumbotron">
+            const fs = require('fs')
+
+            try {
+            fs.renameSync('fichier.txt', 'fichierRenommé.txt')
+            } catch (err) {
+            console.error('Erreur : le fichier n\'a pu être renommé');
+            }
+        </div>
+    </div>
+</body>
+
+</html>

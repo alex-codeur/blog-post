@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>
+            L'architecture Message Oriented Middleware
+        </h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>À quoi servent les Message Oriented Middlewares ?
+            </li>
+            <li>Pourquoi pas utiliser des API et via HTTP ?</li>
+            <li>Quelques Message oriented Middleware disponibles</li>
+        </ul>
+
+        <p>Avec le gain de popularité des architectures Microservices, pour des raisons parfois discutables, les
+            middlewares de production et consommation de messages tels que Kafka, RabbitMQ ou ActiveMQ sont de plus en
+            plus utilisés. En tant que développeur, ces Message Oriented Middleware vont nous permettre d'être pertinent
+            dans le choix du bon outil et la compréhension pour s'en servir.</p>
+
+        <h3>À quoi servent les Message Oriented Middlewares ?</h3>
+
+        <h4>Pouvoir connecter des systèmes qui ne seraient pas compatibles directement</h4>
+
+        <p>Les middlewares de messagerie ont été conçus pour permettre à plusieurs systèmes qui ne seraient pas
+            compatibles entre eux nativement de pouvoir communiquer. L'intérêt est de pouvoir faire communiquer une
+            brique conçue dans un langage avec des données envoyées par une autre application conçue dans une autre
+            technologie.</p>
+
+        <p>Par exemple, un serveur Nodejs va pouvoir produire un message suite à une requête client et l'envoyer à une
+            autre brique conçue en Python qui va faire une analyse via une librairie d'IA comme Tensorflow.</p>
+
+        <h4>Répondre plus rapidement en déléguant les fonctions qui ne sont pas prioritaires</h4>
+
+        <p>Dans les différentes fonctions métier que votre application porte, certaines doivent être rapides tandis que
+            d'autres peuvent être vérifiées en arrière-plan sans devoir faire attendre l'utilisateur.</p>
+
+        <p>Par exemple, lorsque vous commandez sur Amazon, après avoir validé le paiement vous êtes immédiatement
+            redirigé vers une autre page. Par contre, Amazon doit toujours faire plusieurs tâches:</p>
+
+        <ul>
+            <li>Encaisser le paiement</li>
+            <li>Vérifier que le produit est en stock à cet instant précis</li>
+            <li>Envoyer l'ordre à l'entrepôt de préparer la commande</li>
+        </ul>
+
+        <p>En vous redirigeant immédiatement après votre clic de validation de paiement, Amazon vous remet tout de suite
+            en position d'utiliser le site et peut être, trouver d'autres produits à acheter. Ce n'est que quelques
+            instants plus tard que vous recevrez par e-mail la confirmation de votre commande. Il traitera le reste des
+            tâches en arrière-plan, puisque vous n'avez aucune raison d'attendre le temps qu'il fasse son travail en
+            interne.</p>
+
+        <p>Amazon a utilisé un système de Message Oriented Middleware pour communiquer l'ordre d'achat que vous avez
+            fait à ses différentes briques de paiement, de stockage et de préparation de commandes.</p>
+
+        <h4>Envoyer des notifications</h4>
+
+        <p>Communiquer vers un système externe n'est pas forcément facile. Le receveur devrait être à l'écoute en
+            permanence via une API par exemple en attente que le producteur lui communique la notification.</p>
+
+        <p>Par contre, l'application d'Uber qui vous envoie une notification lorsque votre voiture est en bas ne peut
+            pas compter sur le fait que chaque utilisateur ait sa propre API.</p>
+
+        <p>C'est pourquoi les Message Oriented Middleware sont pertinents pour envoyer une information à un système.
+            Chaque producteur émet un message et les clients intéressés par le type de message s'abonnent à ce
+            producteur.</p>
+
+        <h3>Pourquoi pas utiliser des API et via HTTP ?</h3>
+
+        <p>Lorsque j'ai commencé à découvrir les Message Oriented Middlewares, la première question que je me suis posé
+            c'est "pourquoi ne pas exposer son système ou son module sous forme d'API, comme çà n'importe quel autre
+            système externe pourrait faire une requête HTTP pour interagir avec moi?"</p>
+
+        <h4>Rapidité d'exécution</h4>
+
+        <p>Les appels API passent par le réseau HTTP. Suivant la localisation du serveur hébergeant l'API et sa distance
+            par rapport à la provenance de l'appel, le temps d'exécution d'un ordre va être de 50 à 200ms.</p>
+
+        <p>Ce temps d'exécution est peut-être très acceptable pour de nombreuses utilisations. En revanche si vous avez
+            besoin de traiter un très grand nombre d'ordres très rapidement, un Message Oriented Middleware tel que
+            ZeroMQ ou Kafka va vous permettre d'y parvenir beaucoup plus facilement.
+
+        </p>
+
+        <p>Le protocole d'envoi et de consommation de message n'étant pas le même que le protocole HTTP par lequel
+            passent les appels API, il permet de traiter un très grand nombre de messages. Il est également possible de
+            scaler son Middleware pour augmenter encore plus cette capacité de production et de consommation de
+            messages.</p>
+
+        <h4>Fiabilité</h4>
+
+        <p>Pour l'utilisateur lambda, internet marche plutôt bien. Il n'a que très rarement des erreurs et au pire il
+            suffit de rafraichir la page pour que tout fonctionne. Or du point de vue d'un système ayant un très grand
+            nombre d'utilisateurs, les requêtes HTTP ne sont pas forcément les plus fiables. Les bugs peuvent arriver
+            dans notre système ou lors de la livraison de la réponse pour le client. Dans ce cas, le système a perdu la
+            requête et il n'y a aucun moyen de la rejouer si l'utilisateur ne relance pas sa requête.</p>
+
+        <p>Les Message Oriented Middlewares permettent d'ajouter une part de fiabilité aux requêtes. En effet, les MOMs
+            vont pouvoir stocker chaque message dans une pile et, suivant le middleware utilisé, ne le détruire que
+            lorsque le système a accusé la bonne réception du message ou après un certain laps de temps défini. Si une
+            erreur se produit en cours d'exécution, le système peut rejouer le message tant que celui-ci n'est pas
+            retiré de la pile.</p>
+
+        <h3>Quelques Message oriented Middleware disponibles</h3>
+
+        <h4>ActiveMQ</h4>
+
+        <p>ActiveMQ est le Message Oriented Middleware le plus ancien toujours actif à ce jour. Créé en 2004 puis confié
+            en open source à la fondation Apache en 2007, ActiveMQ était le premier à offrir une solution pour
+            entreprises afin de mettre en place une architecture orientée messagerie.</p>
+
+        <p>Il assure une haute disponibilité via une infrastructure isolée et managée par Zookeeper. Cela assurait
+            d'avoir en permanence les producteurs et consommateurs de message disponible et d'avoir les messages
+            répartis aux différents consommateurs à l'écoute.</p>
+
+        <h4>RabbitMQ</h4>
+
+        <p>RabbitMQ est, avec Kafka, le Message Oriented Middleware le plus populaire. Créé en 2006, RabbitMQ avait pour
+            but de venir enrichir ActiveMQ. Il se base initialement sur le même protocol, AMQP, pour produire et
+            consommer des messages mais vient apporter plus de fonctionnalités et flexibilité à ses utilisateurs. En
+            échange de cette flexibilité, l'utilisateur doit consentir à une plus grande latence.</p>
+
+        <p>RabbitMQ offre aujourd'hui une solution flexible suivant les besoins, ce qui fait de lui une option populaire
+            pour des sociétés telles que les startups qui ont un modèle technique pouvant évoluer très rapidement.</p>
+
+        <h4>Kafka</h4>
+
+        <p>Kafka a été conçu en 2011 par Linkedin avant d'être confié en Open Source en 2012 à la fondation Apache. Leur
+            mission était de pouvoir déplacer de façon asynchrone et régulièrement plusieurs Téraoctets de donnée. Pour
+            accomplir cette mission, ils ont développé Kafka en compromettant sur la latence de la création de messages
+            en échange de pouvoir en produire et consommer une très grande quantité.</p>
+
+        <p>Kafka va produire des messages dans des Topics et va les empiler dans des partitions de façon ordonnées de
+            telle sorte à ce que les consommateurs puissent venir consommer les messages dans l'ordre. Kafka garde par
+            défaut les messages pendant 7 jours et permet aux consommateurs de relire la partition dès le début ou
+            uniquement être à l'écoute des messages non lus.</p>
+
+        <h4>ZeroMQ</h4>
+
+        <p>ZeroMQ est le Message oriented Middleware qui se spécialise dans la plus faible latence. Conçus en 2007, ses
+            créateurs cherchaient à développer une solution plus simple qu'ActiveMQ offrant une meilleure performance en
+            termes de latence.</p>
+
+        <p>ZeroMQ se veut également très simple d'utilisation puisqu'elle ne nécessite pas l'implémentation de son
+            propre serveur. Son implémentation se fait en quelques lignes de code.</p>
+    </div>
+
+</body>
+
+</html>

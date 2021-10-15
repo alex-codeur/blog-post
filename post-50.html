@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>
+            Mongo Shell: Les commandes à connaître pour manipuler MongoDB depuis le terminal
+        </h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>Accéder au Mongo Shell
+            </li>
+            <li>Comment se connecter au Mongo Shell en local ?</li>
+            <li>Comment se connecter au Mongo Shell de MongoDB Atlas?
+            </li>
+            <li>Les opérations Mongo Shell sur la base de données</li>
+            <li>Comment lister les bases de données existantes ?</li>
+            <li>Mongo Shell: Comment créer une base de données?</li>
+            <li>Mongo Shell: les opérations sur les collections</li>
+            <li>Comment lister les collections présentes?</li>
+            <li>Comment créer une collection ?</li>
+            <li>Comment effacer une collection?</li>
+            <li>Comment lister les index sur la collection ?</li>
+            <li>Comment créer un index sur la collection ?</li>
+            <li>Comment supprimer un index sur la collection ?</li>
+            <li>Les requêtes sur les documents</li>
+            <li>Aller plus loin</li>
+        </ul>
+
+        <p>Manipuler votre base de données MongoDB peut se faire depuis votre terminal, grâce au Mongo Shell, ou depuis
+            une interface graphique telle que MongoDB Compass.</p>
+
+        <p>Bien que l’interface graphique apporte un certain confort, Mongo Shell, lorsque vous le maitrisez, vous
+            permet d’aller bien plus vite dans vos requêtes</p>
+
+        <p>Dans cet article, nous allons voir quelles sont les commandes Mongo Shell à connaître pour être performant:
+        </p>
+
+        <h3>Accéder au Mongo Shell</h3>
+
+        <h4>Comment se connecter au Mongo Shell en local ?</h4>
+
+        <p>Avant toute chose, assurez-vous d’avoir installé correctement MongoDB sur votre machine. Si ce n’est pas déjà
+            fait, vous pouvez vous référer aux guides d’installation suivant votre OS:</p>
+
+        <ul>
+            <li>Installer MongoDB sur Windows</li>
+            <li>Installer MongoDB sur Linux</li>
+            <li>Installer MongoDB Sur Mac</li>
+        </ul>
+
+        <p>Pour accéder au Mongo Shell, tapez la commande suivante:</p>
+
+        <div class="jumbotron">
+            mongo
+        </div>
+
+        <h4>Comment se connecter au Mongo Shell de MongoDB Atlas?</h4>
+
+        <p>Il se peut que vous souhaitiez accéder au Mongo Shell d'une instance mongoDB hébergée sur MongoDB Atlas, le
+            service cloud de MongoDB.</p>
+
+        <p>Commencez par aller récupérer l'URL de connexion depuis votre interface MongoDB Atlas:</p>
+
+        <p>Retournez sur votre terminal et collez la connection string fourni par Atlas juste après la commande mongo
+        </p>
+
+        <div class="jumbotron">
+            mongo "votreConnectionString"
+        </div>
+
+        <h3>Les opérations Mongo Shell sur la base de données</h3>
+
+        <p>Une fois connecté au Shell, vous pouvez exécuter des requêtes MongoDB:</p>
+
+        <h4>Comment lister les bases de données existantes ?</h4>
+
+        <p>Pour lister les bases de données existantes, utilisez la commande suivante:</p>
+
+        <div class="jumbotron">
+            show dbs
+        </div>
+
+        <p>Cette commande va vous lister l'ensemble des bases de données stockées sur votre instance MongoDB ainsi que
+            le poids total de chacune d'entre elles:</p>
+
+        <h4>Mongo Shell: Comment créer une base de données?</h4>
+
+        <p>En SQL, il faut d'abord créer une base de données en utilisant CREATE DATABASE avant de l'utiliser via la
+            commande USE nomDeLaBaseDeDonnées.</p>
+
+        <p>Dans le Mongo Shell, vous utiliserez seulement la commande use nomDeLaBDD. Si celle-ci existe, il va la
+            sélectionner, sinon il va la créer.</p>
+
+        <p>Pour vérifier que votre base de données est bien créée, vous pouvez saisir la commande db dans le shell.</p>
+
+        <p>Celle-ci devrait vous retourner le nom de la base de données nouvellement créée.</p>
+
+        <p>Pour supprimer une base de données de votre instance MongoDB, il faut dans un premier temps la sélectionner
+            en utilisant la commande use nomDeLaBDD. Vous pourrez ensuite utiliser la méthode dropDatabase() pour
+            l'effacer.</p>
+
+        <p>À l’issue de l'opération, MongoDB vous affichera le nom de la base de données effacée et le statut. S'il est
+            à 1, c'est que la base de données a correctement été supprimée.</p>
+
+        <p>Vous pouvez vérifier en utilisant la commande show dbs pour vous assurer qu'elle ne contient plus la base de
+            données que vous vouliez supprimer.</p>
+
+        <h3>Mongo Shell: les opérations sur les collections</h3>
+
+        <h4>Comment lister les collections présentes?</h4>
+
+        <p>Pour avoir une liste rapide des collections contenues dans la base de données vous pouvez utiliser la
+            commande.</p>
+
+        <div class="jumbotron">
+            show collections
+        </div>
+
+        <p>Si vous souhaitez en revanche avoir plus de détail sur chaque collection, vous pouvez utiliser la commande
+            db.getCollectionInfos()</p>
+
+        <p>Cette commande vous donnera des informations plus détaillées sur votre collection, notamment les index.</p>
+
+        <h4>Comment créer une collection ?</h4>
+
+        <p>Pour créer une collection depuis le Mongo Shell, utilisez la commande</p>
+
+        <div class="jumbotron">
+            db.createCollection('nomDeLaCollection')
+        </div>
+
+        <p>Vous pouvez également passer une série d'options pour définir plus spécifiquement certaines règles pour cette
+            collection.</p>
+
+        <h4>Comment effacer une collection?</h4>
+
+        <p>Pour supprimer une collection:</p>
+
+        <div class="jumbotron">
+            db.nomDeLaCollection.drop()
+        </div>
+
+        <p>Cette commande effacera la collection et les items qu'elle contient.</p>
+
+        <h4>Comment lister les index sur la collection ?
+        </h4>
+
+        <p>Pour améliorer les performances des requêtes, une collection peut avoir plusieurs index. Afin de récupérer la
+            liste de ces index vous pouvez utiliser la commande suivante:</p>
+
+        <div class="jumbotron">
+            db.nomDeLaCollection.getIndexes()
+        </div>
+
+        <h4>Comment créer un index sur la collection ?</h4>
+
+        <p>Pour créer un index, utilisez la méthode:</p>
+
+        <div class="jumbotron">
+            db.nomDeLaCollection.createIndex({clés}, options)
+        </div>
+
+        <p>Dans cet exemple, j'ai créé un index composé du champ name et du champ slug.</p>
+
+        <p>Si vous voulez en créer plusieurs d'un coup, vous avez également la méthode:</p>
+
+        <div class="jumbotron">
+            db.nomDeLaCollection.createIndexes()
+        </div>
+
+        <p><strong>La création d'index est une opération délicate sur laquelle il ne vaut mieux pas se tromper. Vous
+                pouvez utiliser la commande du Mongo Shell mais si vous n'êtes pas très à l'aise avec les commandes
+                shell, je vous suggère d'envisager l'interface graphique sur Mongo Compass ou l'interface web de MongoDB
+                Atlas.</strong></p>
+
+        <h4>Comment supprimer un index sur la collection ?</h4>
+
+        <p>Si vous voulez en supprimer un index de la collection, utilisez la méthode:</p>
+
+        <div class="jumbotron">
+            db.nomDeLaCollection.dropIndex("nomDeIndex")
+        </div>
+
+        <p>Il faudra récupérer le nom de l'index en faisant un getIndexes() pour pouvoir l'utiliser dans votre requête
+            de suppression.</p>
+
+        <h5>Les requêtes sur les documents</h5>
+
+        <p>Maintenant que vous savez manipuler le Shell, vous pouvez exécuter toutes les requêtes MongoDB. Je vous
+            invite à consulter l'article concernant les requêtes MongoDB à connaître pour manipuler les documents.</p>
+    </div>
+</body>
+
+</html>

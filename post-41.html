@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>
+            DbaaS: La base de données managée dans le cloud
+        </h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>De la base localhost à la DbaaS
+            </li>
+            <li>Les implications du DB Administration lorsque vous managez vous-même votre base de données</li>
+            <li>Les challenges de l'administration de base de données.</li>
+            <li>Le coût d'un DB Admin</li>
+            <li>Les avantages que procurent une DBaaS</li>
+            <li>Simplification des processus</li>
+            <li>Croissance des données et scalabilité</li>
+            <li>Confier la sécurité à des experts</li>
+            <li>Philosophie DevOps</li>
+            <li>Combien coûte le DBaaS</li>
+            <li>Comment choisir sa DBaaS</li>
+            <li>Les bases de données d'une technologie tierce</li>
+            <li>Les bases de données propriétaires</li>
+            <li>Attention au Vendor Lock-in</li>
+            <li>Le critère géographique</li>
+            <li>Attention au trafic réseau</li>
+        </ul>
+
+        <p>Dès lors que votre projet dépasse le simple site statique, comme un site vitrine par exemple, la base de
+            données sera indispensable. Historiquement, la base de données était fournie dans un package par votre
+            hébergeur. Pour les entreprises ayant des projets plus conséquents, il fallait investir dans des machines
+            qui allaient héberger leurs propres serveurs de base de données et qu'elles auraient hébergées "on
+            premises", dans leurs locaux ou au sein d'un data center.</p>
+
+        <p>Depuis le développement du cloud computing, il n'est plus question d'acheter ses propres machines. Les
+            serveurs sont mis à disposition par les fournisseurs cloud et chaque projet web va louer des ressources sur
+            ces machines.</p>
+
+        <p>Si les produits cloud ont commencé à voir le jour avec la location de machines virtuelles, on a rapidement vu
+            naître le Database as a Service, appelé aussi DBaaS.</p>
+
+        <p><strong>Le DBaaS est un service qui vous propose l'accès à une base de données dont les capacités vont
+                pouvoir s'adapter à votre consommation sans que vous ayez à l'installer ou la configurer ou assurer la
+                maintenance en cas de défaillance.</strong></p>
+
+        <p>Le DBaaS est la solution clé en main qui vous permet de vous affranchir de tout travail d'administration de
+            base de données afin de vous concentrer sur votre projet.</p>
+
+        <p>Initialement commercialisés par les GAFA et leurs offres de cloud, des fournisseurs PaaS français ont
+            également vu le jour, étoffant leurs offres avec des DBaaS hébergées en France.</p>
+
+        <h3>De la base localhost à la DbaaS</h3>
+
+        <p>Souvenez-vous de vos premiers pas avec une base de données lorsque vous développiez vos premiers projets.
+            Vous commenciez par installer votre base de données sur votre machine avant de pouvoir développer votre
+            application.</p>
+
+        <p>Avant l'arrivée du DBaaS, si vous vouliez déployer votre application en production, vous devriez lancer une
+            instance de computing sur un service cloud, vous connecter dessus en SSH puis installer votre base de
+            données comme si vous le faisiez sur votre machine. En soi, rien de bien méchant à faire, d'autant plus que
+            l'arrivée de Docker a simplifié ce type de tâche.</p>
+
+        <p>Une fois que votre base de données, que vous managez vous-même, est déployée et en service, tout va sembler
+            bien fonctionner… Jusqu’à ce que ça ne fonctionne plus. C'est là où vous entrez dans des considérations de
+            Database Administration.</p>
+
+        <h3>Les implications du DB Administration lorsque vous managez vous-même votre base de données</h3>
+
+        <p>Dans la vie, il n'y a que 3 certitudes. La mort, les impôts et que l'infrastructure informatique va connaître
+            des moments de failures. Les équipes de développement et d'administration système savent aujourd'hui qu'il
+            ne sert à rien d'essayer de prévenir ces moments où l'infrastructure va être défaillante mais plutôt de
+            chercher à être prêt à pallier ces défaillances.</p>
+
+        <p>Dans le cadre d'une base de données, il s'agit de mettre en place des instances de répliques, savoir
+            configurer la base de données pour que les requêtes puissent passer sur les répliques si l'instance
+            principale ne répond pas, avoir des back-up le plus souvent possible afin de limiter la perte de données,
+            déployer des répliques dans plusieurs data centers différents et géographiquement éloignés.</p>
+    </div>
+
+    <p><strong>Toutes ces considérations sont la raison pourquoi les bons amis ne laissent pas leurs amis gérer
+            eux-mêmes leurs bases de données. Opter pour une solution de DBaaS est le moyen le plus simple de
+            s'affranchir de tout ce travail, et les entreprises l'ont bien compris.</strong></p>
+
+    <h4>Les challenges de l'administration de base de données.</h4>
+
+    <p>Imaginez que vous ayez un site internet qui génère du revenu, par exemple un site e-commerce ou un site de
+        rencontre. Chaque minute où votre base de données ne répond pas est une perte de chiffres d'affaires.</p>
+
+    <p>Pour éviter ces situations l'administration système s'assure des éléments suivants:</p>
+
+    <p><strong>Réplication:</strong> Votre base de données est répliquée sur plusieurs serveurs, souvent dans des data
+        centers différents. Le but est de ne pas dépendre d'une seule machine ou d'une seule région. Si une catastrophe
+        naturelle venait inonder ou priver d'électricité un data center, la réplication dans un autre lieu viendrait
+        prendre le relais des requêtes.</p>
+
+    <p><strong>Failover:</strong> En cas de défaillance du serveur principal, votre infrastructure doit être conçue pour
+        rediriger les requêtes vers les instances de répliques. Ce travail de configuration nécessite des compétences
+        avancées dans la technologie de base de données que vous utilisez.</p>
+
+    <p><strong>Astreinte:</strong> Que se passe-t-il si vous managez votre base de données et qu'elle fait défaut à 3h00
+        du matin un mardi ? Aviez-vous pensé à mettre un système d'alerting ou allez-vous attendre de vous réveiller
+        pour vous rendre compte que quelque chose ne va pas et commencer à y remédier.</p>
+
+    <p><strong>Remise en service:</strong> C'est évidemment le but principal de l'administration de base de données.
+        Combien de temps vous faudra-t-il pour remettre en service votre base de données s'il y avait un défaut.
+        Avez-vous automatisé des déploiements ? Avez-vous des health checks fréquents ? Ou est-ce que vous allez refaire
+        l'infrastructure à la main en cas de pépin ? Là encore, le recovery time va être plus ou moins critique suivant
+        votre métier et les compétences requises pour mettre en place de l'automatisation d'infrastructure vont être
+        assez spécialisées, donc chères.</p>
+
+    <p><strong>Pertes de données:</strong> Lorsque votre base de données subit une panne, il y a de fortes chances qu'il
+        y ait un laps de temps où vous perdiez des données. Entre les requêtes qui auront échoué et les données qui
+        n'auront pas encore été répliquées dans une sauvegarde de secours, il y a forcément une perte de données. Elle
+        se mesure en nombre de minutes de potentielles données perdues. Suivant l'activité du projet, une perte de
+        données plus ou moins longue est acceptable. Sur un site de rencontre, il est peut-être acceptable de perdre une
+        heure d'historique de données. Sur une application bancaire, une panne de 15 minutes peut vous mener à la
+        faillite.</p>
+
+    <p><strong>Performances:</strong> Les performances de votre base de données dépendent principalement de la façon
+        dont vous avez codé votre application et indexé vos données. Cependant, il se peut que les performances de votre
+        base de données soient dégradées pour des raisons d'infrastructure. L'administration de base de données est
+        chargée d'assurer que les requêtes gardent un temps de réponse acceptable tout au long de la vie de
+        l'application et de prendre les mesures nécessaires pour corriger ou reconfigurer au niveau du serveur de base
+        de données si besoin.</p>
+
+    <p>Quel que soit votre choix pour votre infrastructure, le travail d'administration de base de données doit être
+        assuré. Il est fait en interne dans le cas où vous gériez vous-même vos bases de données, ou il est mutualisé et
+        géré pour vous dans le cadre du DBaaS.</p>
+
+    <p><strong>Ces challenges font partie des SLAs, Service Level Agreements, qu'un fournisseur cloud s'engage à vous
+            tenir en tant que fournisseur de DBaaS.</strong></p>
+
+    <h4>Le coût d'un DB Admin</h4>
+
+    <p>Lorsqu'on réfléchit à quelle façon mettre en place sa base de données, on va évaluer le coût d'une infrastructure
+        Cloud DBaaS par opposition à le faire soi-même. Prendre un serveur dédié chez un hébergeur vous coûterait aux
+        alentours de 60€ par mois et vous seriez libre de tout gérer par vous-même.</p>
+
+    <p>Si vous deviez faire le travail d'un administrateur de base de données par vous-même, vous seriez limité par vos
+        compétences et votre temps disponible.</p>
+
+    <p>Si vous deviez embaucher un Administrateur de base de données, il faut compterun salaire aux alentours de 47 000
+        € par anen moyenne, auquel il faudra ajouter les charges patronales, soit un total de plus de 65 000 € par an.
+        Là encore, il s'agit d'une seule personne, qui aura ses périodes de congés et ne pourra pas faire toutes les
+        astreintes. Si vous deviez compléter votre équipe avec un ou plusieurs freelance,leurs TJMs se situeraient aux
+        alentours de 400 € par jour.</p>
+
+    <h3>Les avantages que procurent une DBaaS</h3>
+
+    <h4>Simplification des processus</h4>
+
+    <p>La valeur ajoutée du DBaaS se retrouve aussi dans la simplification des processus. En sous-traitant le travail
+        d'administration de base de données à un prestataire externe, vous pouvez concentrer votre énergie sur le code
+        et la modélisation de vos données.</p>
+
+    <p>À l'échelle d'une entreprise ayant des process de déploiement, simplifier les étapes se reflète en une économie
+        non négligeable.</p>
+
+    <h4>Croissance des données et scalabilité</h4>
+
+    <p>C'est un des atouts les plus favorables à la DBaaS. Étant donné que les sources de données sont de plus en plus
+        nombreuses et de la popularité croissante des métiers autour de la Data Science, les bases de données ont
+        tendance à croître de manière exponentielle.</p>
+
+    <p>À l’époque où les bases de données étaient hébergées On Premise, faire croître les capacités de sa base de
+        données aurait impliqué l'achat de nouvelles machines, leurs installations et leurs configurations.</p>
+
+    <p>Grâce au DBaaS, une application nécessitant plus de ressources pour sa base de données pourra accroître ses
+        capacités depuis le panneau d'administration du fournisseur DBaaS.</p>
+
+    <h4>Confier la sécurité à des experts</h4>
+
+    <p>La confidentialité des données est devenue primordiale pour la plupart des projets collectant des données
+        personnelles. En effet, depuis la nouvelle réglementation RGPD en 2018, les entreprises ayant subi une violation
+        des données personnelles dont elles sont responsables sont obligées de déclarer l'incident à la CNIL sous peine
+        d'une lourde amende.</p>
+
+    <p>Quand votre entreprise traite des données personnelles, devoir faire une déclaration de fuite de données va
+        forcément faire mauvaise presse. Par conséquent, de moins en moins d'entreprises font le choix de garder la main
+        sur cette brique devenue très critique.</p>
+
+    <h4>Philosophie DevOps</h4>
+
+    <p>Le DevOps est une philosophie visant à accroître la vélocité des déploiements d'une application en mêlant les
+        phases de développement, de maintenance et de monitoring dans une boucle d'événements.</p>
+
+    <p>Grâce aux services d'administration de base de données pris en charge par le fournisseur de DBaaS, l'équipe
+        suivant une philosophie DevOps va pouvoir concentrer ses efforts sur les autres phases de la boucle.</p>
+
+    <h3>Combien coûte le DBaaS</h3>
+
+    <p>Le coût d'une DBaaS varie selon les ressources CPU, RAM et espace de stockage que vous voulez allouer à votre
+        serveur de base de données. Par exemple, une base de données PostgreSQL de 1Go de capacité vous coûtera environ
+        15€ par mois sur DigitalOcean, RDS ou Scalingo.</p>
+
+    <p>Tous les fournisseurs cloud de DBaaS proposent des tiers gratuits. Il faut toutefois être vigilant, comme pour
+        tout service cloud, à l'évolution des tarifs suivant le volume consommé. Certains fournisseurs offrent de beaux
+        volumes de données gratuitement et les premiers paliers sont à des tarifs comparables à leurs concurrents, mais
+        dès que votre volume de donnée est amené à croître, le tarif augmente plus rapidement que chez les concurrents.
+    </p>
+
+    <h3>Comment choisir sa DBaaS</h3>
+
+    <p>De nombreuses technologies de base de données sont proposées par les fournisseurs cloud. Certaines sont des
+        technologies Open Source ou indépendantes, d'autres sont des bases de données propriétaires aux fournisseurs.
+    </p>
+
+    <h4>Les bases de données d'une technologie tierce</h4>
+
+    <p>Il s'agit là des technologies que nous connaissons tous, MySQL, PostgreSQL, MongoDB, ElasticSearch ou Redis. Ces
+        technologies sont proposées par plusieurs vendeurs qui doivent payer une redevance à l'éditeur de la technologie
+        afin de la proposer comme service à ses clients.</p>
+
+    <h4>Les bases de données propriétaires</h4>
+
+    <p>En complément de ces technologies, les GAFA ont développé leurs propres technologies de base de données, très
+        semblable aux technologies tierces, parfois 100% compatible avec votre code conçu autour de ces technologies.
+    </p>
+
+    <p>Elles sont souvent moins chères, ou apportent de nouvelles fonctionnalités liées à leur suite de produits cloud
+        afin de vous "faciliter le travail".</p>
+
+    <p>Par exemple, AWS propose le produit RDS qui offre des bases de données MySQL ou PostgreSQL mais ils proposent
+        également Aurora, une base de données relationnelle propriétaire à Amazon. Il en va de même avec DynamoDB qui
+        est leur équivalent propriétaire à MongoDB.</p>
+
+    <h4>Attention au Vendor Lock-in</h4>
+
+    <p>Lorsque vous concevez votre application, certaines fonctionnalités de votre base de données vont vous sembler
+        intéressantes car elles pourraient simplifier votre développement et votre environnement technique.</p>
+
+    <p>Par exemple, si votre application est déployée sur un Cloud AWS, les intégrations natives entre une base de
+        données DBaaS DynamoDB peuvent vous sembler être une bonne idée puisque vous utilisez d'autres produits de chez
+        eux.</p>
+
+    <p>Sauf que si votre code devient spécifique à certaines fonctionnalités proposées par un fournisseur cloud, vous
+        vous mettez en position d'enfermement vis-à-vis de ce fournisseur. C'est ce qu'on appelle le Vendor Lock-in.</p>
+
+    <p>Si ce fournisseur décidait d'augmenter son prix de 15 % du jour au lendemain et que vous souhaitiez passer votre
+        application chez un concurrent, vous vous retrouveriez à devoir redévelopper un segment de votre application qui
+        repose sur cette technologie ou intégration propriétaire de ce fournisseur de DBaaS.</p>
+
+    <h4>Le critère géographique</h4>
+
+    <p>Dans beaucoup d'application, les opérations en base de données sont les plus chronophages. Si le temps lié à
+        l'opération est inhérent à la technologie de la base de données, le temps de trajet réseau peut être optimisé.
+    </p>
+
+    <p>En effet, si votre base de données se trouve aux USA mais que vos utilisateurs se trouvent en France, vous
+        perdrez de précieuses millisecondes de temps de trajet. Il convient donc de choisir un fournisseur capable de
+        vous proposer un hébergement de votre base de données au plus proche de vos utilisateurs.</p>
+
+    <p>C'est pourquoi, les GAFA sont capables de proposer des DBaaS dans plusieurs zones géographiques. Si en revanche
+        votre base d'utilisateur se trouve principalement en France, seuls AWS et Azure, parmi les GAFA, disposent d'un
+        datacenter en France. Cependant vous pouvez également vous tourner vers un hébergeur DBaaS français tel que
+        Scalingo qui héberge ses applications et ses bases de données dans des datacenters situés en France.</p>
+
+    <h4>Attention au trafic réseau</h4>
+
+    <p>Interagir avec une base de données implique d'envoyer des requêtes sur le réseau entre le serveur web qui va
+        vouloir récupérer, insérer, modifier ou supprimer des données présentes sur le serveur de base de données.</p>
+
+    <p>Lorsque vous développez en local, le serveur de l'application et de la base de données se trouvent sur la même
+        machine. En revanche, s'ils sont hébergés sur le cloud, il faut prendre en considération leur localisation.</p>
+
+    <p>Si par exemple vous décidiez d'héberger votre application sur un PaaS dont le datacenter se trouve en Irlande,
+        mais que votre fournisseur DBaaS héberge votre base de données en France, vous allez avoir une perte de
+        performance au niveau de temps de réponse des requêtes à votre base de données mais vous allez également devoir
+        payer le trafic entrant.</p>
+
+    <p>Si en revanche votre application et votre serveur de base de données sont hébergés dans le même datacenter, vous
+        ne paierez pas de trafic réseau car les deux serveurs se trouvent au sein d'un même datacenter.</p>
+
+    <h5>DBaaS & PaaS: Déployer une application facilement</h5>
+
+    <p>Utiliser une base de données DBaaS dans son application est souvent aussi simple que de remplacer une connection
+        string, localhost ou l'ip de votre serveur de base de données, par celle fournie par votre fournisseur de DBaaS.
+    </p>
+
+    <p>Pour cet exemple, nous allons utiliser Scalingo un fournisseur PaaS français. Scalingo nous permet de déployer
+        l'application Node et d'avoir une base de données en une ligne de commande, le tout en assurant une
+        disponibilité de 99,9%. Scalingo propose un plan gratuit, largement suffisant pour ses prototypes, auquel vous
+        pourrez ajouter le code 2020-11-PRACTICALPROGRAMMINGROCKS pour bénéficier d'un crédit de 500€ sur votre compte
+        au cas où vous voudriez tester une application de plus gros volume.</p>
+
+    <p>Après vous être inscrit sur Scalingo, créez votre première application et choisissez votre base de données.
+        Scalingo propose des bases de données MySQL, PostgreSQL, MongoDB, Redis, ElasticSearch et InfluxDB.</p>
+
+    <p>Rendez-vous ensuite dans l'onglet AddOns pour accéder au tableau de bord de votre base de données. Vous trouverez
+        ensuite la string de connexion à utiliser dans votre application</p>
+
+    <p>En seulement deux clics et une ligne de commande, vous aurez déployé votre application en production et vous
+        n’aurez jamais à gérer les aléas d’infrastructure d’aucun de vos serveurs.</p>
+</body>
+
+</html>

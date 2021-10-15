@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>
+            9 clés pour un projet perso réussi
+        </h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>Être clair sur la raison d'être du projet</li>
+            <li>Les projets de</li>
+            <li>Les projets "portfolio" </li>
+            <li>Le "MVP" et projet entrepreneurial</li>
+            <li>2 - Tempérer ses ambitions</li>
+            <li>3 - Prioriser avant de coder</li>
+            <li>4 - Hacher en miettes</li>
+            <li>5 - Démarrer le plus petit possible</li>
+            <li>6 - Déployer tôt et souvent</li>
+            <li>7 - Tracker son rythme et son avancement</li>
+            <li>8 - Ne pas se formaliser avec l'apparence</li>
+            <li>9 - Documenter l'avancée du projet</li>
+            <li>Et de la persévérance</li>
+        </ul>
+
+        <p>De débutant à Tech lead, tous les développeurs ont dans leur repositories des projets personnels. Certains
+            sont le fruit d'idées ayant des ambitions disruptives, d'autres sont de simples bacs à sable pour
+            s'entraîner qui ne verront jamais la lumière d'une requête provenant de l'internet !</p>
+
+        <p>Quelle que soit la raison de sa création, les projets perso naissent, parfois vivent et souvent meurent. Dans
+            cet article, je vais vous partager mes meilleurs conseils pour que vos projets voient le jour et aient une
+            chance de se confronter à de vrais utilisateurs !</p>
+
+        <h3>Être clair sur la raison d'être du projet</h3>
+
+        <h4>Les projets de veille technos</h4>
+
+        <p>Ces projets ont pour vocation de vous faire pratiquer une techno en particulier. Il n'a pas vocation à
+            apporter une valeur ajoutée à des utilisateurs et souvent pourra vivre en local avant de mourir oublié dans
+            votre répertoire de travail.</p>
+
+        <h4>Les projets "portfolio"</h4>
+
+        <p>Ces projets existent pour montrer à d'éventuels employeurs (ou client si vous êtes freelance) ce que vous
+            savez faire. Il peut avoir un intérêt à être déployé si vous voulez montrer vos compétences en devops ou si
+            l'interface et l'expérience utilisateur sont aussi importantes que le code lui-même. Ce qui peut être le cas
+            si vous êtes développeur Frontend ou intégrateur.</p>
+
+        <h4>Le "MVP" et projet entrepreneurial</h4>
+
+        <p>Suivant où vous en êtes dans votre projet entrepreneurial, vous pourriez être amenés à développer un projet à
+            des fins lucratives (ou caritatives). Ce projet peut être à vocation de "Proof of Concept" ou au stade de
+            MVP en vue d'être en V1. Suivant où vous en êtes dans la découverte utilisateur, le projet pourra avoir pour
+            but uniquement de découvrir un besoin ou, si celui-ci est déjà identifié, de construire une première version
+            fonctionnelle d'un produit.</p>
+
+        <h3>2 - Tempérer ses ambitions</h3>
+
+        <p>Rome ne s'est pas faite en un jour, votre projet non plus. Lorsqu'on démarre un projet perso, on peut être
+            tenté dès le départ d'avoir une liste de features qui nous paraissent essentielles à implémenter. Le plus
+            souvent ce n'est que votre esprit qui s'emporte par enthousiasme. Il est fort probable qu'au démarrage vous
+            n'ayez pas besoin de système d'authentification par Google ou d'envoyer des notifications à tout va.</p>
+
+        <p>Listez toutes vos idées avant qu'elles vous échappent. Que ce soit sur papier, je vous conseille de prendre
+            en photo vos notes si c'est votre choix de prédilection, sur une app de prise de note type Evernote ou
+            directement dans le Readme du projet Github, lister puis prioriser les fonctionnalités que vous souhaitez
+            implémenter sont des étapes à ne pas sauter.</p>
+
+        <h3>3 - Prioriser avant de coder</h3>
+
+        <p>Dans le cadre d'un projet veille techno, votre priorité est d'arriver au plus vite à l'élément que vous
+            voulez mettre en pratique. Par exemple vous essayez d'apprendre à implémenter ElasticSearch, inutile de
+            démarrer un serveur web complet avec une architecture MVC et une base de donnée SQL ou MongoDB.</p>
+
+        <p>Dans le cadre d'un projet portfolio ou un projet entrepreneurial, les priorités sont différentes puisque vous
+            cherchez à avoir un produit fonctionnel en ligne. Pour ce faire, prenez la liste de fonctionnalités que vous
+            avez établie en étape 2 et classez-les en 3 catégories:</p>
+
+        <ul>
+            <li>les fonctionnalités "métier"</li>
+            <li>les fonctionnalités "techniques"</li>
+            <li>les fonctionnalités "autres"</li>
+        </ul>
+
+        <p>Imaginons que votre projet soit une app de liste de course partagée. Voici à quoi ressemblerait votre
+            répartition:</p>
+
+        <p>Metier:</p>
+
+        <ul>
+            <li>Ajouter un produit</li>
+            <li>Barrer un produit</li>
+            <li>Retrouver ma liste</li>
+            <li>Avoir plusieurs listes</li>
+            <li>Ajouter utilisateur à ma liste</li>
+        </ul>
+
+        <p>Technique:</p>
+
+        <ul>
+            <li>Enregister la liste en BDD</li>
+            <li>Authentification</li>
+            <li>Recherche</li>
+        </ul>
+
+        <p>Autre</p>
+
+        <ul>
+            <li>Affichage en temps réel</li>
+            <li>Autocomplete des produits</li>
+            <li>Récupération des dernières listes</li>
+            <li>Gestion des droits de lecture et écriture</li>
+        </ul>
+
+        <p>La liste métier va regrouper les gestes "utilisateurs" sans prendre en considération les implications
+            techniques. L'utilisateur d'une app de liste de course n'a que faire de savoir quelle base de données vous
+            avez choisie et comment vous l'avez implémenté.</p>
+
+        <p>La liste technique va lister les contraintes techniques que vous aurez pour réaliser les gestes métier.</p>
+
+        <p>La liste "autres" va englober le reste.</p>
+
+        <p>À partir de cette liste, prenez toutes les fonctionnalités sans quoi votre application ne peut pas exister et
+            enlevez toutes les autres. Par exemple, vous n'avez peut être pas besoin d'un système complet
+            d'authentification. Pour démarrer une clé par utilisateur à mettre dans les paramètres de l'url peut faire
+            l'affaire, quitte à créer les utilisateurs à la main pour les beta testers ou pour un compte demo.</p>
+
+        <p>Pour finir, classez les fonctionnalités par ordre de valeur ajoutée. La plus importante devrait être celle
+            qui ferait le plus la différence pour un utilisateur. Par exemple, "ajouter un produit" à une seule liste
+            est plus important que "créer plusieurs listes" ou même que "barrer un produit".</p>
+
+        <h3>4 - Hacher en miettes</h3>
+
+        <p>À ce stade, vos fonctionnalités sont encore sous forme de gros blocs. Avant de commencer à développer, prenez
+            le temps de découper vos fonctionnalités en tâches les plus petites possible.</p>
+
+        <p>En prenant la fonctionnalité "ajouter un produit à ma liste de course", elle pourrait se décomposer en:</p>
+
+        <ul>
+            <li>Créer le composant frontend pour ajouter un produit à ma liste</li>
+            <li>Créer la logique frontend qui va envoyer la donnée au serveur</li>
+            <li>Côté serveur, recevoir l'input du client</li>
+            <li>Le sauvegarder en base de données</li>
+            <li>Et enfin, retour sur le frontend, afficher l'élément qui vient d'être envoyé à ma liste.</li>
+        </ul>
+
+        <p>Ce découpage de vos fonctionnalités en micro tâches est tiré de la méthode Kaïzen. Le fait d'avancer par
+            petite étapes préserve le moral et vous donne le sentiment d'avancer. Chaque tâche complétée est une petite
+            victoire, que vous pouvez accomplir le plus rapidement possible.</p>
+
+        <h3>5 - Démarrer le plus petit possible</h3>
+
+        <p>Lorsqu'on démarre le projet, on se retrouve bien souvent devant une montagne dès lors qu'on a créé le
+            répertoire de travail et le repository sur github. Dans la continuité de l'étape précédente, toute petite
+            avancée est une victoire à prendre.</p>
+
+        <p>Commencez par les pièces les plus évidentes, les tâches les plus basiques à réaliser. Faire le Hello World
+            est souvent la première.</p>
+
+        <h3>6 - Déployer tôt et souvent</h3>
+
+        <p>L'erreur que j'ai souvent commise est de penser qu'il faut attendre d'avoir une version un minimum
+            fonctionnelle de son app pour la déployer. C'est faux ! Il arrive que des problèmes ne surviennent qu'au
+            moment où vous déployez votre application alors que tout semblait fonctionner sur votre environnement local.
+        </p>
+
+        <p>Pour éviter les surprises et les debugging à rallonge, déployez le plus tôt et le plus souvent possible. J'ai
+            pris pour habitude de créer un "hello world" et de le déployer immédiatement.</p>
+
+        <p>Ensuite à vous d'arbitrer sur la fréquence de vos déploiements. Si vous avez bien découpé vos fonctionnalités
+            en microtâches, déployer à chaque fois que vous complétez l'une d'entre elles peut être trop fréquent. Dans
+            ce cas regroupez quelques tâches puis déployez.</p>
+
+        <p>Mais vous ne devriez probablement pas attendre d'avoir fini une fonctionnalité complètement pour déployer. Ce
+            geste doit être un non-événement. Vous deviez pouvoir déployer votre application et revenir en arrière sans
+            que ce soit trop laborieux ni chronophage. Ainsi vous ne procrastinerez pas et vous ne serez pas intimidé
+            par cette étape.</p>
+
+        <h3>7 - Tracker son rythme et son avancement</h3>
+
+        <p>Même si ça n'est que rarement explicitement mentionné, gérer un projet est une compétence qu'on attend d'un
+            développeur. Suivre l'avancement de votre projet est une étape dans sa gestion.</p>
+
+        <p>Plusieurs outils sont à votre disposition pour vous aider. Trello, Asana, Github, il existe une multitude de
+            solutions. Je vous conseille d'avoir un board public sur Trello ou de créer un projet dans votre repository
+            sur Github. Vous y listerez les fonctionnalités et les microtâches sous forme de colonnes et vous pourrez
+            faire avancer vos tâches au fur et à mesure que vous les complétez.</p>
+
+        <p>Sur un projet portfolio, il est important de garder ce board public et accessible à un potentiel employeur.
+            Il va servir d'appui à votre candidature.</p>
+
+        <p>Vous trouverez dans l'Academy Practical Programming un template Notion à dupliquer pour assurer le suivi de
+            l'avancée de votre projet</p>
+
+        <h3>8 - Ne pas se formaliser avec l'apparence</h3>
+
+        <p>À moins que vous soyez développeur Frontend avec une forte orientation UX/UI et intégration, ne vous
+            formalisez pas avec la finition esthétique. Votre projet MVP a le droit d'être aussi moche qu'il veut, tant
+            qu'il est utilisable.</p>
+
+        <p>Pour ne pas perdre de temps avec l'apparence, je vous conseille d'utiliser des librairies CSS comme Tailwind,
+            Bootstrap ou Bulma. Il vous suffira d'ajouter quelques classes à votre HTML pour avoir un rendu présentable
+            mais là encore, il ne faut absolument pas perdre de temps a essayer d'harmoniser les couleurs, aligner les
+            boutons ou mettre en place une navigation responsive.</p>
+
+        <h3>9 - Documenter l'avancée du projet</h3>
+
+        <p>Cette étape est un bonus bourré de valeur, réservé à ceux qui auront eu le courage de lire l'article jusqu'au
+            bout.</p>
+
+        <p>On sous estime trop souvent l'histoire d'un projet, qui est souvent aussi importante que celui-ci. Si vous
+            travaillez sur un projet entrepreneurial, c'est grâce à ces histoires sur votre projet que vous trouverez
+            vos premiers utilisateurs. Si c'est un projet portfolio, c'est là que vous piquerez l'intérêt des
+            recruteurs.</p>
+
+        <p>Créez un compte sur Medium et forcez-vous à poster une fois par semaine sur l'avancement du projet. Parlez
+            technique, parlez du problème que vous voulez adresser, parlez de vos défis que vous surmontez en
+            construisant le produit, racontez les échanges que vous avez eus cette semaine lorsque vous avez parlé de
+            votre projet à un autre dev ou à un potentiel utilisateur. </p>
+
+        <p>Postez ces articles sur votre Facebook perso et votre Linkedin. Vous serez surpris de voir à quel point les
+            gens autour de vous sont curieux des vraies histoires plutôt que des photos de la dernière sortie au resto
+            italien ou de vidéos de chatons.</p>
+
+        <h3>Et de la persévérance</h3>
+
+        <p>Pour qu'un projet ait une chance de servir son but, il faut faire preuve de persévérance. Vous allez plus
+            d'une fois être tenté de vous orienter vers un nouveau projet, une nouvelle techno, une nouvelle approche.
+            Si vous cédez à cette tentation, c'est la mort de votre projet.</p>
+
+        <p>Continuez à travailler uniquement sur ce projet et évitez tout autre engagement qui pourrait vous distraire
+            de votre objectif.</p>
+    </div>
+</body>
+
+</html>
