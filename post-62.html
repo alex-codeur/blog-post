@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>
+            Express JS : tout savoir du framework Node.JS
+        </h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>Node Express JS : quel intérêt pour vos projets d’application ?
+            </li>
+            <li>Tutoriel Node Express JS : installation et démarrage d’un projet </li>
+            <li>Installer ExpressJS pour NodeJS avec npm</li>
+            <li>Hello World avec Node Express JS</li>
+            <li>ExpressJS : Ajouter le moteur de templating Handlebars et servir des fichiers HTML</li>
+            <li>Connecter Express à une base de données</li>
+            <li>Alternatives à ExpressJS</li>
+            <li>Les frameworks frontend intègrent le backend</li>
+            <li>Adonis et NestJS: les frameworks All-inclusive</li>
+            <li>Les frameworks bas niveau</li>
+        </ul>
+
+        <p>Jour après jour, de plus en plus d’applications web sont déployées pour répondre à toujours plus de besoins.
+            Cette multiplication des projets pousse les développeurs à trouver des moyens de créer des applications plus
+            rapidement.</p>
+
+        <p>Dans tous les langages de programmation, des frameworks ont été créés afin d’accélérer le développement des
+            applications web. </p>
+
+        <p>Les frameworks sont des ensembles de composants permettant de mettre en place rapidement les fondations d’une
+            application tout en fixant des standards aux développeurs travaillant sur le projet, ce qui facilite le
+            travail collaboratif.</p>
+
+        <p>De nombreux frameworks existent notamment pour le langage JavaScript, langage roi du développement web,
+            particulièrement en vogue ces dernières années.</p>
+
+        <p>Pour les développeurs JavaScript – de plus en plus nombreux – qui font le choix d’utiliser le runtime NodeJS,
+            un framework se démarque comme étant une évidence pour accélérer considérablement le développement de leur
+            projet : Express.js</p>
+
+        <p>Express JS est le framework le plus populaire pour NodeJS comme en témoignent les statistiques suivantes
+            tirées de Github, StackOverflow et npm :</p>
+
+        <p>Dans ce guide complet Express JS, vous apprendrez tout ce qu’il y a à savoir à propos de ce framework NodeJS
+            incontournable : quel intérêt pour vos projets, comment l’installer, démarrer un projet avec ou encore
+            écrire un serveur avec un moteur de templating.</p>
+
+        <h3>Node Express JS : quel intérêt pour vos projets d’application ?</h3>
+
+        <p>ExpressJS est un framework qui se veut minimaliste. Très léger, il apporte peu de surcouches pour garder des
+            performances optimales et une exécution rapide. Express ne fournit que des fonctionnalités d’application web
+            (et mobile) fondamentales, mais celles-ci sont extrêmement robustes et ne prennent pas le dessus sur les
+            fonctionnalités natives de NodeJS. </p>
+
+        <p><strong>Node Express JS</strong> est également très flexible : s’il ne fournit que quelques fonctionnalités,
+            il peut en revanche être complété par de nombreuses librairies disponibles sur npm. Vous êtes libre de
+            choisir les librairies et l’architecture backend qui vous conviennent le mieux.</p>
+
+        <p>Ce minimalisme et cette flexibilité ont cependant un inconvénient. ExpressJS impose si peu de contraintes et
+            de cadre qu’il devient très facile de partir dans tous les sens (“code spaghetti”) et d’aboutir à une
+            architecture difficile à maintenir. Il n’en reste pas moins un framework puissant et adapté aux développeurs
+            de tous niveaux : alors que les expérimentés apprécieront sa légèreté et la liberté qu’il permet, les
+            juniors bénéficieront de sa popularité rendant les ressources d’apprentissage accessibles en nombre. </p>
+
+        <p>De nombreuses sociétés utilisent ou ont utilisé ExpressJS pour développer des applications web ou mobiles,
+            dont des leaders technologiques tels que IBM, Uber, Accenture ou Yandex.</p>
+
+        <h3>Tutoriel Node Express JS : installation et démarrage d’un projet</h3>
+
+        <p>Démarrer un projet ExpressJS tel que la création d’un serveur basique est une opération relativement simple.
+            Comme toutes les applications NodeJS, nous commencerons par initialiser un projet dans un dossier sur votre
+            machine, puis y installerons Express pour terminer par quelques lignes de code. </p>
+
+        <h4>Installer ExpressJS pour NodeJS avec npm</h4>
+
+        <p>Avant d’installer Express JS, il convient d’initialiser un projet NodeJS dans un dossier fraîchement créé,
+            comme expliqué dans notre guide NodeJS : </p>
+
+        <div class="jumbotron">
+            npm init
+        </div>
+
+        <p>Après avoir suivi l’assistant de configuration de npm et initialisé votre projet, vous pouvez installer
+            ExpressJS avec la commande install express :</p>
+
+        <div class="jumbotron">
+            npm install express
+        </div>
+
+        <p>Express est maintenant installé, accompagné de ses dépendances, dans le répertoire node_modules, et prêt à
+            être utilisé dans votre projet.</p>
+
+        <h4>Hello World avec Node Express JS</h4>
+
+        <p>Quoi de plus naturel que de débuter l’apprentissage d’un nouveau framework par un Hello World ? Avec Express,
+            c’est très simple.</p>
+
+        <p>Commencez par ouvrir le point d’entrée de votre application que vous avez spécifié lors de l’initialisation
+            du projet avec npm (par défaut, le fichier index.js du répertoire de votre projet). </p>
+
+        <p>Appelez ExpressJS et initialisez-le dans une variable en ajoutant le code suivant à ce fichier :</p>
+
+        <div class="jumbotron">
+            const express = require('express')
+            const app = express()
+        </div>
+
+        <p>Nous allons ensuite écrire “Hello World” pour toutes les requêtes GET menant vers la racine de votre serveur
+            (“/”) avec la fonction get() : </p>
+
+        <div class="jumbotron">
+            app.get('/', function (req, res) {
+            res.send('Hello World!')
+            })
+        </div>
+
+        <p>Enfin, nous allons rendre l’application disponible sur le port 3000 de votre serveur web (fonction listen())
+            et afficher une notification dans la console avec un callback:</p>
+
+        <div class="jumbotron">
+            app.listen(3000, function () {
+            console.log('Votre app est disponible sur localhost:3000 !')
+            })
+        </div>
+
+        <p> Ça y est, la version la plus basique d’une application web avec ExpressJS est disponible sur votre serveur
+            local à l’adresse localhost:3000 !</p>
+
+        <h4>ExpressJS : Ajouter le moteur de templating Handlebars et servir des fichiers HTML</h4>
+
+        <p>Un <strong>moteur de templating</strong> permet de modifier dynamiquement le contenu de pages HTML du côté
+            serveur. Adopter un moteur de templating est essentiel pour réduire davantage le temps de développement
+            d’une application web avec NodeJS et Express JS. </p>
+
+        <p>Léger et puissant, Handlebars est l’un des moteurs de templating les plus populaires. Voyons ensemble comment
+            l’ajouter facilement à votre projet. </p>
+
+        <p>Commencez par installer Handlebars avec npm dans le répertoire de votre projet :</p>
+
+        <div class="jumbotron">
+            npm install express-handlebars
+        </div>
+
+        <p> Créez ensuite un nouveau dossier à la racine du répertoire de votre projet et nommez-le views” À l’intérieur
+            de celui-ci, créez un nouveau fichier appelé main.handlebars et deux sous-dossiers : layouts et partials.
+        </p>
+
+        <p>Les layouts forment la structure générale de la page ainsi que ses métadonnées. Les partials sont des
+            éléments qui peuvent être réutilisés sur plusieurs pages (par exemple, un menu). </p>
+
+        <p>Enfin, créez un nouveau fichier appelé index.handlebars dans le sous-dossier layouts.</p>
+
+        <p>La structure de votre projet devrait ressembler à celle-ci :</p>
+
+        <p>Remplissez le fichier “index.handlebars” avec un code HTML basique tel que : </p>
+
+        <div class="jumbotron">
+            code HTML
+        </div>
+
+        <p>Notez que ce code contient une balise {{{body}}}. C’est ici que sera inséré dynamiquement le contenu de la
+            page par handlebars.</p>
+
+        <p>Retournons au fichier index.js et effectuons quelques changements après les déclarations de vos constantes.
+            D’abord, initialisez handlebars avec require() et définissez-le comme le moteur de votre app avec set() :
+        </p>
+
+        <div class="jumbotron">
+            const handlebars = require('express-handlebars')
+            app.set('view engine', 'handlebars')
+        </div>
+
+        <p>Indiquez ensuite où se situe le répertoire contenant les layouts de votre application avec engine() :</p>
+
+        <div class="jumbotron">
+            app.engine('handlebars', handlebars({
+            layoutsDir: __dirname + '/views/layouts',
+            }))
+        </div>
+
+        <p>Modifiez votre appel à la fonction get() pour servir le layout correspondant à la page demandée : </p>
+
+        <div class="jumbotron">
+            app.get('/', function (req, res) {
+            res.render('main', {layout : 'index'})
+            })
+        </div>
+
+        <p>Ainsi, l’application va chercher le layout “index” (donc le fichier “index.handlebars” dans le dossier
+            “layouts”) et le remplir avec le contenu d’un autre fichier (“main.handlebars”). Celui-ci étant vide,
+            ouvrez-le et ajoutez un code HTML de contenu, par exemple :</p>
+
+        <div class="jumbotron">
+            code HTML
+        </div>
+
+        <p>Enfin, permettons à l’application de charger un fichier css statique public avec :</p>
+
+        <div class="jumbotron">
+            code CSS
+        </div>
+
+        <p>Vous êtes enfin prêt à tester votre projet NodeJS, Express JS et Handlebars ! Pour information, le code final
+            de votre fichier “index.js” devrait ressembler à :</p>
+
+        <div class="jumbotron">
+            const express = require('express')
+            const app = express()
+
+            const handlebars = require('express-handlebars')
+
+            app.set('view engine', 'handlebars')
+            app.engine('handlebars', handlebars({
+            layoutsDir: __dirname + '/views/layouts',
+            }))
+
+            app.get('/', function (req, res) {
+            res.render('main', {layout : 'index'})
+            })
+
+            app.use(express.static('public'))
+        </div>
+
+        <h4>Connecter Express à une base de données</h4>
+
+        <p>Afin de persister les données que les utilisateurs de votre application créeront, vous devrez connecter votre
+            serveur express à une base de données.</p>
+
+        <p>Dans le développement web, les développeurs venant de l'écosystème PHP ont l'habitude de travailler avec la
+            base de données relationnelle MySQL. Avec express, vous pourrez connecter votre serveur à une base MySQL en
+            installant le package mysql2 via npm afin d'écrire vos requêtes SQL en direct, ou bien d'utiliser un ORM tel
+            que TypeORM, Seequelize ou Prisma afin d'ajouter du sucre syntaxique à vos requêtes et faciliter le travail.
+        </p>
+
+        <p>Dans l'écosystème autour du langage JavaScript, les bases de données documents tels que MongoDB sont très
+            populaires. Elles permettent d'enregistrer des documents non structurés, d'avoir une flexibilité sur le
+            schéma de données et de dénormaliser la donnée, ce qui est difficile ou déconseillé de faire avec une base
+            de données SQL. Pour connecter votre serveur Express à une base de données MongoDB, vous pouvez utiliser le
+            package officiel mongoClient ou la librairie mongoose qui apporte également une couche d'abstraction comme
+            un ORM.</p>
+
+        <h3>Alternatives à ExpressJS</h3>
+
+        <p>Bien qu’Express soit de loin le framework leader dans la communauté Node, il existe de nombreuses
+            alternatives.</p>
+
+        <h4>Les frameworks frontend intègrent le backend</h4>
+
+        <p>Next.js, Nuxt et Gatsby sont des frameworks basés sur React ou Vue et qui intègrent nativement un backend.
+            Ils ajoutent le concept de Static Site Generation, améliorant les performances des sites à fort composants
+            statiques.</p>
+
+        <p>Souvent associés à la JAMStack, ces frameworks sont de plus en plus populaires dans les cas d’usages de
+            blogs, sites vitrines et site e-commerce.</p>
+
+        <h4>Adonis et NestJS: les frameworks All-inclusive</h4>
+
+        <p>Plûtot orienté Backend, Adonis et Nestjs permettent tous les deux de développer une API ou une application
+            fullstack en Server Side Rendering.</p>
+
+        <p>NestJS est un framework complet, orienté typescript, qui sera très familier pour les développeurs Angular.
+        </p>
+
+        <p>Adonis en revanche est moins orienté. Moins populaire, son framework est plus flexible tout en étant
+            suffisamment complet pour y baser une application d’envergure.</p>
+
+        <h4>Les frameworks bas niveau</h4>
+
+        <p>Les frameworks dits "bas niveau" sont similaires à Express dans la mesure où ils laissent les développeurs
+            chercher les librairies de leurs choix afin de construire les fonctionnalités comme ils l'entendent. Ils
+            sont appréciés des développeurs expérimentés.</p>
+
+        <p>Fastify est le framework bas niveau le mieux maintenu de l'écosystème JavaScript. Il est utilisé comme base
+            pour d'autres frameworks tels qu'Adonis et peut être utilisé pour la partie API de Next.JS</p>
+
+        <p>D'autres frameworks similaires tels que Koa, Hapi ou loopback existent toujours dans l'écosystème mais leur
+            popularité est de loin inférieure à Express et donc les ressources communautaires sont plus rares.</p>
+    </div>
+</body>
+
+</html>

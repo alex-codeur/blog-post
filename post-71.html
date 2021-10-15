@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>
+            Node.js et MySQL : comment utiliser MySQL sur une application Node ?
+        </h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>Connecter une base de données MySQL à une app Node.js
+            </li>
+            <li>Utiliser le module mysql pour utiliser une base de données MySql en Node </li>
+            <li>Utiliser une base de données MySQL en NodeJS avec Sequelize</li>
+        </ul>
+
+        <p>MySQL est l’un des systèmes de gestion de bases de données les plus utilisés dans le monde. À l’inverse des
+            solutions NoSQL telles que MongoDB, MySQL permet de gérer des bases de données relationnelles en se basant
+            sur le langage SQL (Structured Query Language).</p>
+
+        <p>Les informations contenues dans une table de base de données relationnelle peuvent en effet être liées avec
+            celles d’une autre table via les clés : chaque ligne d’une table peut être identifiée de manière unique via
+            sa clé primaire, et peut référer à la ligne d’une autre table via une clé étrangère. Ces relations
+            permettent entre autres de réaliser des jointures pour permettre à une même requête d’accéder à des
+            informations situées dans différentes tables de la base de données MySQL.</p>
+
+        <p>Prenons par exemple ces deux tables “eleves” et “cours” : </p>
+
+        <p>Une jointure simple (“JOIN” en SQL) permet ainsi de ressortir chaque élève et le cours auquel il doit
+            assister :</p>
+
+        <div class="jumbotron">
+            SELECT eleves.id as 'eleve_id', eleves.nom as 'eleve_nom', eleves.cours_id, cours.nom as 'cours_nom',
+            cours.date as 'cours_date'
+            FROM eleves
+            JOIN cours on eleves.cours_id = cours.id
+
+        </div>
+
+        <p>Au-delà de cette capacité à gérer des relations complexes, MySQL propose une performance optimale, des
+            fonctionnalités de sécurité avancées et tous les avantages de l’open source. Ces caractéristiques font de
+            MySQL une solution solide et un choix sûr pour les applications Node.js ayant besoin de bases de données
+            relationnelles.</p>
+
+        <p>Ce guide MySQL NodeJS vous apprend comment utiliser MySQL dans votre application Node.js. Veillez à avoir
+            installé NodeJS et MySQL sur votre machine ainsi qu’à disposer d’un projet Node prêt à l’utilisation.
+            N’hésitez pas à vous référer à nos autres guides Node.js</p>
+
+        <h3>Connecter une base de données MySQL à une app Node.js</h3>
+
+        <p>Plusieurs librairies NodeJS permettent d’établir une connexion avec une base de données MySQL et d'exécuter
+            des requêtes.Parmi elles, les deux plus populaires sont :</p>
+
+        <ul>
+            <li><strong>mysql</strong>, un driver MySQL basique pour Node.js écrit en javascript et ne nécessitant pas
+                de compilation. Il s’agit de la solution la plus simple et rapide à mettre en place pour interagir avec
+                une base de données MySQL en Node.</li>
+            <li><strong>Sequelize</strong>, la librairie la plus populaire pour utiliser les systèmes de gestion de
+                bases de données basés sur SQL avec Node.js. Elle supporte MySQL mais également Postgres, Microsoft SQL,
+                MariaDB… Cet ORM (Object-Relational Mapping) puissant permet entre autres l’utilisation de promesses et
+                la customisation des messages d’erreur pour chaque champs.</li>
+        </ul>
+
+        <h4>Utiliser le module mysql pour utiliser une base de données MySql en Node</h4>
+
+        <p>Commencez par installer le module mysql dans le dossier de votre projet Node.js avec npm install :</p>
+
+        <div class="jumbotron">
+            npm install mysql
+        </div>
+
+        <p>Dans le fichier point d’entrée de votre projet Node.js, initialisez le module dans une variable avec
+            require() :
+
+        </p>
+
+        <div class="jumbotron">
+            const mysql = require('mysql');
+        </div>
+
+        <p>Votre app NodeJS peut maintenant se connecter à votre base de données MySQL.</p>
+
+        <p>Votre app NodeJS peut maintenant se connecter à votre base de données MySQL.</p>
+
+        <h4>Se connecter à la base MySQL avec le module mysql</h4>
+
+        <p>Pour vous connecter à votre base MySQL, renseignez l’hôte, l’utilisateur et le mot de passe spécifié lors de
+            l’installation de MySQL sur votre système :</p>
+
+        <div class="jumbotron">
+            const db = mysql.createConnection({
+
+            host: "localhost",
+
+            user: "nom_utilisateur",
+
+            password: "mot_de_passe_utilisateur"
+
+            });
+        </div>
+
+        <p>Enfin, utilisez la fonction connect pour vous connecter à votre base de données MySQL. Une exception sera
+            jetée en cas d’erreur :</p>
+
+        <div class="jumbotron">
+            db.connect(function(err) {
+            if (err) throw err;
+            console.log("Connecté à la base de données MySQL!");
+            });
+        </div>
+
+        <p>Votre utilisateur est désormais connecté à la base de données MySQL et peut y exécuter des requêtes.</p>
+
+        <h4>Créer une base de données MySQL en Node.js avec le module mysql</h4>
+
+        <p>Pour créer une base de données MySQL, exécutez simplement une requête CREATE DATABASE avec la fonction
+            query() dans le code de votre app :</p>
+
+        <div class="jumbotron">
+            const mysql = require('mysql');
+
+            const db = mysql.createConnection({
+            host: "localhost",
+            user: "nom_utilisateur",
+            password: "mot_de_passe_utilisateur"
+            });
+
+            db.connect(function(err) {
+            if (err) throw err;
+            console.log("Connecté à la base de données MySQL!");
+            db.query("CREATE DATABASE mabdd", function (err, result) {
+            if (err) throw err;
+            console.log("Base de données créée !");
+            });
+            });
+        </div>
+
+        <h4>Exécuter des requêtes SQL sur une base MySQL avec NodeJS</h4>
+
+        <p>Vous pouvez ainsi exécuter tout type de requête SQL, comme par exemple la jointure que nous avons effectué en
+            introduction de ce guide :</p>
+
+        <div class="jumbotron">
+            const mysql = require('mysql');
+
+            const con = mysql.createConnection({
+            host: "localhost",
+            user: "nom_utilisateur",
+            password: "mot_de_passe_utilisateur"
+            database : "mabdd"
+            });
+
+            con.connect(function(err) {
+            if (err) throw err;
+            console.log("Connecté à la base de données MySQL!");
+            con.query("SELECT eleves.id as 'eleve_id', eleves.nom as 'eleve_nom', eleves.cours_id, cours.nom as
+            'cours_nom', cours.date as 'cours_date' FROM eleves JOIN cours on eleves.cours_id = cours.id", function
+            (err, result) {
+            if (err) throw err;
+            console.log(result);
+            });
+            });
+        </div>
+
+        <p>Notez que nous avons cette fois précisé le nom de la base de données MySQL sur laquelle se connecter dans
+            l’appel à la fonction createConnection(). On retrouve bien entendu les mêmes résultats qu’en introduction :
+        </p>
+
+        <h4>Utiliser une base de données MySQL en NodeJS avec Sequelize</h4>
+
+        <p>Pour utiliser Sequelize afin d’interagir avec votre base de données MySQL en Node, il vous faut d’abord
+            installer le driver mysql2. Il s’agit d’un driver distinct du module mysql, moins populaire que ce dernier,
+            mais qui propose quelques fonctionnalités supplémentaires.</p>
+
+        <p>Installez mysql2 avec npm install :</p>
+
+        <div class="jumbotron">
+            npm install mysql2
+        </div>
+
+        <p>Dans le code de votre app, initialisez Sequelize avec require() :</p>
+
+        <div class="jumbotron">
+            const { Sequelize } = require('sequelize');
+        </div>
+
+        <p>Dans un nouvel objet Sequelize, indiquez le nom d’utilisateur, le nom d’utilisateur, le mot de passe et le
+            nom de la base de données MySQL afin d’établir la connexion </p>
+
+        <div class="jumbotron">
+            const sequelize = new Sequelize("nom_base_de_donnees", "nom_utilisateur", "mot_de_passe_utilisateur", {
+            dialect: "mysql",
+            host: "localhost"
+            });
+        </div>
+
+        <p>Enfin, vous pouvez vérifier que la connexion est bien établie avec authenticate(), mais cette partie n’est
+            pas nécessaire pour exécuter des requêtes sur votre base : </p>
+
+        <div class="jumbotron">
+            try {
+            sequelize.authenticate();
+            console.log('Connecté à la base de données MySQL!');
+            } catch (error) {
+            console.error('Impossible de se connecter, erreur suivante :', error);
+            }
+        </div>
+
+        <h4>Créer une base de données MySQL en Node.js avec Sequelize</h4>
+
+        <p>Pour créer une base de données MySQL en Node avec Sequelize, ajoutez simplement une requête CREATE DATABASE
+            dans un appel à la fonction query() à votre code :</p>
+
+        <div class="jumbotron">
+            const sequelize = new Sequelize("", "nom_utilisateur", "mot_de_passe_utilisateur", {
+            dialect: "mysql",
+            host: "localhost"
+            });
+
+            try {
+            sequelize.authenticate();
+            console.log('Connecté à la base de données MySQL!');
+            sequelize.query("CREATE DATABASE `mabdd`;").then(([results, metadata]) => {
+            console.log('Base de données créée !');
+            })
+            } catch (error) {
+            console.error('Impossible de se connecter, erreur suivante :', error);
+            }
+        </div>
+
+        <h4>Exécuter des requêtes SQL sur une base MySQL avec Sequelize</h4>
+
+        <p>Avec la fonction query(), vous pouvez exécuter n’importe quelle requête SQL sur votre base de données, comme
+            par exemple la jointure que nous avons utilisée en introduction de ce guide :</p>
+
+        <div class="jumbotron">
+            const sequelize = new Sequelize("mabdd", "nom_utilisateur", "mot_de_passe_utilisateur", {
+            dialect: "mysql",
+            host: "localhost"
+            });
+
+            try {
+            sequelize.authenticate();
+            console.log('Connecté à la base de données MySQL!');
+            sequelize.query("SELECT eleves.id as 'eleve_id', eleves.nom as 'eleve_nom', eleves.cours_id, cours.nom as
+            'cours_nom', cours.date as 'cours_date' FROM eleves JOIN cours on eleves.cours_id =
+            cours.id").then(([results, metadata]) => {
+            console.log(results);
+            })
+            } catch (error) {
+            console.error('Impossible de se connecter, erreur suivante :', error);
+            }
+        </div>
+
+        <p>On retrouve le même résultat dans la console :</p>
+    </div>
+</body>
+
+</html>

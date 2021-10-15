@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>
+            Web scraping : quels langages et technologies choisir ?
+        </h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>Web scraping avec Python
+            </li>
+            <li>Web scraping avec Node.js</li>
+            <li>Web scraping avec PHP</li>
+            <li>Web scraping avec Ruby</li>
+            <li>Scraper en C ou C++</li>
+            <li>Voire même scraper avec R</li>
+            <li>Faites votre choix</li>
+        </ul>
+
+        <p>Cet article est le deuxième de notre série Web scraping : le guide complet avec tutoriels. Il est fortement
+            recommandé de lire l’article précédent de la série :Web scraping et Data scraping : la vraie définition.</p>
+
+        <p>On note généralement six ou sept langages pour écrire un programme de web scraping et il existe souvent
+            plusieurs options possibles pour chaque langage. Vous avez le choix de partir avec le(s) langage(s) que vous
+            connaissez déjà ou d’en apprendre un nouveau. Cette deuxième possibilité est parfois la meilleure car chaque
+            langage a ses inconvénients et ses avantages en ce qui concerne le scraping. De plus, les librairies de web
+            scraping sont souvent simples à appréhender et même un bon moyen d’apprendre un nouveau langage avec un
+            projet concret.</p>
+
+        <p>Arrêtons-nous un instant sur chaque langage pour bien choisir la technologie la plus adaptée à votre projet.
+        </p>
+
+        <h3>Web scraping avec Python</h3>
+
+        <p>Python fait partie de la sainte trinité des langages les plus tendances ces dernières années avec Java et,
+            bien sûr, JavaScript. Avec ses performances optimales et ses innombrables modules, Python est tout
+            simplement le langage le plus utilisé pour le web scraping.</p>
+
+        <p>Le framework BeautifulSoup et la librairie Scrapy sont les deux outils de référence pour le web scraping en
+            Python depuis respectivement 2004 et 2008. Alors que ces solutions permettent de mettre en place facilement
+            un programme de scraping puissant, elles peuvent également s’interfacer avec d’autres modules pour gérer
+            spécifiquement certaines étapes : crawling, fetching, parsing, traitement, visualisation… Python est
+            généralement considéré comme étant un langage facile à apprendre car sa syntaxe est simple et lisible.
+            Depuis de nombreuses années et peut-être encore aujourd’hui, Python est sans doute le langage le plus
+            recommandé pour le web scraping. Cette position est cependant en train de changer avec l’évolution de
+            Node.js et l’arrivée de nouveaux outils.</p>
+
+        <h3>Web scraping avec Node.js</h3>
+
+        <p>Node.js est un environnement d’exécution pour écrire des applications serveur en JavaScript, le langage
+            client le plus utilisé dans le monde du développement web. Soutenu par une très large communauté et
+            disposant du registre de modules le plus fourni du monde, npm, Node s’est imposé comme un langage serveur
+            phare.</p>
+
+        <p>Depuis l’arrivée de Puppeteeren 2017, Node s’impose également progressivement comme le meilleur langage pour
+            le web scraping. Puppeteer permet de contrôler très facilement un navigateur Chrome/Chromium
+            programmatiquement en mode “headless”, ce qui permet d’interagir avec tout le JavaScript, de paralléliser
+            les requêtes sur différents onglets etc. Une alternative, Playwright existe et est cross-browser. Node
+            propose une rapidité inégalablemême face à Python et est très simple à utiliser. Des solutions cloud comme
+            AWS Lambda permettent de déployer des scripts Node à grande échelle en quelques clics.</p>
+
+        <h3>Web scraping avec PHP</h3>
+
+        <p>On ne présente plus PHP qui est le langage serveur utilisé par près de 8 sites sur 10 dans le monde selon
+            W3Tech. PHP propose des outils très efficaces pour le scraping telles que les librairies Guzzleou Goutte,
+            une solution complète portée par le créateur de Symfony.</p>
+
+        <p>PHP n’est généralement pas recommandé pour le web scraping : il est lent, ne peut pas exécuter JavaScript
+            (donc on oublie les sites contenant beaucoup d’animations JavaScript pour afficher ou masquer des éléments
+            du DOM), ne gère pas la parallélisation des requêtes, le multithreading, les comportements asynchrones…
+            c’est, en tout cas, ce que vous diront ses détracteurs.</p>
+
+        <p>Si je vous disais que plus de 80% de mes programmes de scraping qui tournent quotidiennement sont codés en
+            PHP, vous changeriez d’avis ? PHP est selon moi l’un des langages les plus faciles pour le web scraping et
+            aussi des plus simples à déployer à petite échelle.</p>
+
+        <p>À l’inverse d’autres technologies, PHP n’utilise pas de navigateur headless et effectue plutôt ses requêtes
+            via cURL. Le code JavaScript des sites ciblés n’est donc pas exécuté par le script de web scraping. Cela lui
+            permet de ne pas être détecté par les solutions de protection anti scraping qui se basent sur JavaScript. De
+            plus, vous pouvez très facilement imiter les requêtes AJAX permettant d’afficher du contenu sur des sites
+            dynamiques avec PHP et Postman.</p>
+
+        <h3>Web scraping avec Ruby</h3>
+
+        <p>Ruby est un langage qui a été très en vogue au début des années 2000, notamment grâce à son framework de
+            développement web Ruby on Rails utilisé par Airbnb, Twitch, Soundcloud ou encore Github. Supporté par une
+            grande communauté et typé dynamiquement, Ruby propose quelques modules (appelés RubyGems) pour créer un
+            programme de web scraping assez facilement : HTTParty pour les requêtes, NokoGiri pour parser le HTML/XML à
+            l’aide de sélecteurs CSS et XPath et Pry pour le debugging.</p>
+
+        <p>Ruby est cependant limité par sa lenteur d’exécution, en partie due à son statut de langage compilé (comme C
+            et C++). Le multithreading (parallélisation des requêtes sur plusieurs fils d’exécution du processeur) y est
+            supporté mais peu efficace, la consommation de ressources peut donc s’avérer importante. Enfin, le scraping
+            de sites “full JS” ou avec beaucoup de contenu généré dynamiquement sera plus difficile que sur d’autres
+            langages, et le déploiement à grande échelle très coûteux.</p>
+
+        <p>C’est pourquoi Ruby n’est pas le langage le plus recommandé pour le web scraping.</p>
+
+        <h3>Scraper en C ou C++</h3>
+
+        <p>Les sempiternels C et C++ sont des langages fiables et performants et disposent de tous les outils
+            nécessaires au web scraping : libcurl pour télécharger (fetching) les pages HTML, libtidy pour valider le
+            XML et libxml pour traiter (parsing) le contenu et extraire les données voulues. Paralléliser les requêtes
+            de votre programme pour le rendre plus rapide et performant est d’ailleurs très facile dans ces langages.
+        </p>
+
+        <p>En revanche, le déploiement d’un programme de web scraping en C ou C++ nécessitera bien plus d’efforts qu’en
+            Node, PHP ou Python, surtout à grande échelle. De plus, ces langages sont à typage statique. Bien que le
+            typage statique puisse être appréciable lorsque vous développez votre programme, dans le cas du web
+            scraping, vous n’avez pas la main sur ce que va vous retourner la page web. Dans ce cas, le typage dynamique
+            permet d’éviter des erreurs pendant l’exécution du programme.</p>
+
+        <p>Ainsi, C et C++ ne sont généralement pas des langages recommandés pour le web scraping.</p>
+
+        <h3>Voire même scraper avec R</h3>
+
+        <p>R est le langage préféré des statisticiens, permettant de créer des analyses et statistiques complexes sur de
+            grands volumes de données avec une très bonne performance. Il s’agit du langage qui propose le plus grand
+            nombre de modules dédiés à l’analyse statistique mais R est également utilisé pour le machine learning et
+            propose de très belles visualisations.</p>
+
+        <p>Il y a donc un intérêt certain à coder le web scraping dans le même langage, d’autant plus que R dispose de
+            tous les modules nécessaires tels que rcrawler pour le crawling, rvest pour le parsing.</p>
+
+        <p>R a la réputation d’être assez difficile à apprendre, surtout, et c’est assez paradoxal, pour les
+            développeurs formés à d’autres langages. R est en effet prévu pour les analystes, statisticiens et
+            mathématiciens qui n’ont pas d’expérience en programmation.</p>
+
+        <p>Scraper est considéré comme une technique avancée en R alors qu’elle est très abordable en Node ou en Python
+            par exemple. R est donc uniquement recommandé pour le web scraping si vous maîtrisez déjà ce langage.</p>
+
+        <h3>Faites votre choix</h3>
+
+        <p>Pour vous aider à faire votre choix et constater les différences entre chaque technologie, voyons ensemble
+            l’article suivant et premier tutoriel de cette série dédiée au web scraping, disponible en PHP :
+
+        </p>
+
+        <ul>
+            <li>Tutoriel web scraping basique en PHP avec code d’exemple complet</li>
+        </ul>
+    </div>
+</body>
+
+</html>

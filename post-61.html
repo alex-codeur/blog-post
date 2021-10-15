@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>
+            Installer Docker sur Windows
+        </h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>Prérequis à l'installation de Docker sur Windows
+            </li>
+            <li>Qu'est-ce qui est embarqué dans l'installation de Docker Desktop pour Windows ?</li>
+            <li>Installer Docker sur Windows</li>
+            <li>Mettre à jour Docker sur Windows</li>
+            <li>Désinstaller Docker sur Windows</li>
+        </ul>
+
+        <p>Docker est une suite de produit PaaS qui utilise la virtualisation à l'échelle d'un système d'exploitation
+            afin de rendre disponible des logiciels dans des packages appelés Containers. </p>
+
+        <p>Devenu incontournable dans l'écosystème du développement web, cet article a pour but de vous montrer comment
+            l'installer sur votre PC Windows.</p>
+
+        <h3>Prérequis à l'installation de Docker sur Windows</h3>
+
+        <p>Afin d'installer Docker sur votre poste, il va falloir avoir la configuration suivante:</p>
+
+        <ul>
+            <li>Windows 10 64-bit</li>
+            <li>Activer la fonctionnalité WSL 2 on Windows</li>
+            <li>Avoir un processeur 64-bit</li>
+            <li>Avoir 4Go de RAM minimum</li>
+            <li>Activer la virtualisation au niveau du BIOS dans les paramètres de ce dernier</li>
+            <li>Télécharger le package de mise à jour du noyeau Llinux pour Windows</li>
+        </ul>
+
+        <p>The following hardware prerequisites are required to successfully run WSL 2 on Windows 10:</p>
+
+        <ul>
+            <li>64-bit processor with Second Level Address Translation (SLAT)</li>
+            <li>4GB system RAM</li>
+            <li>BIOS-level hardware virtualization support must be enabled in the BIOS settings. For more information,
+                see Virtualization.</li>
+            <li>Download and install the Linux kernel update package.</li>
+        </ul>
+
+        <h3>Qu'est-ce qui est embarqué dans l'installation de Docker Desktop pour Windows ?</h3>
+
+        <p>En installant Docker Desktop, vous installerez simultanément Docker Engine, le moteur de virtualisation,
+            Docker CLI qui est l'interface en ligne de commande pour faire fonctionner Docker depuis le terminal, Docker
+            Compose qui permet de lancer et orchestrer plusieurs containers, Docker Content Trust pour authentifier des
+            images publiées sur des registry publiques, Kubernetes, l'orchestrateur créé par Google et Credential Helper
+            qui permet de stocker des variables secrètes en lieu sûr.</p>
+
+        <p>Sur Windows, les containers et les images créés avec Docker Desktop sont partagés avec tous les utilisateurs
+            présents sur la machine.</p>
+
+        <h3>Installer Docker sur Windows</h3>
+
+        <p>Rendez-vous sur le Docker Hub et téléchargez l'installateur pour Windows.</p>
+
+        <p>Double-cliquez sur Docker Desktop Installer.exe pour lancer l'installation</p>
+
+        <p>Assurez-vous d'activer les fonctionnalités Hyper-V Windows lorsque l'assistant d'installation vous le
+            proposera. </p>
+
+        <p>Si vous n'êtes pas Administrateur de votre compte utilisateur Windows, il faudra l'ajouter le groupe
+            d'utilisateur docker-users. </p>
+
+        <p>Docker Desktop ne démarre pas automatiquement après installation. Pour le lancer, recherchez l'application
+            Docker sur votre barre de recherche Windows et cliquez sur l'application Docker Desktop.Docker Desktop ne
+            démarre pas automatiquement après installation. Pour le lancer, recherchez l'application Docker sur votre
+            barre de recherche Windows et cliquez sur l'application Docker Desktop.</p>
+
+        <p>Vous saurez que Docker est bien en état de marche lorsque vous verrez l'icone de la baleine Docker dans votre
+            barre d'état.</p>
+
+        <h3>Mettre à jour Docker sur Windows</h3>
+
+        <p>Pour garder sa version de Docker à jour, l'outil Docker Desktop va spontanément vous proposer de télécharger
+            et mettre à jour Docker 15 jours après la publication d'une nouvelle version.</p>
+
+        <h3>Désinstaller Docker sur Windows</h3>
+
+        <p>Pour désinstaller docker de votre machine:</p>
+
+        <p>Pensez à effacer les images présentes sur votre PC.</p>
+
+        <p>Allez dans le menu App et Fonctionnalités de Windows</p>
+
+        <p>Selectionnez Docker Desktop et cliquez sur Desinstaller</p>
+    </div>
+</body>
+
+</html>

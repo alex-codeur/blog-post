@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>
+            Apache Kafka: un message oriented middleware All Inclusive
+        </h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>Pourquoi Linkedin a-t-il créé Apache Kafka ?
+            </li>
+            <li>À quoi sert Apache Kafka ?</li>
+            <li>Ordonnancement des messages</li>
+            <li>Conçu pour la vitesse</li>
+            <li>Persistance des données</li>
+            <li>Stabilité</li>
+            <li>Comment fonctionne Kafka ?</li>
+            <li>Topics et Partitions</li>
+            <li>Kafka Brokers</li>
+            <li>Producer</li>
+            <li>Consumer</li>
+            <li>Pourquoi est-il si populaire</li>
+            <li>Simplicité</li>
+            <li>Performance</li>
+            <li>En savoir plus</li>
+        </ul>
+
+        <p>Lorsqu'une entreprise développe un produit, elle est amenée à faire des choix techniques qui vont être lourds
+            de conséquences, à la fois financières et humaines. Linkedin en 2009 s'est trouvé face à ce choix qui était
+            de développer leur propre système de Message Oriented Middleware connu aujourd'hui sous le nom d’Apache
+            Kafka.</p>
+
+        <h3>Pourquoi Linkedin a-t-il créé Apache Kafka ?</h3>
+
+        <p>À sa création, Linkedin a démarré comme toutes les apps devraient démarrer, avec un Monolith baptisé "Leo".
+            Avec les années et la croissance de Linkedin, Leo a grandi en responsabilité et en complexité. Ses instances
+            ont été répliquées pour répondre au flux de trafic mais cela n'empêchait pas les instances en production de
+            tomber. L'ajout de fonctionnalité, le débuggage et la maintenance devenaient de plus en plus compliqués. Or
+            il était crucial pour Linkedin d'assurer un taux de disponibilité maximum, comme le faisait Facebook.</p>
+
+        <p>En 2009, Linkedin comptait déjà 37 millions d'utilisateurs et avait déjà bien entamé sa transition du
+            monolith Leo à une architecture orienté services. Or le fort couplage qui existait entre les différents
+            modules de Linkedin rendait difficile la gestion du flux d'information. Entre les logs, le contenu généré
+            par les utilisateurs, les profils, les connexions, les clusters de recherches, il devenait impossible de
+            suivre le flux de données à cette échelle.</p>
+
+        <p>LinkedIn a initialement créé une multitude de pipelines pour émettre et traiter leurs flux de données suivant
+            les services qui en sont à l'origine ou destinataires. Étant donné le nombre croissant de pipelines à
+            maintenir, Linkedin a fait le choix de développer son propre middleware de messagerie, qu'on connaît
+            aujourd'hui sous le nom d'Apache Kafka.</p>
+
+        <h3>À quoi sert Apache Kafka ?</h3>
+
+        <p>Dans le reste du monde, peu d'applications ont des problématiques de la taille de ceux de Linkedin, alors en
+            quoi Apache Kafka peut être utile au commun des mortels ?</p>
+
+        <p>Apache Kafka est un système de messagerie distribué (appelé aussi Message Oriented Middleware) permettant à
+            des services ayant besoin de données de s'inscrire à un ou plusieurs autres services producteurs de données.
+        </p>
+
+        <h4>Ordonnancement des messages</h4>
+
+        <p>Dans certains cas d'usage, pouvoir traiter la donnée dans l'ordre est essentiel. Apache Kafka conserve
+            l'ordre des données qui lui sont communiquées et garanti, par partition, l'ordre de production des messages
+            livrés aux consommateurs.</p>
+
+        <h4>Conçu pour la vitesse</h4>
+
+        <p>Sans avoir besoin de beaucoup de ressources hardware, Kafka est capable de traiter une grande quantité de
+            donnée à grande vitesse. Sa scalabilité est facile à mettre en place en augmentant le nombre de clusters, de
+            producers ou de consumers.</p>
+
+        <h4>Persistance des données</h4>
+
+        <p>Apache Kafka garde en mémoire les messages pendant une durée déterminée. Contrairement à d'autres Message bus
+            qui détruisent les messages à l'instant où ils sont consommés, cette persistance permet de rejouer les
+            messages s'il y avait un souci au niveau du traitement.</p>
+
+        <h4>Stabilité</h4>
+
+        <p>La gestion du Kafka cluster est automatique, le rendant très stable et tolérant aux problèmes machine. Grâce
+            à Zookeeper, Kafka sait automatiquement router les messages vers les bons Kafka broker, même en cas de
+            défaillance de l'un d'entre eux.</p>
+
+        <h3>Comment fonctionne Kafka ?</h3>
+
+        <h4>Topics et Partitions</h4>
+
+        <p>Dans Kafka, les données sont rangées par Topic. Ils correspondent à une table SQL ou une collection MongoDB.
+            Ils représentent le flux de donnée et sont identifiés par leurs noms. Vous pouvez créer autant de topics que
+            vous souhaitez.</p>
+
+        <p>Les topics sont divisés en partitions. Là encore, suivant vos besoins vous pouvez avoir plus ou moins de
+            partitions. Kafka va récupérer les messages produits et automatiquement les répartir à travers les
+            différentes partitions du topic. Chaque message créé aura un ID incrémenté par partition.</p>
+
+        <p>Attention, l'ordre des messages est garanti pour chaque partition et non pas à travers les partitions. Par
+            exemple, Kafka garanti que le message 1 de la partition 1 a été produit avant le message 2 de la partition 1
+            mais ne peut pas savoir sans lire le message s'il a été produit avant le message 2 de la partition 3.</p>
+
+        <p>Les messages empilés dans les partitions sont stockés pour une durée limitée dans le temps (7 jours par
+            défaut). Cela permettra aux consumers de pouvoir relire tous les messages qui sont toujours dans la pile si
+            besoin.</p>
+
+        <h4>Kafka Brokers</h4>
+
+        <p>Pour être un système distribué, Kafka fonctionne sous forme de cluster hébergeant plusieurs Kafka brokers.
+            Chaque Kafka borker correspond à un serveur, identifié par un ID, et contient des partitions des topics (pas
+            plus d'une partition par topic par kafka broker). Kafka va automatiquement attribuer les partitions dans les
+            brokers disponibles.</p>
+
+        <h4>Producer</h4>
+
+        <p>Les producers sont en charge de créer la donnée dans un topic et l'envoyer. Ils vont automatiquement
+            distribuer les messages à travers les différentes partitions disponibles.</p>
+
+        <h4>Consumer</h4>
+
+        <p>Les consumers sont en charge de lire les messages contenus dans un topic. Ils savent automatiquement lire les
+            messages de différentes partitions du topic et la donnée est lue dans l'ordre suivant chaque partition.</p>
+
+        <h3>Pourquoi est-il si populaire</h3>
+
+        <h4>Simplicité</h4>
+
+        <p>Kafka a gagné en popularité grâce à sa simplicité. Une fois qu'on a compris ses principes et son
+            fonctionnement, vous pouvez brancher tous vos flux de données à Kafka pour les coordonner.</p>
+
+        <p>De plus en plus de services cloud proposent des instances Kafka managés comme confluent ou Aiven.</p>
+
+        <h4>Performance</h4>
+
+        <p>Sa capacité à déplacer un grand volume de donnée a trouvé preneur dans le monde de l'entreprise. À une
+            période où de plus en plus de données sont créées à chaque instant et l'appétit insatiable des entreprises
+            de tout stocker pour des futurs besoins de datasets à des fins de Machine Learning par exemple, Kafka répond
+            à ce besoin.</p>
+    </div>
+</body>
+
+</html>

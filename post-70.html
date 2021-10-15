@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>
+            Comment installer MongoDB sur Ubuntu ?
+        </h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>MongoDB et Linux : le point sur la comptabilité
+            </li>
+            <li>Installer MongoDB sur Ubuntu : le guide étape par étape</li>
+            <li>Étape 1 : Importer la clé GPG publique de MongoDB</li>
+            <li>Étape 2 : Créer le fichier list pour les paquets MongoDB Ubuntu
+            </li>
+            <li>Étape 3 : installer les paquets MongoDB pour Ubuntu</li>
+            <li>Dossiers et fichiers de configuration par défaut de MongoDB
+            </li>
+            <li>Start MongoDB Ubuntu : comment démarrer le client ?</li>
+            <li>Aller plus loin</li>
+        </ul>
+
+        <p>Ce n’est pas un secret : les technologies liées au développement web sont en constante évolution et les bases
+            de données n’échappent à la règle. Ces dernières années, de plus en plus d’entreprises et de développeurs
+            font le choix du NoSQL pour s’affranchir des contraintes liées aux systèmes plus traditionnels.</p>
+
+        <p>Flexible et scalable, MongoDB est le système de gestion bases de données NoSQL le plus utilisé dans le monde.
+        </p>
+
+        <p>Découvrez comment installer MongoDB sur Ubuntu et Linux dans ce guide complet étape par étape.</p>
+
+        <p>Pour les utilisateurs de Windows ou MacOS, référez-vous aux guides correspondants :</p>
+
+        <ul>
+            <li>Installer MongoDB sur Windows</li>
+            <li>Installer MongoDB sur MacOS </li>
+        </ul>
+
+        <h3>MongoDB et Linux : le point sur la comptabilité</h3>
+
+        <p>Toutes les versions de MongoDB ne sont pas compatibles avec toutes les distributions Linux, c’est pourquoi
+            nous vous conseillons de vérifier la compatibilité de votre système avec MongoDB. Par exemple, Ubuntu 14.04
+            n’est pas supporté par la dernière version de MongoDB (4.2 Community & Enterprise).</p>
+
+        <p>Retrouvez ci-dessous la table de comptabilité des dernières versions de MongoDB pour les architectures
+            x86_64.</p>
+
+        <p>Pour les autres architectures ou pour le déploiement sur un environnement de production, vous pouvez
+            consulter les notes de production de MongoDB.</p>
+
+        <p>Pour installer MongoDB sur d’autres distributions de Linux que Ubuntu, consultez le tutoriel disponible sur
+            le site officiel de MongoDB .</p>
+
+        <h3>Installer MongoDB sur Ubuntu : le guide étape par étape</h3>
+
+        <p>Avant d’installer MongoDB sur votre système Ubuntu avec le gestionnaire de paquets apt-get, il est important
+            de noter que le paquet “mongodb” fourni par Ubuntu n’est pas le paquet officiel et qu’il entre en conflit
+            avec ce dernier. C’est pourquoi nous utiliserons dans ce guide les paquets officiels fournis par MongoDB
+            Inc. : “mongodb-org” (pour la version Community) et “mongodb-enterprise” (pour la version Enterprise), qui
+            contiennent constamment les dernières versions officielles.</p>
+
+        <p>Si vous avez déjà installé le paquet “mongodb”, désinstallez-le avant de poursuivre ce guide.</p>
+
+        <h4>Étape 1 : Importer la clé GPG publique de MongoDB
+        </h4>
+
+        <p>Gnu Privacy Guard (ou GPG) est un logiciel permettant la transmission et l’authentification de messages
+            cryptés. Pour installer les paquets officiels de MongoDB, vous devez d’abord télécharger la clé publique
+            nécessaire avec gnupg.</p>
+
+        <p>Si gnupg n’est pas déjà installé, installez le avec :</p>
+
+        <div class="jumbotron">
+            sudo apt-get install gnupg
+        </div>
+
+        <p>Ensuite, importez la clé GPG nécessaire pour installer MongoDB :</p>
+
+        <div class="jumbotron">
+            wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
+        </div>
+
+        <h4>Étape 2 : Créer le fichier list pour les paquets MongoDB Ubuntu</h4>
+
+        <p>Pour ajouter les paquets officiels aux sources de votre gestionnaire de paquets, vous devez créer un fichier
+            .list. Attention, la commande nécessaire dépend de la version de MongoDB que vous souhaitez installer et de
+            la version d’Ubuntu installée sur votre système :</p>
+
+        <ul>
+            <li>Pour installer MongoDB version Community sur Ubuntu 18.04 (Bionic) :
+                echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse" |
+                sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list</li>
+
+            <li>Pour installer MongoDB version Enterprise sur Ubuntu 18.04 (Bionic) :
+                echo "deb [ arch=amd64,arm64,s390x ] http://repo.mongodb.com/apt/ubuntu bionic/mongodb-enterprise/4.2
+                multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-enterprise.list</li>
+            <li>Pour installer MongoDB version Community sur Ubuntu 16.04 (Xenial) :
+                echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/4.2 multiverse" |
+                sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list</li>
+            <li>Pour installer MongoDB version Enterprise sur Ubuntu 16.04 (Xenial) :
+                echo "deb [ arch=amd64,arm64,s390x ] http://repo.mongodb.com/apt/ubuntu xenial/mongodb-enterprise/4.2
+                multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-enterprise.list</li>
+        </ul>
+
+        <p>Rechargez par la suite votre base de données locale de paquets avec :</p>
+
+        <div class="jumbotron">
+            sudo apt-get update
+        </div>
+
+        <h4>Étape 3 : installer les paquets MongoDB pour Ubuntu</h4>
+
+        <p>Maintenant que votre gestionnaire de paquets est à jour avec les sources des paquets officiels MongoDB pour
+            Ubuntu, vous pouvez installer la version que vous souhaitez avec les commandes suivantes :</p>
+
+        <p>Installer la dernière version Community de MongoDB :</p>
+
+        <div class="jumbotron">
+            sudo apt-get install -y mongodb-org
+        </div>
+
+        <p>Installer une version Community spécifique de MongoDB:</p>
+
+        <div class="jumbotron">
+            sudo apt-get install -y mongodb-org=4.2.3 mongodb-org-server=4.2.3 mongodb-org-shell=4.2.3
+            mongodb-org-mongos=4.2.3 mongodb-org-tools=4.2.3
+        </div>
+
+        <p>Installer la dernière version Enterprise de MongoDB :</p>
+
+        <div class="jumbotron">
+            sudo apt-get install -y mongodb-enterprise
+        </div>
+
+        <p>Installer une version Community spécifique de MongoDB :</p>
+
+        <div class="jumbotron">
+            sudo apt-get install -y mongodb-enterprise=4.2.3 mongodb-enterprise-server=4.2.3
+            mongodb-enterprise-shell=4.2.3 mongodb-enterprise-mongos=4.2.3 mongodb-enterprise-tools=4.2.3
+        </div>
+
+        <p>Peu importe la version installée, le gestionnaire de paquets mettra systématiquement vos paquets à jour
+            lorsqu’une nouvelle version sera disponible. Vous pouvez garder vos paquets à la version installée avec les
+            commandes suivantes :</p>
+
+        <p>Pour MongoDB version Community :</p>
+
+        <div class="jumbotron">
+            echo "mongodb-org hold" | sudo dpkg --set-selections
+            echo "mongodb-org-server hold" | sudo dpkg --set-selections
+            echo "mongodb-org-shell hold" | sudo dpkg --set-selections
+            echo "mongodb-org-mongos hold" | sudo dpkg --set-selections
+            echo "mongodb-org-tools hold" | sudo dpkg --set-selections
+        </div>
+
+        <p>Pour MongoDB version Enterprise :</p>
+
+        <div class="jumbotron">
+            echo "mongodb-enterprise hold" | sudo dpkg --set-selections
+            echo "mongodb-enterprise-server hold" | sudo dpkg --set-selections
+            echo "mongodb-enterprise-shell hold" | sudo dpkg --set-selections
+            echo "mongodb-enterprise-mongos hold" | sudo dpkg --set-selections
+            echo "mongodb-enterprise-tools hold" | sudo dpkg --set-selections
+        </div>
+
+        <h4>Dossiers et fichiers de configuration par défaut de MongoDB</h4>
+
+        <p>Les chemins par défaut vers les fichiers MongoDB sur Ubuntu sont :</p>
+
+        <ul>
+            <li>/var/lib/mongodb pour les données</li>
+            <li>/var/log/mongodb pour les logs</li>
+        </ul>
+
+        <p>Vous pouvez les changer en modifiant les paramètres systemLog.path et storage.dbPath dans le fichier de
+            configuration MongoDB /etc/mongod/.conf .</p>
+
+        <p>Par défaut, MongoDB utilise l’utilisateur mongodb. Si vous modifiez l’utilisateur qui lance le processus de
+            MongoDB, vous devez lui donner les droits sur les dossiers ci-dessus.</p>
+
+        <h3>Start MongoDB Ubuntu : comment démarrer le client ?</h3>
+
+        <p>Pour lancer et gérer le client MongoDB sur Ubuntu, nous allons utiliser le système d’initialisation systemd
+            qui utilise les commandes systemctl.</p>
+
+        <p>Démarrez le serveur de MongoDB avec la commande :</p>
+
+        <div class="jumbotron">
+            sudo systemctl start mongod
+        </div>
+
+        <p>Si une erreur apparaît, essayez la commande suivante et réessayez :</p>
+
+        <div class="jumbotron">
+            sudo systemctl daemon-reload
+        </div>
+
+        <p>Pour vérifier le bon démarrage de MongoDB, utilisez :</p>
+
+        <div class="jumbotron">
+            sudo systemctl status mongod
+        </div>
+
+        <p>Pour activer le lancement automatique de MongoDB au démarrage, utilisez la commande suivante :</p>
+
+        <div class="jumbotron">
+            sudo systemctl enable mongod
+        </div>
+
+        <p>Enfin, pourvous connecter à votre instance MongoDBet pouvoir commencer à l’utiliser, utilisez la commande
+            mongo :</p>
+
+        <div class="jumbotron">
+            mongo
+        </div>
+
+        <p>MongoDB est maintenant installé et prêt à l’utilisation sur votre système Ubuntu !</p>
+    </div>
+</body>
+
+</html>

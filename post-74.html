@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>
+            Install Node JS Ubuntu : Comment installer, mettre à jour et ajouter des modules
+        </h1>
+
+        <h4>Table des matières</h4>
+
+        <ul>
+            <li>Node JS et Linux Ubuntu : le point sur la comptabilité
+            </li>
+            <li>Installer et mettre à jour Node JS Ubuntu et Debian : le mode d’emploi</li>
+            <li>Installer Node.js sur Ubuntu avec le dépôt NodeSource</li>
+            <li>Installer Node.js sur Ubuntu avec le script NVM (Node Version Manager)</li>
+            <li>Installer Node.js sur Ubuntu avec les dépôts officiels Ubuntu </li>
+            <li>Npm Ubuntu : comment installer et mettre à jour des modules Node.js sous Linux ?</li>
+            <li>Update node linux : comment mettre à jour sa version Node JS ? </li>
+        </ul>
+
+        <p>Node.js est un environnement d’exécution JavaScript (appelé aussi runtime) particulièrement apprécié par les
+            développeurs pour sa légèreté et sa versatilité ainsi que ses aspects cross-platform et open source.</p>
+
+        <p>Dans ce mode d’emploi complet, vous découvrirez comment installer et update Node.js sur les distributions
+            Ubuntu de l’OS Linux. Vous apprendrez également comment installer le gestionnaire de paquets npm et de
+            nouveaux modules Node.js sur Ubuntu 18.04 ou 16.04 et autres versions.</p>
+
+        <h3>Node JS et Linux Ubuntu : le point sur la comptabilité</h3>
+
+        <p>Node.js est compatible avec de nombreux systèmes d’exploitation : Windows, macOS, Linux et même Android ou
+            IBM i.</p>
+
+        <p>Concernant Node js sur Linux, la majorité des distributions sont supportées par Node.js, parmi lesquelles
+            Ubuntu, Debian, Fedora, Red hat et bien d’autres.</p>
+
+        <p>Pour installer Node.js sur Ubuntu, plusieurs versions de la distribution sont compatibles avec Node.js :</p>
+
+        <ul>
+            <li>Ubuntu 19.10 (Eoan Ermine)</li>
+            <li>Ubuntu 19.04 (Disco Dingo)</li>
+            <li>Ubuntu 18.10 (Cosmic Cuttlefish)</li>
+            <li>Ubuntu 18.04 LTS (Bionic Beaver)</li>
+            <li>Ubuntu 16.04 LTS (Xenial Xerus)</li>
+            <li>Ubuntu 14.04 LTS (Trusty Tahr) - non compatible avec Node.js 10 et supérieur</li>
+        </ul>
+
+        <p>Pour les autres distributions Linux, vous pouvez vous référer à la liste officielle sur le GitHub de
+            NodeSource.</p>
+
+        <p>Quant au hardware, Node.js est très léger et ne demande que peu de ressources pour s’exécuter.</p>
+
+        <p>Si vous n’êtes pas sur Linux, consultez nos guides complets pour installer Node JS sur Windows et pour
+            installer Node JS sur macOS.</p>
+
+        <h3>Installer et mettre à jour Node JS Ubuntu et Debian : le mode d’emploi</h3>
+
+        <p>Comme souvent sur les distributions Linux, il y a plusieurs façons d’installer Node.js sur Ubuntu. Les
+            paquets de Node.js et de son gestionnaire de paquets officiel npm sont disponibles dans les dépôts (ou
+            repository en anglais) existants par défaut sur Ubuntu, mais leur version est souvent obsolète car elle
+            n’est pas mise à jour à chaque nouvelle version de Node.js.</p>
+
+        <p>Pour être sûr d’installer la dernière version de Node.js, vous devez donc choisir parmi les deux autres
+            options disponibles :</p>
+
+        <ul>
+            <li>Installer Node.js depuis les paquets officiels de NodeSource ;</li>
+            <li>Utiliser le package NVM (Node Version Manager).</li>
+
+            <p>Le script NVM est conçu pour installer, gérer et désinstaller plusieurs versions de Node.js. À l’inverse,
+                si vous souhaitez uniquement installer la dernière version de Node sur Ubuntu, optez pour les dépôts de
+                NodeSource.</p>
+
+            <p>Pour installer Node.js sur Debian, les instructions sont les mêmes que pour Ubuntu.</p>
+        </ul>
+
+        <h4>Installer Node.js sur Ubuntu avec le dépôt NodeSource</h4>
+
+        <p><strong>NodeSource</strong> est une entreprise créée en 2014 qui aide les entreprises à adopter Node.js et
+            qui maintient le dépôt de paquets officiel permettant d’installer les dernières versions de Node.js.</p>
+
+        <p>Avant toute chose, assurez-vous d’avoir installé curl, la librairie universelle pour accéder à des url avec
+            la commande :</p>
+
+        <div class="jumbotron">
+            sudo apt-get install curl
+        </div>
+
+        <p>Ensuite, nous allons installer le dépôt NodeSource correspondant à la version de Node.js que vous souhaitez
+            utiliser. Par exemple, pour installer Node.js v12.x, utilisez la ligne de commande suivante :</p>
+
+        <div class="jumbotron">
+            curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+        </div>
+
+        <p>Une fois le dépôt installé, il n’y a plus qu’à installer Node.js avec une simple commande install nodejs.</p>
+
+        <div class="jumbotron">
+            sudo apt-get install nodejs
+        </div>
+
+        <p>Vous pouvez maintenant vérifier que la bonne version de Node.js est installée avec :</p>
+
+        <div class="jumbotron">
+            node --version
+        </div>
+
+        <p>Node.js est maintenant installé avec son gestionnaire de paquet officiel, npm, qui permet d’installer des
+            modules Node. </p>
+
+        <h4>Installer Node.js sur Ubuntu avec le script NVM (Node Version Manager)</h4>
+
+        <p>Créé par Tim Caswell et Jordan Harband, Node Version Manager est un script qui permet d’installer,
+            désinstaller et faire cohabiter plusieurs versions de Node.js. Cela peut être utile lorsque vous travaillez
+            sur différents projets qui nécessitent différentes versions de Node.js, ou que vous souhaitez mettre à
+            niveau du code vers une version plus avancée de Node.</p>
+
+        <p>Pour télécharger et installer le script NVM, clonez le dépôt GitHub vers le dossier ~/.nvm :</p>
+
+        <div class="jumbotron">
+            curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
+        </div>
+
+        <p>Cette commande devrait vous retourner un message selon lequel vous devez fermer et réouvrir le terminal pour
+            commencer à utiliser nvm et installer Node.js. Alternativement, vous pouvez utiliser la commande ci-dessous
+            pour utiliser nvm de suite :</p>
+
+        <div class="jumbotron">
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+        </div>
+
+        <p>Pour vérifier que NVM est bien installé et ajouté à votre PATH, utilisez la commande suivante :</p>
+
+        <div class="jumbotron">
+            nvm --version
+        </div>
+
+        <p>Si Node Version Manager est bien installé, vous pouvez installer la dernière version disponible de Node avec
+            :</p>
+
+        <div class="jumbotron">
+            nvm install node
+        </div>
+
+        <p>Pour installer la dernière version “Long-Time Support” (LTS), utilisez :</p>
+
+        <div class="jumbotoron">
+            nvm install --lts
+        </div>
+
+        <p>Pour installer une autre version, par exemple la V10.16.3 :</p>
+
+        <div class="jumbotron">
+            nvm install 10.16.3
+        </div>
+
+        <p>Une fois l’installation terminée, vous pouvez vérifier la version installée avec :</p>
+
+        <div class="jumbotron">
+            node --version
+        </div>
+
+        <p>Node.js est maintenant installé sur votre système avec son gestionnaire de paquet npm. Vous pouvez désormais
+            exécuter du code Node.js et installer de nouveaux modules avec npm.</p>
+
+        <p>Vous pouvez également lister toutes les versions installées avec NVM avec la commande :</p>
+
+        <div class="jumbotron">
+            nvm ls
+        </div>
+
+        <p>Vous pouvez aussi changer la version active utilisée avec :</p>
+
+        <div class="jumbotron">
+            nvm use 10.16.3
+        </div>
+
+        <p>Enfin, vous pouvez modifier la version Node.js par défaut avec la commande suivante :</p>
+
+        <div class="jumbotron">
+            nvm alias default 10.16.3
+        </div>
+
+        <h4>Installer Node.js sur Ubuntu avec les dépôts officiels Ubuntu</h4>
+
+        <p>Les paquets Node.js sont disponibles sur les dépôts officiels Ubuntu, mais les dernières versions sont
+            rarement proposées. Si installer Node.js sur Ubuntu avec les dépôts officiels est la méthode la plus simple,
+            elle ne vous permet pas de vous assurer d’installer la version que vous désirez. </p>
+
+        <p>Nous vous recommandons donc d’opter pour une des deux autres options. Si vous souhaitez tout de même utiliser
+            les dépôts officiels, il vous faudra utiliser la commande install nodejs :</p>
+
+        <div class="jumbotron">
+            sudo apt-get update
+        </div>
+
+        <div class="jumbotron">
+            sudo apt-get install nodejs
+        </div>
+
+        <p>Attention, sur les dépôts officiels Ubuntu, le paquet de Node.js s’appelle nodejs et non pas node.</p>
+
+        <p>Vérifiez ensuite la version installée avec :</p>
+
+        <div class="jumbotron">
+            nodejs --version
+        </div>
+
+        <p>Node.js est maintenant installé avec npm et vous pouvez désormais exécuter des applications Node sur votre
+            système et installer de nouveaux modules avec npm.</p>
+
+
+        <h3>Npm Ubuntu : comment installer et mettre à jour des modules Node.js sous Linux ?</h3>
+
+        <p>Npm est le gestionnaire de paquets officiel de Node.js et est installé en même temps que Node.js. C’est le
+            moyen idéal pour installer les modules nécessaires pour développer vos projets. Au lieu d’avoir à trouver,
+            télécharger et installer manuellement les modules dont vous avez besoin, npm gère toutes ces étapes à votre
+            place en une ligne de commande. Par ailleurs, il s’agit du gestionnaire de paquets le plus utilisé au monde.
+        </p>
+
+        <p>Node vous donne le choix entre installer de nouveaux modules localement ou globalement. L’installation locale
+            installera le module dans le dossier du projet et ne sera accessible que par ce projet. À l’inverse,
+            l’installation globale permet de rendre ce module accessible par tout le système. Ce cas de figure est utile
+            pour les modules fournissant des exécutables utilisables en dehors des projets Node.js.</p>
+
+        <p>Pour installer un module Node.js localement, utilisez simplement la ligne de commande suivante :</p>
+
+        <div class="jumbotron">
+            npm install nomdumodule
+        </div>
+
+        <p>Pour installer un module Node.js globalement, utilisez plutôt :</p>
+
+        <div class="jumbotron">
+            npm install nomdumodule -g
+        </div>
+
+        <p>Installer un package globalement va vous permettre de le réutiliser peu importe le répertoire dans lequel
+            vous travaillez. C'est particulièrement utile pour les outils de développement, comme Jest, create-react-app
+            ou @angular/cli.</p>
+
+        <p>Npm vous donne la possibilité de mettre à jour tous les modules installés sur votre machine avec la commande
+            :</p>
+
+        <div class="jumbotron">
+            npm update
+        </div>
+
+        <h3>Update node linux : comment mettre à jour sa version Node JS ?</h3>
+
+        <p>La méthode pour mettre à jour sa version Node JS sur Linux dépend de la façon dont vous avez installé
+            Node.js.</p>
+
+        <p>Si vous avez installé Node.js via les dépôts officiels de NodeSource ou via les dépôts de Ubuntu, vous pouvez
+            mettre à jour votre version de Node.js avec les commandes : </p>
+
+        <div class="jumbotron">
+            sudo apt-get update
+        </div>
+
+        <div class="jumbotron">
+            sudo apt-get install nodejs
+        </div>
+
+        <p>Si vous avez utilisé NVM pour installer Node.js et que vous souhaitez mettre à jour votre version de Node
+            avec NVM, utilisez la commande suivante pour mettre à jour à la dernière version :</p>
+
+        <div class="jumbotron">
+            nvm install node --reinstall-packages-from=node
+        </div>
+
+        <p>Pour mettre à jour à la dernière version LTS, utilisez :</p>
+
+        <div class="jumbotron">
+            nvm install lts/* --reinstall-packages-from=node
+        </div>
+    </div>
+
+
+</body>
+
+</html>
